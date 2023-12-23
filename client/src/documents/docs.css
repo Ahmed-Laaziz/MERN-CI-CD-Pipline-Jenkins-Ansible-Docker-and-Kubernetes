@@ -1,0 +1,114 @@
+.body {
+    font-family: 'Times New Roman', Times, serif;
+    background-color: #ffffff;
+}
+
+.div1 {
+    display: flex;
+
+    border-bottom: 1px solid blue;
+    justify-content: space-between;
+}
+
+.div5 {
+    display: flex;
+    clear: both;
+    font-size: .8em;
+    border-top: 1px solid blue;
+    justify-content: space-between;
+}
+
+.div6 {
+    margin-top: -2em;
+    display: flex;
+    font-size: .8em;
+    justify-content: space-between;
+}
+
+.div8 {
+    /* margin-top: 40px; */
+    margin-right: 10px;
+    font-size: 22px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.div7 {
+    gap: 0;
+    /* margin-top: -1.5em; */
+    display: flex;
+    flex-direction: column;
+    font-size: .8em;
+    align-items: center;
+}
+
+.div7 p {
+    /* margin-bottom: -.75em; */
+}
+
+.third {
+    flex: 1;
+    min-height: 80px;
+    /* Ajustez la hauteur selon vos besoins */
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+    /* border: 1px solid #ffffff; */
+    padding: 10px;
+    padding-bottom: 0;
+    box-sizing: border-box;
+    flex-grow: 1;
+    flex-shrink: 3;
+    text-align: center;
+}
+
+.third-text {
+    flex-grow: 3;
+    flex-shrink: 1;
+    font-size: 13px;
+}
+
+.ensa-image {
+    max-width: 95%;
+    max-height: 95%;
+    /* float: left; */
+}
+
+.ucd-image {
+    max-width: 60%;
+    max-height: 60%;
+    /* float: right; */
+}
+
+.div2 {
+    text-align: center;
+    padding: 2px;
+    margin: 1px;
+}
+
+.div2 h1 {
+    font-size: 24px;
+    color: #000000;
+}
+
+.div3 {
+    text-align: justify;
+    padding: 10px;
+    margin: 1px;
+}
+
+.div2 h3 {
+    color: #000000;
+    text-align: center;
+}
+
+.div3-p {
+    text-align: justify;
+    margin-left: 70px;
+}
+
+.div4 {
+    text-align: justify;
+    float: right;
+    padding: 10px;
+    margin: 1px;
+}
