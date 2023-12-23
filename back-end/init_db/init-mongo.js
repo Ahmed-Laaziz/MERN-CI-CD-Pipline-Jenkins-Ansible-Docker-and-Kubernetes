@@ -22,6 +22,6 @@ db.agents.insertMany([
     password: '123',
     genre: 'Home',
     fonction: 'Chef de Département',
-    __t:'Professeur'
+    __t:'Admin'
   }
 ]);
