@@ -10,6 +10,8 @@ import MenuItem from '@mui/material/MenuItem';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Button from '@mui/joy/Button';
+import * as XLSX from 'xlsx';
+import { saveAs } from 'file-saver';
 import { useNavigate } from 'react-router-dom';
 import { useProf } from '../context/ProfContext';
 const backLink = process.env.REACT_APP_BACK_LINK
@@ -198,6 +200,22 @@ export default function DataGridDemo() {
     fetchProfessor(); // Call the fetchTitle function when the component mounts
   }, []);
 
+  const handleExportExcel = () => {
+    const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+    const fileExtension = '.xlsx';
+
+    // Exclude password column from export
+    const dataForExport = professeurs.map(({ password, ...rest }) => rest);
+
+    const ws = XLSX.utils.json_to_sheet(dataForExport);
+    const wb = { Sheets: { 'data': ws }, SheetNames: ['data'] };
+    const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+
+    const data = new Blob([excelBuffer], { type: fileType });
+    const fileName = 'professeurs' + fileExtension;
+    saveAs(data, fileName);
+  };
+
   const theme = useTheme();
 
 
@@ -210,6 +228,9 @@ export default function DataGridDemo() {
 
   return (
     <Box sx={{ height: 400, width: '99%' }}>
+    <Button variant="outlined" onClick={handleExportExcel}>
+        Export as Excel
+      </Button>
       <DataGrid
         rows={professeurs} // Use the fetched data for rows
         columns={responsiveColumns}

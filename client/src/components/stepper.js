@@ -19,6 +19,7 @@ import axios from 'axios';
 const backLink = process.env.REACT_APP_BACK_LINK
 const steps = ['données personnelles', 'données professionnelles', 'données supplémentaires'];
 const genreOptions = ['Homme', 'Femme']
+const departementOptions = ['TRI', 'GE']
 const cadreOptions = ["Professeur de l'enseignement superieur", 'Professeur habilité', 'Professeur assistant'];
 // const gradeOptions = ['Grade 1', 'Grade 2'];
 // const classeOptions = ['Classe 1', 'Classe 2'];
@@ -280,7 +281,7 @@ const [phoneNumber, setPhoneNumber] = React.useState('');
   //Cadre
   const [selectedCadre, setSelectedCadre] = useState(null);
   const [selectedGenre, setSelectedGenre] = useState(null);
-
+  const [selectedDepartement, setSelectedDepartement] = useState(null);
   const handleCadreChange = (event, newValue) => {
     setSelectedCadre(newValue);
 
@@ -291,6 +292,9 @@ const [phoneNumber, setPhoneNumber] = React.useState('');
 
   const handleGenreChange = (event, newValue) => {
     setSelectedGenre(newValue);
+  };
+  const handleDepartementChange = (event, newValue) => {
+    setSelectedDepartement(newValue);
   };
 
   //Classe
@@ -362,6 +366,7 @@ const [phoneNumber, setPhoneNumber] = React.useState('');
         date_visa:selectedDateVisa,
         grade:selectedGrade,
         classe:selectedClasse,
+        departement:selectedDepartement
       };
       console.log("collected prof infos : " + requestData.nom)
       // Make a POST request to your backend API
@@ -665,7 +670,7 @@ const [phoneNumber, setPhoneNumber] = React.useState('');
                   />
               </div>
             </Grid>
-            <Grid item xs={5}>
+            <Grid item xs={4}>
               <div>
                 <Typography variant="subtitle1" gutterBottom>
                   Date d'entrée dans la fonction publique (ت. و الوظيفة العمومية)
@@ -678,7 +683,23 @@ const [phoneNumber, setPhoneNumber] = React.useState('');
               </LocalizationProvider>
               </div>
             </Grid>
-            <Grid item xs={3}>
+            <Grid item xs={2}>
+              
+              <div>
+                <Typography variant="subtitle1" gutterBottom>
+                  
+                Département (قسم)
+                </Typography>
+                <Autocomplete
+                  id="cadre-autocomplete"
+                  options={departementOptions}
+                  value={selectedDepartement}
+                  onChange={handleDepartementChange}
+                  renderInput={(params) => <TextField {...params} variant="outlined" />}
+                />
+              </div>
+            </Grid>
+            <Grid item xs={2}>
               <div>
                 <Typography variant="subtitle1" gutterBottom>
                   Ancienneté (الـأقدمية)

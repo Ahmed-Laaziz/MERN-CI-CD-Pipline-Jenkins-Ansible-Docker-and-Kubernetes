@@ -69,7 +69,7 @@ exports.getDemandesForProfesseur = async (req, res) => {
       // and '__t' equal to either "DemandConge" or "DemandQuitterTerritoire"
       const enAttenteAndEnCoursDemands = await Demande.find({
         statut: { $in: ['En attente'] },
-        __t: { $in: ['DemandeConge', 'DemandeQuitterTerritoire'] }
+        __t: { $in: ['DemandeConge', 'DemandeQuitterTerritoire', 'DemandeOrdreMission'] }
       });
       res.json(enAttenteAndEnCoursDemands);
     } catch (error) {

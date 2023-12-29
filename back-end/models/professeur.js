@@ -36,6 +36,10 @@ const profSchema = new Schema({
             type: Date,
             required: true
         },
+        departement: {
+            type: String,
+            required: true
+        },
     }
 )
 

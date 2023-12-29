@@ -17,6 +17,7 @@ var histRouter = require('./routes/professor/histRouter');
 var demandeRouter = require('./routes/demande/quitterTerritoire');
 var demandeAttestationTravail = require('./routes/demande/attestationTravail');
 var demandeCongeRouter = require('./routes/demande/conge');
+var demandeOrdreMission = require('./routes/demande/ordreMission');
 var profDemandeRouter = require('./routes/demande/demandes');
 var notifRouter = require('./routes/notifications/notification');
 var fileRouter = require('./routes/file/fileRouter');
@@ -57,6 +58,7 @@ app.use('/hist', histRouter);
 app.use('/demande', demandeRouter)
 app.use('/demandeConge', demandeCongeRouter)
 app.use('/demandeAttestationTravail', demandeAttestationTravail)
+app.use('/demandeOrdreMission', demandeOrdreMission)
 app.use('/demandes', profDemandeRouter)
 app.use('/notifs', notifRouter)
 app.use('/FilesManagement', fileRouter);

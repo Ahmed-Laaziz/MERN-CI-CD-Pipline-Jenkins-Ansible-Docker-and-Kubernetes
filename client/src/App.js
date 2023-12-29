@@ -8,6 +8,7 @@ import All from "./pages/allProfessors";
 import Demandes from "./pages/options";
 import Demands_from_admin from "./pages/demands/admin/demands";
 import AttestationTravail from "./documents/AttestationTravail";
+import OrdreMission from "./documents/OrderDeMission";
 import AutorisationQuitterTerritoire from "./documents/AutorisationDeQuitterLeTerritoire"
 import DecisionConge from "./documents/DecisionDeCongeAdministratif"
 import ProfDemandes from "./pages/profDemandes";
@@ -33,6 +34,7 @@ export default function App() {
         <Route path="demandes" element={<Demandes/>} />
         <Route path="espace-demandes" element={<Demands_from_admin/>} />
         <Route path="attestationTravail" element={<AttestationTravail/>} />
+        <Route path="ordreMission" element={<OrdreMission/>} />
         <Route path="autorisationQuitterTerritoire" element={<AutorisationQuitterTerritoire/>} />
         <Route path="decisionConge" element={<DecisionConge/>} />
         <Route path="prof-demandes" element={<ProfDemandes/>} />

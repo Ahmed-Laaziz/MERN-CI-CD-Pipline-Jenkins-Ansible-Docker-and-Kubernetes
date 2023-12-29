@@ -83,6 +83,10 @@ export default function ColumnPinningDynamicRowHeight() {
            {
             navigate('/attestationTravail', { state: {input1:agent.prenom.split('|')[0] , input2:agent.nom.split('|')[0], input3:'Grade B', input4:agent.num_loyer, input5:agent.date_entre_ecole}})
            }
+           else if (selectedDemand.__t == 'Ordre Mission')
+           {
+            navigate('/ordreMission', { state: {input1:`${selectedDemand._id}` , input5:`${agent.prenom.split('|')[0]} ${agent.nom.split('|')[0]}`, input2:`${selectedDemand.moyen_transport}`, input3:`${selectedDemand.de_date}`, input4:`${selectedDemand.a_date}`, input6:`${selectedDemand.mission_a}`, input7:`${selectedDemand.description}`}})
+           }
          
         // Handle the response as needed (e.g., update UI, show a notification, etc.)
         console.log('Statut updated successfully:', response.data);
@@ -232,7 +236,7 @@ export default function ColumnPinningDynamicRowHeight() {
               variant="outlined"
               size="small"
               startIcon={<RemoveRedEyeIcon />}
-              disabled={(params.row.__t == 'Quitter Territoire' || params.row.__t == 'Conge') && params.row.statut == 'En attente'}
+              disabled={(params.row.__t == 'Quitter Territoire' || params.row.__t == 'Conge' || params.row.__t == 'Ordre Mission') && params.row.statut == 'En attente'}
             //   onClick={() => handlePrintClick(params.row)}
             onClick={() => handlePreviewClick(params.row)}
             >
@@ -390,7 +394,77 @@ export default function ColumnPinningDynamicRowHeight() {
               </Stack>
             </form>
           </ModalDialog>
-        ):(selectedDemand.__t === 'Conge')?(
+        ):(selectedDemand.__t === 'Ordre Mission') ? (
+          <ModalDialog>
+          <DialogTitle>     تكليف بمهمة
+</DialogTitle>
+          <DialogContent>Ordre de mission</DialogContent>
+          <form
+            onSubmit={(event) => {
+              event.preventDefault();
+              setOpenModal(false);
+            }}
+          >
+            <Stack spacing={2}>
+            <FormControl>
+            <Grid container spacing={2} style={{marginTop:"2%"}}>
+            <Grid item xs={6} >
+                <FormLabel>Demandeur :</FormLabel>
+                <Input autoFocus required defaultValue={agent.prenom.split('|')[0] + " " + agent.nom.split('|')[0]} disabled/>
+              </Grid>
+              <Grid item xs={6} >
+                <FormLabel>مقدم الطلب :</FormLabel>
+                <Input autoFocus required defaultValue={agent.prenom.split('|')[1] + " " + agent.nom.split('|')[1]} disabled/>
+              </Grid>
+              </Grid>
+              <Grid container spacing={2} style={{marginTop:"2%"}}>
+              <Grid item xs={6} >
+                <FormLabel>De : من</FormLabel>
+                <Input autoFocus required defaultValue={selectedDemand.de_date} disabled/>
+              </Grid>
+              <Grid item xs={6} >
+                <FormLabel>À : الى</FormLabel>
+                <Input autoFocus required defaultValue={selectedDemand.a_date} disabled/>
+              </Grid>
+              </Grid>
+              <Grid container spacing={2} style={{marginTop:"2%"}}>
+              <Grid item xs={6} >
+                <FormLabel>mission à : مهمة في</FormLabel>
+                <Input autoFocus required defaultValue={selectedDemand.mission_a} disabled/>
+              </Grid>
+              <Grid item xs={6} >
+              <FormLabel>Moyen de transport : وسيلة النقل</FormLabel>
+                <Input autoFocus required defaultValue={selectedDemand.moyen_transport} disabled/>
+              </Grid>
+              </Grid>
+              </FormControl>
+              <FormControl>
+                <FormLabel>Description : وصف</FormLabel>
+                <Textarea 
+                required 
+                minRows={3}
+                defaultValue={selectedDemand.description}
+                disabled
+                />
+              </FormControl>
+              
+              
+              
+              
+              <center>
+                <Grid item xs={1}>
+                <Button type="submit" onClick={handleApprouverClick} sx={{backgroundColor:"#000080", color:"white",  '&:hover': {
+            backgroundColor: '#0000FF ', // Change text color on hover
+          },}}>Imprimer</Button>
+                </Grid>
+                </center>
+
+             
+              
+            </Stack>
+          </form>
+        </ModalDialog>
+      ):(selectedDemand.__t === 'Conge')?(
             <ModalDialog>
             <DialogTitle>  إجازة إدارية
   </DialogTitle>

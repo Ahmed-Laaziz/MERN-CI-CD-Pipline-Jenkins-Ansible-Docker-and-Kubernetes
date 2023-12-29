@@ -391,7 +391,110 @@ export default function ColumnPinningDynamicRowHeight() {
               </Stack>
             </form>
           </ModalDialog>
-        ):(selectedDemand.__t === 'Conge')?(
+        ):(selectedDemand.__t === 'Ordre Mission') ? (
+          <ModalDialog>
+          <DialogTitle>     تكليف بمهمة
+</DialogTitle>
+          <DialogContent>Ordre de mission</DialogContent>
+          <form
+            onSubmit={(event) => {
+              event.preventDefault();
+              setOpenModal(false);
+            }}
+          >
+            <Stack spacing={2}>
+            <FormControl>
+            <Grid container spacing={2} style={{marginTop:"2%"}}>
+            <Grid item xs={6} >
+                <FormLabel>Demandeur :</FormLabel>
+                <Input autoFocus required defaultValue={agent.prenom.split('|')[0] + " " + agent.nom.split('|')[0]} disabled/>
+              </Grid>
+              <Grid item xs={6} >
+                <FormLabel>مقدم الطلب :</FormLabel>
+                <Input autoFocus required defaultValue={agent.prenom.split('|')[1] + " " + agent.nom.split('|')[1]} disabled/>
+              </Grid>
+              </Grid>
+              <Grid container spacing={2} style={{marginTop:"2%"}}>
+              <Grid item xs={6} >
+                <FormLabel>De : من</FormLabel>
+                <Input autoFocus required defaultValue={selectedDemand.de_date} disabled/>
+              </Grid>
+              <Grid item xs={6} >
+                <FormLabel>À : الى</FormLabel>
+                <Input autoFocus required defaultValue={selectedDemand.a_date} disabled/>
+              </Grid>
+              </Grid>
+              <Grid container spacing={2} style={{marginTop:"2%"}}>
+              <Grid item xs={6} >
+                <FormLabel>mission à : مهمة في</FormLabel>
+                <Input autoFocus required defaultValue={selectedDemand.mission_a} disabled/>
+              </Grid>
+              <Grid item xs={6} >
+              <FormLabel>Moyen de transport : وسيلة النقل</FormLabel>
+                <Input autoFocus required defaultValue={selectedDemand.moyen_transport} disabled/>
+              </Grid>
+              </Grid>
+              </FormControl>
+              <FormControl>
+                <FormLabel>Description : وصف</FormLabel>
+                <Textarea 
+                required 
+                minRows={3}
+                defaultValue={selectedDemand.description}
+                disabled
+                />
+              </FormControl>
+              
+              
+              
+              
+              <center>
+<Stack direction="row" spacing={28}>
+  
+  
+  <Grid item xs={6}>
+    <Button
+      type="submit"
+      onClick={handleRejeterClick}
+      sx={{
+        backgroundColor: "#A93226",
+        color: "white",
+        '&:hover': {
+          backgroundColor: '#80271E',
+        },
+        // Add margin to create space between the buttons
+        margin: '0 10px',
+      }}
+    >
+      Refuser
+    </Button>
+  </Grid>
+  <Grid item xs={6}>
+    <Button
+      type="submit"
+      onClick={handleApprouverClick}
+      sx={{
+        backgroundColor: "#2980B6",
+        color: "white",
+        '&:hover': {
+          backgroundColor: '#1D597E',
+        },
+        // Add margin to create space between the buttons
+        margin: '0 10px',
+      }}
+    >
+      Approuver
+    </Button>
+  </Grid>
+</Stack>
+</center>
+
+             
+              
+            </Stack>
+          </form>
+        </ModalDialog>
+      ):(selectedDemand.__t === 'Conge')?(
           <ModalDialog>
           <DialogTitle>  إجازة إدارية
 </DialogTitle>

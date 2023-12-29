@@ -39,7 +39,8 @@ exports.addProf =  async (req, res, next) => {
         num_ref: req.body.num_ref,
         date_effective: req.body.date_effective,
         anciennete: req.body.anciennete,
-        date_visa: req.body.date_visa
+        date_visa: req.body.date_visa,
+        departement: req.body.departement,
       });
   
       const savedProfesseur = await newProfesseur.save();
