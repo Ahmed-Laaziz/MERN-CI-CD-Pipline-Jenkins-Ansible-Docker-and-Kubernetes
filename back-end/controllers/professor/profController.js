@@ -28,7 +28,7 @@ exports.addProf =  async (req, res, next) => {
         nom: req.body.nom, 
         prenom: req.body.prenom, 
         email: req.body.email, 
-        password: userPass,
+        password: randomPassword,
         tel: req.body.tel,
         cin: req.body.cin,
         genre: req.body.genre,
@@ -59,9 +59,9 @@ exports.addProf =  async (req, res, next) => {
 
 // Send an email to the added professor with their login information
     const emailSubject = 'Welcome to Our Platform';
-    const emailText = `Dear Professor,\n\nYou have been added to our platform. Your login email is: ${req.body.prof.email}\nYour password is: ${userPass}\n\nPlease use these credentials to log in.\n\nBest regards,\nYour Platform Team`;
+    const emailText = `Dear Professor,\n\nYou have been added to our platform. Your login email is: ${req.body.email}\nYour password is: ${randomPassword}\n\nPlease use these credentials to log in.\n\nBest regards,\nYour Platform Team`;
 
-    sendEmail(req.body.prof.email, emailSubject, emailText);
+    sendEmail(req.body.email, emailSubject, emailText);
       res.status(200).json(savedProfesseur);
     } catch (error) {
       console.error('Error adding professeur:', error);
