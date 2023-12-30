@@ -161,6 +161,14 @@ export default function MiniDrawer({role, pageTitle, notifs, id}) {
 
   };
 
+  const Profil = () => {
+    console.log("Profil");
+  
+    navigate("/admine-profile");
+
+
+  };
+
   function formatDate(date) {
     const options = {
       year: 'numeric',
@@ -259,7 +267,7 @@ export default function MiniDrawer({role, pageTitle, notifs, id}) {
     open={Boolean(anchorEl)}
     onClose={handleClose}
   >
-    <MenuItem onClick={handleClose}>Profile</MenuItem>
+    <MenuItem onClick={Profil}>Profile</MenuItem>
     <MenuItem onClick={LogOut}>Logout</MenuItem>
   </Menu>
   <Menu

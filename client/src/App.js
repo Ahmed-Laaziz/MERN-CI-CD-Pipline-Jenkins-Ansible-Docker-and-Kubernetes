@@ -20,6 +20,7 @@ import Proffile from "./pages/profProfile";
 import DemandsHistory from "./pages/demandsHistory";
 import FileUpload from "./pages/uploadFile";
 import FilesDownload from "./pages/profFiles";
+import Dashboard from "./pages/dashboard";
 export default function App() {
   return (
     <div>
@@ -28,7 +29,8 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Login />}/>
-        <Route path="home" element={<Home />} />
+        <Route path="home" element={<Dashboard />} />
+        <Route path="admine-profile" element={<Home />} />
         <Route path="add-professor" element={<Add/>} />
         <Route path="all-professors" element={<All/>} />
         <Route path="demandes" element={<Demandes/>} />

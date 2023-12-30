@@ -7,11 +7,7 @@ async function sendEmail(to, subject, text) {
     service: 'Gmail', // e.g., 'Gmail', 'Yahoo', 'Outlook', etc.
     auth: {
      user:"rh-ensaj@ucd.ac.ma",
-<<<<<<< HEAD
-     pass:"your app password"
-=======
      pass:"your pass"
->>>>>>> 24cdcda7bdd1498b13184a54523afb52473158cd
     },
   });
 
