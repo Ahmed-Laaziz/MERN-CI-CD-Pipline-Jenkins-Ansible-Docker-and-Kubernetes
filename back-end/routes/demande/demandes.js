@@ -10,4 +10,5 @@ router.get('/allDemandes', demandeController.getDemands);
 router.put('/updateStatut/:demandId', demandeController.updateStatut);
 router.get('/enAttenteDemands', demandeController.getEnAttenteAndEnCoursDemands);
 router.get('/chefDemands', demandeController.getChefDemands)
+router.get('/chefDemandsCP', demandeController.getChefDemandsCP)
 module.exports = router;

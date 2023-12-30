@@ -39,8 +39,8 @@ const columns = [
     editable: false,
   },
   {
-    field: 'num_ref',
-    headerName: 'Numéro de preuve',
+    field: 'departement',
+    headerName: 'Département',
     type: 'number',
     editable: false,
   },
@@ -227,10 +227,13 @@ export default function DataGridDemo() {
   }));
 
   return (
-    <Box sx={{ height: 400, width: '99%' }}>
+    <Box sx={{ height: 500, width: '99%' }}>
     <Button variant="outlined" onClick={handleExportExcel}>
         Export as Excel
       </Button>
+      <div>
+      &ensp;
+      </div>
       <DataGrid
         rows={professeurs} // Use the fetched data for rows
         columns={responsiveColumns}
@@ -238,7 +241,7 @@ export default function DataGridDemo() {
         initialState={{
           pagination: {
             paginationModel: {
-              pageSize: 5,
+              pageSize: 7,
             },
           },
         }}

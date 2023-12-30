@@ -8,6 +8,10 @@ const adminSchema = new Schema({
             type: String,
             required: true
         },
+        dep_label:{
+            type: String,
+            default: '__' 
+        }
     }
 )
 

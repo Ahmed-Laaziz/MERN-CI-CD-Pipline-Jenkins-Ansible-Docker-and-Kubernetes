@@ -59,7 +59,7 @@ exports.addProf =  async (req, res, next) => {
 
 // Send an email to the added professor with their login information
     const emailSubject = 'Welcome to Our Platform';
-    const emailText = `Dear Professor,\n\nYou have been added to our platform. Your login email is: ${req.body.email}\nYour password is: ${randomPassword}\n\nPlease use these credentials to log in.\n\nBest regards,\nYour Platform Team`;
+    const emailText = `Cher Professeur,\n\nVous avez été ajouté à notre plateforme. Votre email de connexion est : ${req.body.email}\nVotre mot de passe est : ${randomPassword}\n\nVeuillez utiliser ces identifiants pour vous connecter.\n\nCordialement,\nVotre Équipe de Plateforme`;
 
     sendEmail(req.body.email, emailSubject, emailText);
       res.status(200).json(savedProfesseur);

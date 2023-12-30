@@ -19,7 +19,7 @@ import axios from 'axios';
 const backLink = process.env.REACT_APP_BACK_LINK
 const steps = ['données personnelles', 'données professionnelles', 'données supplémentaires'];
 const genreOptions = ['Homme', 'Femme']
-const departementOptions = ['TRI', 'GE']
+const departementOptions = ['TRI', 'GE', 'CP']
 const cadreOptions = ["Professeur de l'enseignement superieur", 'Professeur habilité', 'Professeur assistant'];
 // const gradeOptions = ['Grade 1', 'Grade 2'];
 // const classeOptions = ['Classe 1', 'Classe 2'];

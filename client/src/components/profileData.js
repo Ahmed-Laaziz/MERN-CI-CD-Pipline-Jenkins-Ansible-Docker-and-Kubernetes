@@ -122,8 +122,8 @@ export default function ProfileData({ agent }) {
     <Input endDecorator={<CreditCardIcon /> } defaultValue={isAdmin ? agent.fonction : 'Loading...'} disabled sx={{fontFamily:'bold'}}/>
   </FormControl>
   <FormControl>
-    <FormLabel>Etablissement (المؤسسة)</FormLabel>
-    <Input endDecorator={<CreditCardIcon /> } defaultValue={isAdmin ? 'Ecole nationale des sciences appliquées El Jadida' : 'Loading...'} disabled sx={{fontFamily:'bold'}}/>
+    <FormLabel>Département (قسم)</FormLabel>
+    <Input endDecorator={<CreditCardIcon /> } defaultValue={isAdmin ? agent.dep_label : 'Loading...'} disabled sx={{fontFamily:'bold'}}/>
   </FormControl>
 
 
