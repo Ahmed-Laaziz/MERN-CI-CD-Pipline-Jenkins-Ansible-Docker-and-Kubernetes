@@ -25,15 +25,17 @@ import Autocomplete from '@mui/joy/Autocomplete';
 import TextField from '@mui/material/TextField';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
-
 const backLink = process.env.REACT_APP_BACK_LINK;
 
 export default function FAQCard({prof}) {
   const navigate = useNavigate();
     const [selectedUniversity, setSelectedUniversity] = React.useState(null);
-    
+    const [selectedMoyen, setSelectedMoyen] = React.useState(null);
   const handleUniversityChange = (event, newValue) => {
     setSelectedUniversity(newValue);
+  };
+  const handleMoyenChange = (event, newValue) => {
+    setSelectedMoyen(newValue);
   };
 
   const [professors, setProfessors] = useState([]);
@@ -73,16 +75,34 @@ export default function FAQCard({prof}) {
     { label: 'Université de Avignon', country: 'France' },
     // Add more universities here
   ];
+
+  const moyens_transport = [
+    {label:'Avion'},
+    {label:'Train'},
+    {label:'Voiture de service'},
+    {label:'Taxi'},
+    {label:'Véhicule personnel'},
+    {label:'Transport en commun'},
+    {label:'Navire ou bateau'},
+    {label:'Hélicoptère '},
+    {label:'Moto ou vélo'},
+    {label:'Marche à pied '},
+  ]
+
   const [selectedOption, setSelectedOption] = React.useState('att1'); // Initial selected option
   const [openAtt1, setOpenAtt1] = React.useState(false);
   const [openAtt2, setOpenAtt2] = React.useState(false);
   const [openAtt3, setOpenAtt3] = React.useState(false);
   const [openAtt4, setOpenAtt4] = React.useState(false);
+  const [openAtt5, setOpenAtt5] = React.useState(false);
   const [description, setDescription] = React.useState('');
   const [descriptionConge, setDescriptionConge] = React.useState('');
+  const [descriptionMission, setDescriptionMission] = React.useState('');
   const [descriptionAttestationTravail, setDescriptionAttestationTravail] = React.useState('');
   const [selectedDate1, setSelectedDate1] = useState(null);
   const [selectedDate2, setSelectedDate2] = useState(null);
+  const [selectedDateMission1, setSelectedDateMission1] = useState(null);
+  const [selectedDateMission2, setSelectedDateMission2] = useState(null);
   const [selectedDateConge1, setSelectedDateConge1] = useState(null);
   const [selectedDateConge2, setSelectedDateConge2] = useState(null);
   // Function to handle date selection
@@ -91,6 +111,12 @@ export default function FAQCard({prof}) {
   };
   const handleDate2Change = (date) => {
     setSelectedDate2(date);
+  };
+  const handleDateMission1Change = (date) => {
+    setSelectedDateMission1(date);
+  };
+  const handleDateMission2Change = (date) => {
+    setSelectedDateMission2(date);
   };
   const handleDateConge1Change = (date) => {
     setSelectedDateConge1(date);
@@ -118,6 +144,9 @@ const handleValidate = () => {
     else if(selectedOption==='att4'){
         setOpenAtt4(true);
     }
+    else if(selectedOption==='att5'){
+      setOpenAtt5(true);
+  }
 }
 const handleDescriptionChange = (event) => {
   setDescription(event.target.value);
@@ -127,6 +156,9 @@ const handleDescriptionCongeChange = (event) => {
 };
 const handleDescriptionAttestationTravailChange = (event) => {
   setDescriptionAttestationTravail(event.target.value);
+};
+const handleDescriptionMissionChange = (event) => {
+  setDescriptionMission(event.target.value);
 };
 
 const addDemande1 = async () => {
@@ -199,6 +231,30 @@ const addDemande3 = async () => {
   }
 };
 
+const addDemande5 = async () => {
+  try {
+    // Show the spinner while the backend request is in progress
+    // setIsLoading(true);
+    const url = backLink+"/demandeOrdreMission/add-demande-ordre-mission"; // URL for the backend API
+    const requestData = {
+      professeur: selectedProfId, // Send the user input as a parameter in the request body
+      description: descriptionMission,
+      de_date: selectedDateMission1,
+      a_date: selectedDateMission2,
+      mission_a:selectedUniversity.label,
+      moyen_transport:selectedMoyen.label,
+    };
+
+    // Make a POST request to your backend API
+    const response = await axios.post(url, requestData);
+    navigate('/admin-demandes')
+  } catch (error) {
+    console.error("Error fetching abstract:", error);
+  } finally {
+    // Hide the spinner after the backend request is completed
+    // setIsLoading(false);
+  }
+};
 
 useEffect(() => {
     async function fetchProfessors() {
@@ -328,6 +384,7 @@ useEffect(() => {
   <Option value="att1">Attestation de travail - شهادة عمل</Option>
   <Option value="att2">Autorisation de quitter le territoire - الإذن بمغادرة التراب الوطني</Option>
   <Option value="att3">Décision de congé administratif - إجازة إدارية</Option>
+  <Option value="att5">Ordre de mission -  تكليف بمهمة</Option>
   <Option value="att4">Attestation de reprise de travail - شهادةاستئناف العمل</Option>
 </Select>
     </Grid>
@@ -489,6 +546,95 @@ useEffect(() => {
                 />
               </FormControl>
               <Button type="submit" onClick={addDemande3}>Valider</Button>
+            </Stack>
+          </form>
+        </ModalDialog>
+      </Modal>
+
+
+      <Modal open={openAtt5} onClose={() => setOpenAtt5(false)}>
+        <ModalDialog>
+          <DialogTitle>تكليف بمهمة 
+</DialogTitle>
+          <DialogContent>Ordre de mission</DialogContent>
+          <form
+            onSubmit={(event) => {
+              event.preventDefault();
+              setOpenAtt2(false);
+            }}
+          >
+            <Stack spacing={2}>
+              <FormControl>
+              <Grid container spacing={2} style={{marginTop:"2%"}}>
+              <Grid item xs={6} >
+                <FormLabel>Du : من</FormLabel>
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DatePicker 
+                required
+                value={selectedDateMission1} // Pass the selectedDate as the value
+                onChange={handleDateMission1Change} // Handle date selection
+                // sx={{width:"100%"}}
+                />
+              </LocalizationProvider>
+              </Grid>
+              <Grid item xs={6} >
+                <FormLabel>Au : الى</FormLabel>
+                <LocalizationProvider dateAdapter={AdapterDayjs} >
+                <DatePicker 
+                value={selectedDateMission2} // Pass the selectedDate as the value
+                onChange={handleDateMission2Change} // Handle date selection
+                // sx={{width:"100%"}}
+                />
+              </LocalizationProvider>
+              </Grid>
+              </Grid>
+              </FormControl>
+
+
+
+              
+              <FormControl>
+              <Grid container spacing={2} style={{marginTop:"2%"}}>
+
+              <Grid item xs={6} >
+                <FormLabel>mission à : مهمة في</FormLabel>
+              <Autocomplete
+                options={universities}
+                getOptionLabel={(option) => option.label}
+                required
+                value={selectedUniversity}
+                onChange={handleUniversityChange}
+                renderInput={(params) => <TextField {...params} label="Select University" variant="outlined" />}
+              />
+              </Grid>
+
+    <Grid item xs={6} >
+                <FormLabel>Moyen de transport : وسيلة النقل</FormLabel>
+                <Autocomplete
+                options={moyens_transport}
+                getOptionLabel={(option) => option.label}
+                required
+                value={selectedMoyen}
+                onChange={handleMoyenChange}
+                renderInput={(params) => <TextField {...params} label="Select University" variant="outlined" />}
+              />
+              </Grid>
+
+   
+               </Grid>
+    </FormControl>
+
+
+              <FormControl>
+                <FormLabel>Objet de la mission : الغرض من المهمة</FormLabel>
+                <Textarea 
+                required 
+                minRows={3}
+                value={descriptionMission} // Bind the value to the description state
+                onChange={handleDescriptionMissionChange}
+                />
+              </FormControl>
+              <Button type="submit" onClick={addDemande5}>Valider</Button>
             </Stack>
           </form>
         </ModalDialog>

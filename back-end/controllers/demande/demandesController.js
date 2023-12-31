@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 
 exports.getDemands = async (req, res, next) => {
   try {
-    const allDemands = await Demande.find({});
+    const allDemands = await Demande.find({}).sort({ createdAt: -1 });
     res.status(200).json(allDemands);
   } catch (error) {
     console.error('Error retrieving demand:', error);
@@ -55,7 +55,7 @@ exports.getDemandesForProfesseur = async (req, res) => {
   exports.getEnAttenteAndEnCoursDemands = async (req, res) => {
     try {
       // Use Mongoose to find demands with 'statut' equal to either "En attente" or "En cours"
-      const enAttenteAndEnCoursDemands = await Demande.find({ statut: { $in: ['En attente', 'En Cours'] } });
+      const enAttenteAndEnCoursDemands = await Demande.find({ statut: { $in: ['En attente', 'En Cours'] } }).sort({ createdAt: -1 });;
       res.json(enAttenteAndEnCoursDemands);
     } catch (error) {
       console.error('Error fetching "En attente" and "En cours" demands:', error);
@@ -70,7 +70,7 @@ exports.getDemandesForProfesseur = async (req, res) => {
       const enAttenteAndEnCoursDemands = await Demande.find({
         statut: { $in: ['En attente'] },
         __t: { $in: ['DemandeConge', 'DemandeQuitterTerritoire', 'DemandeOrdreMission'] }
-      })
+      }).sort({ createdAt: -1 })
         .populate({
           path: 'professeur',
           match: { departement: 'TRI' } // Filter professors by department 'TRI'
@@ -99,6 +99,7 @@ exports.getDemandesForProfesseur = async (req, res) => {
         statut: { $in: ['En attente'] },
         __t: { $in: ['DemandeConge', 'DemandeQuitterTerritoire', 'DemandeOrdreMission'] }
       })
+      .sort({ createdAt: -1 })
         .populate({
           path: 'professeur',
           match: { departement: 'CP' } // Filter professors by department 'TRI'

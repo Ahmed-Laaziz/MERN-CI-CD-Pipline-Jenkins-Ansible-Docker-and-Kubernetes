@@ -745,7 +745,7 @@ const [phoneNumber, setPhoneNumber] = React.useState('');
               un email a été envoyé au professeur pour s'authentifier
               </Typography>
               <Button component={Link} to="/all-professors" variant="contained" sx={{ marginTop: '5%' }}>
-              Cancel
+              Annuler
             </Button>
             </Box>
           </Modal>
@@ -778,7 +778,7 @@ const [phoneNumber, setPhoneNumber] = React.useState('');
                   <Button onClick={handleComplete}>
                     {completedSteps() === totalSteps() - 1
                       ? 'Terminer'
-                      : 'Etape accompie'}
+                      : 'Etape accomplie'}
                   </Button>
                 ))}
             </Box>

@@ -9,6 +9,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import DownloadIcon from '@mui/icons-material/Download';
 import Button from '@mui/joy/Button';
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
@@ -228,8 +229,8 @@ export default function DataGridDemo() {
 
   return (
     <Box sx={{ height: 500, width: '99%' }}>
-    <Button variant="outlined" onClick={handleExportExcel}>
-        Export as Excel
+    <Button variant="outlined" onClick={handleExportExcel}> 
+<DownloadIcon/> Exporter sous Excel
       </Button>
       <div>
       &ensp;
