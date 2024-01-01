@@ -30,7 +30,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Login />}/>
         <Route path="home" element={<Dashboard />} />
-        <Route path="admine-profile" element={<Home />} />
+        <Route path="profil" element={<Home />} />
         <Route path="add-professor" element={<Add/>} />
         <Route path="all-professors" element={<All/>} />
         <Route path="demandes" element={<Demandes/>} />

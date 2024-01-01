@@ -164,7 +164,7 @@ export default function MiniDrawer({role, pageTitle, notifs, id}) {
   const Profil = () => {
     console.log("Profil");
   
-    navigate("/admine-profile");
+    navigate("/profil");
 
 
   };

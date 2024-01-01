@@ -10,6 +10,8 @@ import CardContent from '@mui/joy/CardContent';
 import Typography from '@mui/joy/Typography';
 import { BarChart } from '@mui/x-charts/BarChart';
 import { PieChart } from '@mui/x-charts/PieChart';
+import ProfileBar from '../components/profileBar';
+import ProfileData from '../components/profileData';
 import Grid from '@mui/material/Grid';
 import Avatar from '@mui/joy/Avatar';
 import Divider from '@mui/joy/Divider';
@@ -89,7 +91,11 @@ useEffect(() => {
   const fetchAgentData = async () => {
     try {
       const response = await axios.get(backLink+`/agent/agents/${agentId}`);
+      console.log("user: ")
+      console.log(agent)
+      
       setAgent(response.data);
+      console.log("agent: "+ agent)
     } catch (error) {
       console.error('Error fetching agent data:', error);
     }
@@ -114,6 +120,9 @@ useEffect(() => {
   }
 
   fetchProfessor();
+
+  console.log("the agent is :")
+  console.log(agent)
 }, [agentId]);
 
 useEffect(() => {
@@ -148,7 +157,7 @@ useEffect(() => {
                 <Drawer role="Chef" pageTitle={"Page d'accueil"} notifs={notifs} prof={agentId} />
               ) : <Drawer role={agent.__t} pageTitle={"Page d'accueil"} notifs={notifs} prof={agentId} />
             ) : null}
-
+    {agent && agent.__t === 'Admin' ? (
         <Box
           component="main"
           sx={{
@@ -301,8 +310,26 @@ useEffect(() => {
                 </CardContent>
             </Card>
           </Box>
+          
         </Box>
-      </Box>
+        ) : (
+          <Box
+            component="main"
+            sx={{
+              flexGrow: 1,
+              p: 3,
+              marginTop: "5%",
+              marginLeft: "0%",
+              marginRight: "0%",
+              // boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)", // Add the boxShadow property
+            }}
+          >
+          <ProfileBar agent={agent} />
+            <ProfileData agent={agent} />
+          </Box>
+        )}
+    </Box>
+    
     ) : (
             <ErrorPage />
           )}
