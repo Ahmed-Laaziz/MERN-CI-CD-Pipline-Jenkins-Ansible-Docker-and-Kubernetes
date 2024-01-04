@@ -174,8 +174,8 @@ useEffect(() => {
             sx={{
               display: 'grid',
               gridTemplateColumns: 'repeat(3, 1fr)',  // Three columns for three cards
-              gap: 8,
-              maxWidth: '95%',  // Adjust the maximum width as needed
+              gap: 1,
+              maxWidth: '100%',  // Adjust the maximum width as needed
               width: '100%',       // Ensure the grid takes up the full width
             }}
           >
@@ -262,9 +262,9 @@ useEffect(() => {
             sx={{
               display: 'grid',
               gridTemplateColumns: 'repeat(2, 1fr)',  // Three columns for three cards
-              gap: 8,
-              maxWidth: '95%',  // Adjust the maximum width as needed
-              width: '100%', 
+              gap: 1,
+              maxWidth: '50%',  // Adjust the maximum width as needed
+              width: '85%', 
               marginTop: "3%"      // Ensure the grid takes up the full width
             }}
           >
@@ -276,8 +276,8 @@ useEffect(() => {
       <BarChart
         xAxis={[{ scaleType: 'band', data: departmentNames }]}
         series={[{ data: departmentValues }]}
-        width={800}
-        height={400}
+        width={600}
+        height={300}
       />
     ) : (
       <Typography>Loading...</Typography>
@@ -301,8 +301,8 @@ useEffect(() => {
                     })),
                   },
                 ]}
-                width={800}
-                height={400}
+                width={750}
+                height={300}
               />
                     ) : (
                         <Typography>Loading...</Typography>
