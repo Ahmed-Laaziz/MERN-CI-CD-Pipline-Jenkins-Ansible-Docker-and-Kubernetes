@@ -42,7 +42,6 @@ const columns = [
   {
     field: 'departement',
     headerName: 'Département',
-    type: 'number',
     editable: false,
   },
   {
