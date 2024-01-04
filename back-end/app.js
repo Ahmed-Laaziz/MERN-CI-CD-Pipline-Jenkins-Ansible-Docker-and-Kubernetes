@@ -33,7 +33,7 @@ app.set('views', path.join(__dirname, 'views'));
 // Enable CORS middleware production
 app.use(cors(
   {
-    origin: ["https://human-resource-management-frontend.vercel.app", "http://localhost:3000"],
+    origin: ["https://human-resource-management-frontend.vercel.app", "http://localhost:3000", "https://grh-ensaj-front.vercel.app"],
     methods: ["POST", "GET", "PUT"],
     credentials: true
 }
