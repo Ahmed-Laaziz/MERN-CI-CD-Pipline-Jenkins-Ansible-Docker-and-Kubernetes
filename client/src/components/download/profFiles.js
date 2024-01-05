@@ -37,7 +37,7 @@ export default function ColumnPinningDynamicRowHeight({prof}) {
                   size="small" 
                   startIcon={<RemoveRedEyeIcon />}
                   component={Link}
-                  to={`https://grh-ensaj-backend.adaptable.app/files/${params.row.pdf}`} // Assuming 'pdf' is the column name for PDF name
+                  to={backLink+`/files/${params.row.pdf}`} // Assuming 'pdf' is the column name for PDF name
                   target="_blank"
                 >
                   Voir
