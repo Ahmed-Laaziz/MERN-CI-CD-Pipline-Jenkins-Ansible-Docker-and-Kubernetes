@@ -158,16 +158,17 @@ useEffect(() => {
               ) : <Drawer role={agent.__t} pageTitle={"Page d'accueil"} notifs={notifs} prof={agentId} />
             ) : null}
     {agent && agent.__t === 'Admin' ? (
-        <Box
-          component="main"
-          sx={{
-            flexGrow: 1,
-            p: 3,
-            marginTop: "5%",
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
+         <Box
+         component="main"
+         sx={{
+           flexGrow: 1,
+           p: 3,
+           marginTop: "5%",
+           justifyContent: 'center',
+           alignItems: 'center',
+           width: '100%', // Full width
+         }}
+       >
             <Breadcrumb pageLabel="Dashboard"/>
 <>&nbsp;</>
           <Box
@@ -263,12 +264,12 @@ useEffect(() => {
               display: 'grid',
               gridTemplateColumns: 'repeat(2, 1fr)',  // Three columns for three cards
               gap: 1,
-              maxWidth: '50%',  // Adjust the maximum width as needed
-              width: '85%', 
+              maxWidth: '100%',  // Adjust the maximum width as needed
+              width: '100%', 
               marginTop: "3%"      // Ensure the grid takes up the full width
             }}
           >
-             <Card variant="outlined">
+              <Card variant="outlined" sx={{ height: '50vh' }}>
   <Typography level="h3">Professeur par département :</Typography>
   <Divider inset="none" />
   <CardContent>
@@ -276,8 +277,7 @@ useEffect(() => {
       <BarChart
         xAxis={[{ scaleType: 'band', data: departmentNames }]}
         series={[{ data: departmentValues }]}
-        width={600}
-        height={300}
+        sx={{ width: '100%', height: '100%' }} // Adjust based on your needs
       />
     ) : (
       <Typography>Loading...</Typography>
@@ -286,44 +286,55 @@ useEffect(() => {
 </Card>
 
 
-            <Card variant="outlined">
+<Card variant="outlined" sx={{ height: '50vh' }}>
             <Typography level="h3">Professeur par cadre :</Typography>
-        <Divider inset="none" />
-                <CardContent>
-                {cadreNames.length > 0 && cadreValues.length > 0 ? (
+            <Divider inset="none" />
+            <CardContent>
+              {cadreNames.length > 0 && cadreValues.length > 0 ? (
                 <PieChart
-                series={[
-                  {
-                    data: cadreNames.map((cadre, index) => ({
-                      id: index,
-                      value: cadreValues[index],
-                      label: cadre,
-                    })),
-                  },
-                ]}
-                width={750}
-                height={300}
-              />
-                    ) : (
-                        <Typography>Loading...</Typography>
-                      )}
-                </CardContent>
-            </Card>
+                  series={[
+                    {
+                      data: cadreNames.map((cadre, index) => ({
+                        id: index,
+                        value: cadreValues[index],
+                        label: cadre,
+                      })),
+                    },
+                  ]}
+                  sx={{
+                    width: { xs: 200, sm: 300, md: 400, lg: 500, xl: 650 }, // Adjust based on your needs
+                    height: { xs: 100, sm: 150, md: 200, lg: 250, xl: 300 }, // Adjust based on your needs
+                  }}
+                  slotProps={{
+                    legend: {
+                      direction: 'column',
+                      position: { vertical: 'middle', horizontal: 'right' },
+                      padding: 0,
+                      fontSize: 18,
+                    },
+                  }}
+                  margin={{ right: 300 }}
+                />
+              ) : (
+                <Typography>Loading...</Typography>
+              )}
+            </CardContent>
+          </Card>
           </Box>
           
         </Box>
         ) : (
           <Box
-            component="main"
-            sx={{
-              flexGrow: 1,
-              p: 3,
-              marginTop: "5%",
-              marginLeft: "0%",
-              marginRight: "0%",
-              // boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)", // Add the boxShadow property
-            }}
-          >
+          component="main"
+          sx={{
+            flexGrow: 1,
+            p: 3,
+            marginTop: "5%",
+            marginLeft: "2%", // Adjust margin
+            marginRight: "2%", // Adjust margin
+            width: '96%', // Adjust width
+          }}
+        >
           <ProfileBar agent={agent} />
             <ProfileData agent={agent} />
           </Box>
