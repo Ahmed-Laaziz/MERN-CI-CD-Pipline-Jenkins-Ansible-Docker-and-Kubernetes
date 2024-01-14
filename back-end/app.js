@@ -11,6 +11,7 @@ var indexRouter = require('./routes/index');
 
 var adminRouter = require('./routes/admin/adminRouter');
 var fonctionnaireRouter = require('./routes/fonctionnaire/fonctionnaireRouter')
+
 var agentRouter = require('./routes/agent/agentRouter');
 var authRouter = require('./routes/auth/authRouter');
 var profRouter = require('./routes/professor/profRouter');
@@ -53,6 +54,7 @@ app.use('/', indexRouter);
 
 app.use('/admin', adminRouter);
 app.use('/fonctionnaire', fonctionnaireRouter);
+
 app.use('/agent', agentRouter);
 app.use('/auth', authRouter);
 app.use('/prof', profRouter);

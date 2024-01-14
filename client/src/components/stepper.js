@@ -436,6 +436,7 @@ const [phoneNumber, setPhoneNumber] = React.useState('');
                   variant="outlined"
                   fullWidth
                   required
+
                   value={firstName}
                   onChange={handleChangeFirstName}
                   error={firstNameError}
@@ -468,6 +469,7 @@ const [phoneNumber, setPhoneNumber] = React.useState('');
                   variant="outlined"
                   fullWidth
                   required
+
                   value={lastName}
                   onChange={handleChangeLastName}
                   error={lastNameError}
@@ -484,6 +486,7 @@ const [phoneNumber, setPhoneNumber] = React.useState('');
                   variant="outlined"
                   fullWidth
                   required
+
                   value={lnArinputValue}
                   onChange={handleLnArChange}
                   error={!isValidArabicLName}
@@ -499,7 +502,6 @@ const [phoneNumber, setPhoneNumber] = React.useState('');
                 </Typography>
                 <Autocomplete
                   id="cadre-autocomplete"
-                  
                   options={genreOptions}
                   value={selectedGenre}
                   onChange={handleGenreChange}
@@ -517,6 +519,7 @@ const [phoneNumber, setPhoneNumber] = React.useState('');
                   variant="outlined"
                   fullWidth
                   required
+
                   value={cin}
                   onChange={handleCINChange}
                   error={cinError}
@@ -534,6 +537,7 @@ const [phoneNumber, setPhoneNumber] = React.useState('');
                 variant="outlined"
                 fullWidth
                 required
+
                 value={email}
                 onChange={handleEmailChange}
                 error={emailError}
@@ -550,6 +554,7 @@ const [phoneNumber, setPhoneNumber] = React.useState('');
           variant="outlined"
           fullWidth
           required
+
           value={phoneNumber}
           onChange={handleChange}
           error={phoneNumberError}
@@ -578,6 +583,7 @@ const [phoneNumber, setPhoneNumber] = React.useState('');
       variant="outlined"
       fullWidth
       required
+
       value={loyerValue}
       onChange={handleInputChange}
     />
@@ -609,6 +615,7 @@ const [phoneNumber, setPhoneNumber] = React.useState('');
                 <LocalizationProvider dateAdapter={AdapterDayjs} >
                 <DatePicker 
                 required
+
                 value={selectedDateVisa} // Pass the selectedDate as the value
                 onChange={handleDateVisaChange} // Handle date selection
                 sx={{width:"100%"}}/>
@@ -623,6 +630,7 @@ const [phoneNumber, setPhoneNumber] = React.useState('');
                 <LocalizationProvider dateAdapter={AdapterDayjs} >
                 <DatePicker 
                 required
+
                 value={selectedDateEffective} // Pass the selectedDate as the value
                 onChange={handleDateEffectiveChange} // Handle date selection
                 sx={{width:"100%"}}/>
@@ -645,7 +653,7 @@ const [phoneNumber, setPhoneNumber] = React.useState('');
                 </Typography>
                 <Autocomplete
                   id="cadre-autocomplete"
-                  
+                
                   options={cadreOptions}
                   value={selectedCadre}
                   onChange={handleCadreChange}
@@ -661,7 +669,6 @@ const [phoneNumber, setPhoneNumber] = React.useState('');
                 </Typography>
                 <Autocomplete
                   id="cadre-autocomplete"
-                  
                   options={selectedCadre ? cadreGradeMapping[selectedCadre] : []}
                   value={selectedGrade}
                   onChange={handleGradeChange}
@@ -677,7 +684,6 @@ const [phoneNumber, setPhoneNumber] = React.useState('');
                 </Typography>
                 <Autocomplete
                     id="classe-autocomplete"
-                    
                     options={selectedGrade ? gradeClasseMapping(selectedCadre)[selectedGrade] : []}
                     value={selectedClasse}
                     onChange={handleClasseChange}
@@ -692,7 +698,6 @@ const [phoneNumber, setPhoneNumber] = React.useState('');
                 </Typography>
                 <LocalizationProvider dateAdapter={AdapterDayjs} >
                 <DatePicker 
-                
                 value={selectedDateFct} // Pass the selectedDate as the value
                 onChange={handleDateFctChange} // Handle date selection
                 sx={{width:"100%"}}/>
@@ -708,7 +713,6 @@ const [phoneNumber, setPhoneNumber] = React.useState('');
                 </Typography>
                 <Autocomplete
                   id="cadre-autocomplete"
-                  
                   options={departementOptions}
                   value={selectedDepartement}
                   onChange={handleDepartementChange}
@@ -736,7 +740,6 @@ const [phoneNumber, setPhoneNumber] = React.useState('');
                 </Typography>
                 <LocalizationProvider dateAdapter={AdapterDayjs} >
                 <DatePicker 
-                
                 value={selectedDateSchool} // Pass the selectedDate as the value
                 onChange={handleDateSchoolChange} // Handle date selection
                 sx={{width:"100%"}}/>

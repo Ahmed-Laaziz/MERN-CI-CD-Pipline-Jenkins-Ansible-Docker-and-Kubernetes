@@ -12,4 +12,5 @@ router.get('/enAttenteDemands', demandeController.getEnAttenteAndEnCoursDemands)
 router.get('/chefDemands', demandeController.getChefDemands)
 router.get('/chefDemandsCP', demandeController.getChefDemandsCP)
 router.get('/chefDemandsFCT', demandeController.getChefDemandsFCT)
+
 module.exports = router;

@@ -37,7 +37,9 @@ import { useProf } from '../context/ProfContext';
 import SendAndArchiveIcon from '@mui/icons-material/SendAndArchive';
 import SendIcon from '@mui/icons-material/Send';
 import AddBoxIcon from '@mui/icons-material/AddBox';
+
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
+
 const drawerWidth = 240;
 const backLink = process.env.REACT_APP_BACK_LINK;
 
@@ -404,7 +406,6 @@ export default function MiniDrawer({role, pageTitle, notifs, id}) {
       </Link>
     </ListItem>
 
-
     <ListItem disablePadding sx={{ display: 'block' }}>
       {/* Use the Link component to specify the "to" prop */}
       <Link to="/add-fonctionnaire" style={{ textDecoration: 'none' }}>
@@ -428,6 +429,7 @@ export default function MiniDrawer({role, pageTitle, notifs, id}) {
         </ListItemButton>
       </Link>
     </ListItem>
+
 
     <ListItem disablePadding sx={{ display: 'block' }}>
       {/* Use the Link component to specify the "to" prop */}
@@ -527,6 +529,7 @@ export default function MiniDrawer({role, pageTitle, notifs, id}) {
         </ListItemButton>
       </Link>
     </ListItem> */}
+
   </>
 ) : localStorage.getItem('type') === 'Professeur' ? (
   /* Content for Professors */

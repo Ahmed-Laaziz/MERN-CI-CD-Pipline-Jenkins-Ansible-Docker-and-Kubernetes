@@ -4,11 +4,13 @@ import { TokenProvider } from './auth/TokenContext';
 import Login from "./components/sign-in";
 import Home from "./pages/home";
 import Add from "./pages/addProfessor";
+
 import AddFonctionnaire from "./pages/fonctionnaire/add-fonctionnaire";
 import All from "./pages/allProfessors";
 import Demandes from "./pages/options";
 import Demands_from_admin from "./pages/demands/admin/demands";
 import Fonctionnaires_demands_from_admin from "./pages/demands/admin/demands-fonctionnaires";
+
 import AttestationTravail from "./documents/AttestationTravail";
 import OrdreMission from "./documents/OrderDeMission";
 import AutorisationQuitterTerritoire from "./documents/AutorisationDeQuitterLeTerritoire"
@@ -34,11 +36,13 @@ export default function App() {
         <Route path="home" element={<Dashboard />} />
         <Route path="profil" element={<Home />} />
         <Route path="add-professor" element={<Add/>} />
+
         <Route path="add-fonctionnaire" element={<AddFonctionnaire/>} />
         <Route path="all-professors" element={<All/>} />
         <Route path="demandes" element={<Demandes/>} />
         <Route path="espace-demandes" element={<Demands_from_admin/>} />
         <Route path="espace-demandes-fonctionnaires" element={<Fonctionnaires_demands_from_admin/>} />
+
         <Route path="attestationTravail" element={<AttestationTravail/>} />
         <Route path="ordreMission" element={<OrdreMission/>} />
         <Route path="autorisationQuitterTerritoire" element={<AutorisationQuitterTerritoire/>} />

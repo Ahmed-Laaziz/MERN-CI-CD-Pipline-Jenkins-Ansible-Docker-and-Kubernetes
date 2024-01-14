@@ -28,7 +28,9 @@ export default function ColumnPinningDynamicRowHeight({prof}) {
     () => [
         {
             field: 'professorName',
+
             headerName: 'Employés',
+
             width: 210,
           },
       { field: '__t', headerName: 'Type', width: 210, editable: false },

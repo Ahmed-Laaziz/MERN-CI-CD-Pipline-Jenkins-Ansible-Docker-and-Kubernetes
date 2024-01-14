@@ -52,6 +52,7 @@ class ComponentToPrint extends React.Component {
                             ADMINISTRATIF</h1>
                     </div>
                     {/* <br /><br /> */}
+
                     <div class="div3">
                         <p> &ensp;&ensp;&ensp;&ensp;Vu le Dahir N°1.58.008 du 04 Chaâbane 1377 (24 Février 1958) portant statut particulier de la fonction publique.<br /></p>
                     </div>
@@ -78,6 +79,7 @@ class ComponentToPrint extends React.Component {
                         </p>
                     </div>
                     <div class="div4" style={{ marginTop: '1px', marginBottom: '1px' }}>
+
                         <p> Fait à El Jadida, le <b>{currentDate}</b></p><br /><br />
                     </div>
                     <br />

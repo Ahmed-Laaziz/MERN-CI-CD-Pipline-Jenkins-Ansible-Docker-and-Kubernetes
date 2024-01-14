@@ -69,6 +69,7 @@ const formattedDate = `${year}-${month.toString().padStart(2, '0')}-${day.toStri
                         <p>Nom et Prénom&ensp;&ensp;:&ensp;<b>{input1} {input2}</b></p>
                         <p>Grade&ensp;&ensp; &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp; :&ensp;<b>{input3}</b></p>
                         <p>Matricule P.P.R&ensp;&ensp;:&ensp;<b>{input4}</b></p>
+
                         <p>&ensp;&ensp;&ensp;&ensp;&ensp;est en fonction à l’Ecole Nationale des Sciences Appliquées d’El Jadida depuis le <b>{formattedDate}</b> .</p>
                         <p>&ensp;&ensp;&ensp;&ensp;&ensp;La présente attestation est délivrée à l’intéressé(e), sur sa demande, pour servir et valoir ce que de droit.</p>
                     </div>

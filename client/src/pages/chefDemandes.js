@@ -66,7 +66,9 @@ export default function AdminDemandes(){
 
     return(
         <Box sx={{ display: 'flex' }}>
+
         <Drawer role='Chef' pageTitle={"Demandes des Employés"}/>
+
         
         <Box
   component="main"
@@ -79,7 +81,9 @@ export default function AdminDemandes(){
     // boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)", // Add the boxShadow property
   }}
 >
+
 <Breadcrumb pageLabel="Demandes des employés"/>
+
 <>&nbsp;</>
 
   {/* <DemandesTable dep = {agent.dep_label} sx={{marginTop:'10%'}}/> */}

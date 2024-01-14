@@ -94,6 +94,7 @@ export default function ProfileData({ agent }) {
   <FormControl>
     <FormLabel>Numéro de preuve (الرقم الاستدلالي)</FormLabel>
     <Input endDecorator={<InfoOutlined />} defaultValue={(isProfesseur && hist) ? agent.num_ref : 'Loading...'} disabled sx={{fontFamily:'bold'}}/>
+
   </FormControl>
 
   <FormControl>

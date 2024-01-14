@@ -264,9 +264,9 @@ useEffect(() => {
               display: 'grid',
               gridTemplateColumns: 'repeat(2, 1fr)',  // Three columns for three cards
               gap: 1,
-
               maxWidth: '100%',  // Adjust the maximum width as needed
               width: '100%', 
+
 
               marginTop: "3%"      // Ensure the grid takes up the full width
             }}
@@ -279,7 +279,6 @@ useEffect(() => {
       <BarChart
         xAxis={[{ scaleType: 'band', data: departmentNames }]}
         series={[{ data: departmentValues }]}
-
         sx={{ width: '100%', height: '100%' }} // Adjust based on your needs
       />
     ) : (
@@ -295,7 +294,6 @@ useEffect(() => {
             <CardContent>
               {cadreNames.length > 0 && cadreValues.length > 0 ? (
                 <PieChart
-
                   series={[
                     {
                       data: cadreNames.map((cadre, index) => ({

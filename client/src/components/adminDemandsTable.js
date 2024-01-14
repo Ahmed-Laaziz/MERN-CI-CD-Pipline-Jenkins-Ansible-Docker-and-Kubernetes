@@ -166,6 +166,7 @@ export default function ColumnPinningDynamicRowHeight() {
       {
         field: 'professorName',
         headerName: 'Employés',
+
         width: 300,
       },
       { field: '__t', headerName: 'Type', width: 210, editable: false },
@@ -324,6 +325,7 @@ export default function ColumnPinningDynamicRowHeight() {
           columns={columns}
           getRowId={(row) => row._id}
           getRowHeight={() => 'auto'}
+
           initialState={{ 
             pinnedColumns: { left: ['name'], right: ['actions'] },
             pagination: {
@@ -332,6 +334,7 @@ export default function ColumnPinningDynamicRowHeight() {
               },
             },
           }}
+
         />
       </div>
       

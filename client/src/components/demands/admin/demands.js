@@ -348,7 +348,9 @@ useEffect(() => {
 <FormControl fullWidth>
       <Grid container alignItems="center">
         <Grid item xs={4}>
+
           <InputLabel htmlFor="professor-select"><b>Selectionner un employé:</b></InputLabel>
+
         </Grid>
         <Grid item xs={8}>
           <Autocomplete

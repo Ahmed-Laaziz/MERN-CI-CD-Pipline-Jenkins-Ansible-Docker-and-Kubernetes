@@ -330,6 +330,7 @@ export default function ColumnPinningDynamicRowHeight({dep}) {
   
       setDemandes(demandsWithProfessorNames);
       }
+
       // const demandData = response.data;
   
       
