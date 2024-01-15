@@ -12,5 +12,5 @@ router.get('/enAttenteDemands', demandeController.getEnAttenteAndEnCoursDemands)
 router.get('/chefDemands', demandeController.getChefDemands)
 router.get('/chefDemandsCP', demandeController.getChefDemandsCP)
 router.get('/chefDemandsFCT', demandeController.getChefDemandsFCT)
-
+router.delete('/demands/:id', demandeController.deleteDemand);
 module.exports = router;

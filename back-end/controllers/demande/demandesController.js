@@ -13,6 +13,24 @@ exports.getDemands = async (req, res, next) => {
   }
 };
 
+exports.deleteDemand = async (req, res, next) => {
+  const demandId = req.params.id;
+
+  try {
+    // Find the demand by ID and delete it
+    const deletedDemand = await Demande.findByIdAndDelete(demandId);
+
+    if (!deletedDemand) {
+      return res.status(404).json({ error: 'Demand not found' });
+    }
+
+    res.status(200).json({ message: 'Demand deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting demand:', error);
+    res.status(500).json({ error: 'Failed to delete demand' });
+  }
+};
+
 // Define a route to get agent data by ID
 exports.getDemandesForProfesseur = async (req, res) => {
   try {

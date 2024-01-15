@@ -31,7 +31,7 @@ export default function ColumnPinningDynamicRowHeight({prof}) {
   const [selectedDateDe, setSelectedDateDe] = useState(null);
   const [selectedDateA, setSelectedDateA] = useState(null);
   const [description, setDescription] = useState(null);
-
+  const [descriptionAttestation, setDescriptionAttestation] = useState(null);
  
   const navigate = useNavigate();
 
@@ -57,22 +57,48 @@ export default function ColumnPinningDynamicRowHeight({prof}) {
     console.log(demand.professeur);
   try {
     if (demand != null){
-      setSelectedDemand(demand); // Wait for setSelectedDemand to finish updating
+      console.log(demand.__t);
+      setSelectedDemand(demand);
+      if (demand.__t == "Conge"){
+       // Wait for setSelectedDemand to finish updating
       setSelectedDateDe(demand.de_date ? dayjs(formatDate(demand.de_date)) : null);
       setSelectedDateA(demand.a_date ? dayjs(formatDate(demand.a_date)) : null);
       setDescription(demand.description)
+      }
+      else if (demand.__t == "Attestation Travail"){
+        setDescriptionAttestation(demand.description)
+      }
       setOpenModal(true);
+      
     }
   } catch (error) {
     console.error('Error fetching agent data:', error);
   }
 };
 
+const handleDeleteClick = async (demandId) => {
+  try {
+    console.log(backLink);
+    const response = await axios.delete(backLink+`/demandes/demands/${demandId}`);
+    console.log('Demand deleted successfully:', response.data);
+    window.location.reload();
+    // Add any additional logic or UI updates as needed
+  } catch (error) {
+    console.error('Error deleting demand:', error);
+    // Handle the error and update the UI accordingly
+  }
+};
+
+
 const handleCloseModal = () => {
   setOpenModal(false);
 };
 const handleDescriptionChange = (e) => {
   setDescription(e.target.value);
+};
+
+const handleDescriptionAttestationChange = (e) => {
+  setDescriptionAttestation(e.target.value);
 };
 
 const handleApprouverClick = async (demand) => {
@@ -115,6 +141,27 @@ const handleUpdateCongeClick = (e) => {
     })
     .catch((error) => {
       console.error('Error updating congé demand:', error);
+      // Handle error (e.g., show error message)
+    });
+};
+
+
+const handleUpdateAttestationClick = (e) => {
+  e.preventDefault();
+  // Send updated congé demand data to the server
+  const updatedData = {
+    description:descriptionAttestation
+  };
+
+  axios.put(backLink+`/demandeAttestationTravail/update-demand-attestation-travail/${selectedDemand._id}`, updatedData)
+    .then((response) => {
+      // Handle successful update (e.g., show success message)
+      console.log('attestaion travail demand updated:', response.data);
+      setOpenModal(false);
+      window.location.reload();
+    })
+    .catch((error) => {
+      console.error('Error updating attestaion travail demand:', error);
       // Handle error (e.g., show error message)
     });
 };
@@ -206,7 +253,7 @@ const handleDateAChange = (date) => {
                 size="small" startIcon={<EditIcon />}>
                   Modifier
                 </Button>
-                <Button variant="outlined" size="small" startIcon={<DeleteIcon />}>
+                <Button variant="outlined" size="small" disabled={params.row.statut == 'En Cours'} onClick={() => handleDeleteClick(params.row._id)} startIcon={<DeleteIcon />}>
                   Supprimer
                 </Button>
               </React.Fragment>
@@ -345,7 +392,53 @@ const handleDateAChange = (date) => {
               </Stack>
             </form>
           </ModalDialog>
-        ):(selectedDemand.__t === 'Ordre Mission') ? (
+        ):(selectedDemand.__t === 'Attestation Travail')?(
+          <ModalDialog>
+          <DialogTitle>  شهادة عمل
+</DialogTitle>
+          <DialogContent>Attestation de travail</DialogContent>
+          <form
+            onSubmit={(event) => {
+              event.preventDefault();
+              setOpenModal(false);
+            }}
+          >
+            <Stack spacing={2}>
+            <FormControl>
+              </FormControl>
+              <FormControl>
+                <FormLabel>Description : وصف</FormLabel>
+                <Textarea 
+                required 
+                minRows={3}
+                defaultValue={descriptionAttestation}
+                onChange={handleDescriptionAttestationChange}
+                // disabled
+                />
+              </FormControl>
+              <center>
+              <Grid item xs={1}>
+              <Button
+        type="submit"
+        onClick={handleUpdateAttestationClick}
+        sx={{
+          backgroundColor: "#2980B6",
+          color: "white",
+          '&:hover': {
+            backgroundColor: '#1D597E',
+          },
+          // Add margin to create space between the buttons
+          margin: '0 10px',
+        }}
+      >
+        Modifier
+      </Button>
+              </Grid>
+              </center>
+            </Stack>
+          </form>
+        </ModalDialog>
+      ):(selectedDemand.__t === 'Ordre Mission') ? (
           <ModalDialog>
           <DialogTitle>     تكليف بمهمة
 </DialogTitle>

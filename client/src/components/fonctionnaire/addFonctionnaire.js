@@ -15,7 +15,7 @@ import axios from 'axios';
 const backLink = process.env.REACT_APP_BACK_LINK
 const steps = ['données personnelles', 'données professionnelles', 'données supplémentaires'];
 const genreOptions = ['Homme', 'Femme']
-const fonctionOptions = ['Ingénieur']
+const fonctionOptions = ['Ingénieur', 'Technicien']
 
 export default function ColumnPinningDynamicRowHeight({prof}) {
   const navigate = useNavigate();
