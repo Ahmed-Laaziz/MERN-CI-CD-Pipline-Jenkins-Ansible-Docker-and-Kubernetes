@@ -250,7 +250,7 @@ export default function MiniDrawer({role, pageTitle, notifs, id}) {
     color="neutral"
     size="sm"
     variant="soft"
-    src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=286"
+    src="https://img.freepik.com/premium-vector/avatar-profile-icon_188544-4755.jpg"
     aria-controls="menu-appbar"
     aria-haspopup="true"
     onClick={handleMenu}

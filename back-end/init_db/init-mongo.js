@@ -28,13 +28,13 @@ db.agents.insertMany([
   {
     nom: 'chef',
     prenom: 'chef',
-    email: 'chef@chef-ge.com',
+    email: 'chef@chef-fct.com',
     tel: '987654321',
     cin: 'XY222222',
     password: '123',
     genre: 'Home',
     fonction: 'Chef de Département',
-    dep_label: 'GE',
+    dep_label: 'FCT',
     __t:'Admin'
   },
   {

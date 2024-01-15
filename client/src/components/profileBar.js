@@ -36,12 +36,12 @@ export default function UserCard({ agent }) {
 
   const { hist } = useProf();
 
-  const cadreOptions = ["Professeur de l'enseignement superieur", 'Professeur habilité', 'Professeur assistant'];
+  const cadreOptions = ["Professeur de l'enseignement superieur", 'Maitre de conférences qualifié', 'Maitre de conférences'];
   const genreOptions = ['Homme', 'Femme'];
   const cadreGradeMapping = {
     "Professeur de l'enseignement superieur": ['Grade D', 'Grade C', 'Grade B', 'Grade A'],
-    'Professeur habilité': ['Grade C', 'Grade B', 'Grade A'],
-    'Professeur assistant': ['Grade D', 'Grade C', 'Grade B', 'Grade A'],
+    'Maitre de conférences qualifié': ['Grade C', 'Grade B', 'Grade A'],
+    'Maitre de conférences': ['Grade D', 'Grade C', 'Grade B', 'Grade A'],
   };
   const gradeClasseMapping = {
     'Grade D': ['930-01', '960-02', '990-03', '1020-04'],

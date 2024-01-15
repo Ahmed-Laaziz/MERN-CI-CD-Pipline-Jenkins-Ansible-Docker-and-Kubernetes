@@ -470,7 +470,7 @@ useEffect(() => {
         </ModalDialog>
       </Modal>
 
-      <Modal open={openAtt1} onClose={() => setOpenAtt3(false)}>
+      <Modal open={openAtt1} onClose={() => setOpenAtt1(false)}>
         <ModalDialog>
           <DialogTitle>شهادة عمل</DialogTitle>
           <DialogContent>Attestation de travail</DialogContent>
