@@ -450,7 +450,7 @@ const updateAdmin = async () => {
           {agent ? agent.prenom.split('|')[0]  + " " + agent.nom.split('|')[0] + "   |   " +  agent.prenom.split('|')[1]  + " " + agent.nom.split('|')[1] : 'Loading...'} 
           </Typography>
           <Typography level="body-sm" fontWeight="lg" textColor="text.tertiary">
-          {isAdmin ? agent.fonction : 'Professeur'} 
+          {isAdmin ? agent.fonction : (isProfesseur ? agent.cadre : 'Loading...')}
           </Typography>
           <Sheet
             sx={{
