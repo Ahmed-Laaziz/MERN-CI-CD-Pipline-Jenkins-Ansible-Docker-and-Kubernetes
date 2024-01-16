@@ -16,6 +16,49 @@ exports.getProfs = async (req, res, next) => {
     }
 };
 
+exports.getProfsExceptFCT = async (req, res, next) => {
+  try {
+      const profsExceptFCT = await Professeur.find({ departement: { $ne: 'FCT' } });
+      res.status(200).json(profsExceptFCT);
+  } catch (error) {
+      console.error('Error retrieving professors except FCT:', error);
+      res.status(500).json({ error: 'Failed to retrieve professors except FCT' });
+  }
+};
+
+// Define a route to retrieve and return professors for the department "TRI"
+exports.getProfsTRI = async (req, res, next) => {
+  try {
+      const profsTRI = await Professeur.find({ departement: 'TRI' });
+      res.status(200).json(profsTRI);
+  } catch (error) {
+      console.error('Error retrieving TRI professors:', error);
+      res.status(500).json({ error: 'Failed to retrieve TRI professors' });
+  }
+};
+
+// Define a route to retrieve and return professors for the department "FCT"
+exports.getProfsFCT = async (req, res, next) => {
+  try {
+      const profsFCT = await Professeur.find({ departement: 'FCT' });
+      res.status(200).json(profsFCT);
+  } catch (error) {
+      console.error('Error retrieving FCT professors:', error);
+      res.status(500).json({ error: 'Failed to retrieve FCT professors' });
+  }
+};
+
+// Define a route to retrieve and return professors for the department "CP"
+exports.getProfsCP = async (req, res, next) => {
+  try {
+      const profsCP = await Professeur.find({ departement: 'CP' });
+      res.status(200).json(profsCP);
+  } catch (error) {
+      console.error('Error retrieving CP professors:', error);
+      res.status(500).json({ error: 'Failed to retrieve CP professors' });
+  }
+};
+
 exports.addProf =  async (req, res, next) => {
     try {
       const randomPassword = generateRandomPassword(8);

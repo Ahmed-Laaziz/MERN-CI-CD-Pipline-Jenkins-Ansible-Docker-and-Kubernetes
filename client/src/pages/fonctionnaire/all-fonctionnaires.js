@@ -1,8 +1,8 @@
-import CustomeTable from '../components/table';
-import Drawer from '../components/drawer';
+import CustomeTable from '../../components/fonctionnaire/allFonctionnaires';
+import Drawer from '../../components/drawer';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import Breadcrumb from '../components/breadcrumb';
+import Breadcrumb from '../../components/breadcrumb';
 import jwt_decode from 'jwt-decode';
 import axios from'axios';
 import React, { useState, useEffect } from 'react';
@@ -91,7 +91,7 @@ useEffect(() => {
   
 
   {agent?(
-  <CustomeTable admin_dep={agent.dep_label} sx={{marginTop:'10%'}}/>
+  <CustomeTable sx={{marginTop:'10%'}}/>
 ):null}
 </Box>
 
