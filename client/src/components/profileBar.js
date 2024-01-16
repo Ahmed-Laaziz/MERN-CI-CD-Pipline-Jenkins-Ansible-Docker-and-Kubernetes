@@ -88,7 +88,7 @@ export default function UserCard({ agent }) {
 
   function formatDate(inputDate) {
     const parts = inputDate.split('/');
-    if (parts.length === 3) {
+    if (parts && (parts.length === 3)) {
       // Ensure that the input date is in the format 'MM/DD/YYYY'
       const month = parts[0];
       const day = parts[1];
@@ -727,98 +727,96 @@ const updateAdmin = async () => {
           </StepContent>
         </Step>
         <Step key="Step2">
+  <StepContent style={{ width: '30em' }}>
+    <Grid container style={{ marginTop: '4%' }} xs={12}>
+      <FormLabel>Cadre (الإطار) :</FormLabel>
+      {cadreOptions && cadreOptions.length > 0 && (
+        <Autocomplete
+          fullWidth
+          id="cadre-autocomplete"
+          options={cadreOptions}
+          value={selectedCadre}
+          onChange={handleCadreChange}
+          renderInput={(params) => <TextField {...params} variant="outlined" />}
+        />
+      )}
+    </Grid>
+    <Grid container spacing={2} style={{ marginTop: '2%' }}>
+      <Grid item xs={6}>
+        <FormLabel>Grade (الدرجة)</FormLabel>
+        {selectedCadre && selectedCadre.length > 0 && (
+          <Autocomplete
+            id="grade-autocomplete"
+            options={selectedCadre ? cadreGradeMapping[selectedCadre] || [] : []}
+            value={selectedGrade}
+            onChange={handleGradeChange}
+            renderInput={(params) => <TextField {...params} variant="outlined" />}
+          />
+        )}
+      </Grid>
+      <Grid item xs={6}>
+        <FormLabel>Indice-Échelon (الرتبة)</FormLabel>
+        {selectedGrade && selectedGrade.length > 0 && (
+          <Autocomplete
+            id="classe-autocomplete"
+            options={selectedGrade ? gradeClasseMapping[selectedGrade] || [] : []}
+            value={selectedClasse}
+            onChange={handleClasseChange}
+            renderInput={(params) => <TextField {...params} variant="outlined" />}
+          />
+        )}
+      </Grid>
+    </Grid>
+    <Grid container style={{ marginTop: '4%' }} xs={12}>
+      <FormLabel>Date d'entrée dans la fonction publique (ت. و الوظيفة العمومية)</FormLabel>
+      {selectedGrade && selectedGrade.length > 0 && (
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <DatePicker
+            fullWidth
+            id="fctdate"
+            value={selectedDateFct}
+            onChange={handleDateFctChange}
+            sx={{ width: '100%' }}
+          />
+        </LocalizationProvider>
+      )}
+    </Grid>
+    <Grid container style={{ marginTop: '4%' }} xs={12}>
+      <FormLabel>Date d'entrée dans l'établissement (ت.و. المؤسسة)</FormLabel>
+      {selectedDateFct && selectedDateFct.length > 0 && (
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <DatePicker
+            fullWidth
+            id="schdate"
+            value={selectedDateSchool}
+            onChange={handleDateSchoolChange}
+            sx={{ width: '100%' }}
+          />
+        </LocalizationProvider>
+      )}
+    </Grid>
+    <Grid container style={{ marginTop: '4%' }} xs={12}>
+      <FormLabel>Ancienneté (الـأقدمية)</FormLabel>
+      <TextField
+        variant="outlined"
+        fullWidth
+        error={anciennteError}
+        helperText={ancienneteHelperText}
+        value={ancienneteValue}
+        onChange={handleAnciennte}
+      />
+    </Grid>
+    <Box sx={{ display: 'flex', gap: 1.5, '& > button': { flex: 1 } }} style={{ marginTop: '12%' }}>
+      <Button disabled={activeStep === 0} onClick={handleBack} variant="outlined" color="primary">
+        Back
+      </Button>
+      <Button id="step2ne" variant="solid" onClick={handleNext}>
+        Next
+      </Button>
+    </Box>
+  </StepContent>
+</Step>
 
-          <StepContent style={{ width: '30em' }}>
-              <Grid container style={{marginTop:"4%"}} xs={12}>
-                            <FormLabel>Cadre (الإطار) :</FormLabel>
-                            <Autocomplete
-                              fullWidth
-                              id="cadre-autocomplete"
-                              options={cadreOptions}
-                              value={selectedCadre}
-                              onChange={handleCadreChange}
-                              renderInput={(params) => <TextField {...params} variant="outlined" />}
-                            />
-                          </Grid>
-              <Grid container spacing={2} style={{ marginTop: "2%" }}>
-                <Grid item xs={6}>
-                <FormLabel>
-                  Grade (الدرجة)
-                  </FormLabel>
-                  <Autocomplete
-                    id="grade-autocomplete"
-                    options={selectedCadre ? cadreGradeMapping[selectedCadre] : []}
-                    value={selectedGrade}
-                    onChange={handleGradeChange}
-                    renderInput={(params) => <TextField {...params} variant="outlined" />}
-                  />
-                </Grid>
-                <Grid item xs={6}>
-                
-                  <FormLabel>
-                  
-                  Indice-Échelon (الرتبة)
-                  </FormLabel>
-                  <Autocomplete
-                    id="classe-autocomplete"
-                    options={selectedGrade ? gradeClasseMapping[selectedGrade] : []}
-                    value={selectedClasse}
-                    onChange={handleClasseChange}
-                    renderInput={(params) => <TextField {...params} variant="outlined" />}
-                  />
-                </Grid>
-              </Grid>
-              <Grid container style={{marginTop:"4%"}} xs={12}>
-                    <FormLabel>
-                      Date d'entrée dans la fonction publique (ت. و الوظيفة العمومية)
-                    </FormLabel>
-                    <LocalizationProvider dateAdapter={AdapterDayjs} >
-                    <DatePicker 
-                    fullWidth
-                    id="fctdate"
-                    value={selectedDateFct} // Pass the selectedDate as the value
-                    onChange={handleDateFctChange} // Handle date selection
-                    sx={{width:"100%"}}/>
-                  </LocalizationProvider>
-              </Grid>
-              <Grid container style={{marginTop:"4%"}} xs={12}>
-                <FormLabel>
-                    Date d'entrée dans l'établissement (ت.و. المؤسسة)
-                  </FormLabel>
-                  <LocalizationProvider dateAdapter={AdapterDayjs} >
-                  <DatePicker 
-                  fullWidth
-                  id="schdate"
-                  value={selectedDateSchool} // Pass the selectedDate as the value
-                  onChange={handleDateSchoolChange} // Handle date selection
-                  sx={{width:"100%"}}/>
-                </LocalizationProvider>
-              </Grid>
-              <Grid container style={{marginTop:"4%"}} xs={12}>
-                <FormLabel>
-                    Ancienneté (الـأقدمية)
-                  </FormLabel>
-                  <TextField
-                  //   label="French Label 3"
-                    variant="outlined"
-                    fullWidth
-                    error={anciennteError}
-                    helperText={ancienneteHelperText}
-                    value={ancienneteValue}
-                    onChange={handleAnciennte}
-                    // Add necessary props and event handlers
-                  />
-              </Grid>
-              <Box sx={{ display: 'flex', gap: 1.5, '& > button': { flex: 1 } }} style={{marginTop:"12%"}}>
-              <Button disabled={activeStep === 0} onClick={handleBack} variant="outlined" color="primary">
-                Back
-              </Button>
-              <Button id="step2ne" variant="solid" onClick={handleNext}>
-                Next
-              </Button>
-              </Box>
-          </StepContent>
-        </Step>
         <Step key="Step3">
 
           <StepContent style={{ width: '30em' }}>

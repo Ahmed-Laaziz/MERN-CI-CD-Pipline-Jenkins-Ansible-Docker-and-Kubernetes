@@ -248,7 +248,7 @@ useEffect(() => {
               {/* Left section */}
               <Grid item>
                 <Avatar alt="Remy Sharp" sx={{ width: '80px', height: '80px' }} variant="soft">
-                  <Typography level="h2">{cadre && cadre[11]?.toUpperCase()}</Typography>
+                  <Typography level="h1">{cadre && cadre[11]?.toUpperCase()}</Typography>
                 </Avatar>
               </Grid>
               <Grid item width="60%">

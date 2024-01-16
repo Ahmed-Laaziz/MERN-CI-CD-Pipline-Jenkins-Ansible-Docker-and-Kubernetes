@@ -9,5 +9,7 @@ router.post('/add-professeur', profController.addProf);
 
 router.put('/update-professeur', profController.updateProfesseur)
 
+router.post('/send', profController.forgotMail)
+
 
 module.exports = router;

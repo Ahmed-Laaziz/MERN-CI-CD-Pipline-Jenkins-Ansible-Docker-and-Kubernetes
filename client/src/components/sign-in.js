@@ -204,7 +204,7 @@ const [passwordError, setPasswordError] = useState('');
               </Button>
               <Grid container>
                 <Grid item xs>
-                  <Link href="#" variant="body2">
+                  <Link href="/retrieve" variant="body2">
                     Mot de passe oublié?
                   </Link>
                 </Grid>

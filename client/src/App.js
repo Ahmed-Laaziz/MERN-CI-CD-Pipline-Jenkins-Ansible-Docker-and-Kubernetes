@@ -25,6 +25,8 @@ import DemandsHistory from "./pages/demandsHistory";
 import FileUpload from "./pages/uploadFile";
 import FilesDownload from "./pages/profFiles";
 import Dashboard from "./pages/dashboard";
+import RetreiveSide from "./components/pass-oublier";
+import NewPass from "./components/new-pass";
 export default function App() {
   return (
     <div>
@@ -55,6 +57,8 @@ export default function App() {
         <Route path="prof-profile" element={<Proffile/>} />
         <Route path="file-upload" element={<FileUpload/>} />
         <Route path="files-download" element={<FilesDownload/>} />
+        <Route path="retrieve" element={<RetreiveSide/>} />
+        <Route path="new-pass" element={<NewPass/>} />
         {/* </Route> */}
       </Routes>
     </BrowserRouter>

@@ -3,7 +3,16 @@ const Historique = require("../../models/historique");
 const sendEmail = require('../../business/emailSender');
 const generateRandomPassword = require('../../business/passwordGenerator');
 const mongoose = require('mongoose');
+const crypto = require('crypto');
 
+const yourSecretKey = "2e8b32f6d789c1fa68e540f8b2c9825f";
+
+const encrypt = (text) => {
+  const cipher = crypto.createCipher('aes-256-cbc', yourSecretKey);
+  let encrypted = cipher.update(text, 'utf-8', 'hex');
+  encrypted += cipher.final('hex');
+  return encrypted;
+};
 
 // Define a route to retrieve and return data from the "professeur" collection
 exports.getProfs = async (req, res, next) => {
@@ -128,4 +137,21 @@ exports.updateProfesseur = async (req, res, next) => {
     res.status(500).json({ error: 'Failed to update professor' });
   }
 };
+
+exports.forgotMail =  async (req, res, next) => {
+
+  try{
+  // Forgotten Password Email Subject
+  const forgotPasswordSubject = 'Réinitialisation de mot de passe';
+  const email = encrypt(req.body.email);
+
+  // Forgotten Password Email Body
+  const forgotPasswordText = "Cher Professeur,\n\nVous avez demandé la réinitialisation de votre mot de passe sur notre plateforme. Pour procéder à la réinitialisation, veuillez suivre le lien ci-dessous :\n\nhttp://localhost:3000/new-pass?e="+email+"\n\nSi vous n'avez pas demandé cette réinitialisation, veuillez ignorer cet e-mail.\n\nCordialement,\nVotre Équipe de Plateforme";
+  sendEmail(req.body.email, forgotPasswordSubject, forgotPasswordText);
+    
+  } catch (error) {
+    console.error('Error adding professeur:', error);
+    res.status(500).json({ error: 'Failed to add professeur' });
+  }
+}
 
