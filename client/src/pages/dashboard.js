@@ -37,6 +37,8 @@ const getUserIdFromToken = (token) => {
 };
 
 const [professeurs, setProfesseurs] = useState([]);
+const triProfesseurs = professeurs.length > 0 ? professeurs.filter(professor => professor.departement === 'TRI') : [];
+const [tri, setTri] = useState([]);
   
   const fetchProfessor = async () => {
     try {
@@ -45,8 +47,11 @@ const [professeurs, setProfesseurs] = useState([]);
       );
       // const professeurs = response.data;
       setProfesseurs(response.data);
-      console.log("all professors: ")
-      console.log(professeurs)
+      setTri(professeurs.filter(professor => professor.departement === 'TRI'))
+      //console.log("all professors: ")
+      console.log("tri professors :")
+      console.log(tri)
+      
       // const professorsCadre = {};
       // for (const professeur of professeurs) {
       //   try {
@@ -68,6 +73,8 @@ const [professeurs, setProfesseurs] = useState([]);
     counts[department] = (counts[department] || 0) + 1;
     return counts;
   }, {});
+
+  
   
   const cadreCounts = professeurs.reduce((counts, professor) => {
     const cadre = professor.cadre;
@@ -82,10 +89,16 @@ const [professeurs, setProfesseurs] = useState([]);
   const cadreNames = Object.keys(cadreCounts);
   const cadreValues = Object.values(cadreCounts);
 
+  let depcountNames;
+  let depacountValues;
+
 // Get the user ID from the token
 const agentId = getUserIdFromToken(token);
 const [agent, setAgent] = useState(null);
 const [notifs, setNotifs] = useState(null);
+const [departmentCadreCounts, setDepartmentCadreCounts] = useState(null);
+const [departmentGanreCounts, setDepartmentGenreCounts] = useState(null);
+
 console.log('userId : ' + agentId);
 useEffect(() => {
   const fetchAgentData = async () => {
@@ -100,6 +113,8 @@ useEffect(() => {
       console.error('Error fetching agent data:', error);
     }
   };
+
+  
 
   const fetchAgentNotifs = async () => {
     try {
@@ -124,6 +139,43 @@ useEffect(() => {
   console.log("the agent is :")
   console.log(agent)
 }, [agentId]);
+
+useEffect(() => {
+  if (agent && agent.dep_label) {
+    const counts = professeurs
+      .filter(professor => professor.departement === agent.dep_label)
+      .reduce((counts, professor) => {
+        const depcadre = professor.cadre;
+        counts[depcadre] = (counts[depcadre] || 0) + 1;
+        return counts;
+      }, {});
+
+    setDepartmentCadreCounts(counts);
+
+
+    console.log("dep counts :");
+    console.log(counts);
+  }
+}, [agent]);
+
+useEffect(() => {
+  if (agent && agent.dep_label) {
+    const counts = professeurs
+      .filter(professor => professor.departement === agent.dep_label)
+      .reduce((counts, professor) => {
+        const depgenre = professor.genre;
+        counts[depgenre] = (counts[depgenre] || 0) + 1;
+        return counts;
+      }, {});
+
+    setDepartmentGenreCounts(counts);
+
+
+    console.log("genre counts :");
+    console.log(counts);
+  }
+}, [agent]);
+
 
 useEffect(() => {
   console.log("notifs:", notifs);
@@ -171,93 +223,60 @@ useEffect(() => {
        >
             <Breadcrumb pageLabel="Dashboard"/>
 <>&nbsp;</>
-          <Box
-            sx={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(3, 1fr)',  // Three columns for three cards
-              gap: 1,
-              maxWidth: '100%',  // Adjust the maximum width as needed
-              width: '100%',       // Ensure the grid takes up the full width
-            }}
-          >
-            <Card variant="solid" color="primary" invertedColors sx={{ width: '100%' }}>
+<Box
+  sx={{
+    display: 'grid',
+    gridTemplateColumns: 'repeat(2, 1fr)',
+    gap: 1,
+    maxWidth: '100%',
+    width: '100%',
+  }}
+>
+  {departmentCadreCounts &&
+    Object.entries(departmentCadreCounts).map(([cadre, count], index) => (
+      // Display cards for the first two entries
+      index < 2 && (
+        <Card
+          variant="solid"
+          color={index === 0 ? 'primary' : 'warning'}
+          invertedColors
+          sx={{ width: '100%' }}
+          key={cadre}
+        >
+          <CardContent width="100%">
+            <Grid container spacing={2} alignItems="center" width="100%">
+              {/* Left section */}
+              <Grid item>
+                <Avatar alt="Remy Sharp" sx={{ width: '80px', height: '80px' }} variant="soft">
+                  <Typography level="h2">{cadre && cadre[11]?.toUpperCase()}</Typography>
+                </Avatar>
+              </Grid>
+              <Grid item width="60%">
                 <CardContent>
-                    <Grid container spacing={2} alignItems="center">
-                    {/* Left section */}
-                    <Grid item>
-                        <Avatar alt="Remy Sharp" sx={{ width: '80px', height: '80px' }} variant="soft">
-                        <Typography level="h2">TRI</Typography>
-                        </Avatar>
-                    </Grid>
-                    <Grid item>
-                        <CardContent>
-                        <Typography level="h3">Département TRI</Typography>
-                        </CardContent>
-                    </Grid>
-                    <Grid item xs={12} md={6} lg={4} xl={3}>
-                        <CardContent>
-                        <Typography fontSize={72} level='h2' sx={{ paddingLeft: "6vw" }}>{ departmentCounts["TRI"] }</Typography>
-                        </CardContent>
-                    </Grid>
-                    </Grid>
+                  <Typography level="h3">{cadre}</Typography>
                 </CardContent>
-            </Card>
-    
-            <Card variant="solid" color="warning" invertedColors sx={{ width: '100%' }}>
+              </Grid>
+              <Grid item xs={12} md={6} lg={4} xl={3}>
                 <CardContent>
-                    <Grid container spacing={2} alignItems="center">
-                    {/* Left section */}
-                    <Grid item>
-                        <Avatar alt="Remy Sharp" sx={{ width: '80px', height: '80px' }} variant="soft">
-                        <Typography level="h2">GE</Typography>
-                        </Avatar>
-                    </Grid>
-                    <Grid item>
-                        <CardContent>
-                        <Typography level="h3">Département GE</Typography>
-                        </CardContent>
-                    </Grid>
-                    <Grid item xs={12} md={6} lg={4} xl={3}>
-                        <CardContent>
-                        <Typography fontSize={72} level='h2' sx={{ paddingLeft: "6vw"}}>{ departmentCounts["GE"] }</Typography>
-                        </CardContent>
-                    </Grid>
-                    </Grid>
+                  <Typography
+                    fontSize={72}
+                    level="h2"
+                    sx={{ marginLeft: 'auto', paddingRight: '1vw' }}
+                  >
+                    {count !== undefined ? count : 'N/A'}
+                  </Typography>
                 </CardContent>
+              </Grid>
+            </Grid>
+          </CardContent>
+        </Card>
+      )
+    ))}
+</Box>
 
-            </Card>
-    
-            <Card variant="solid" color="neutral" invertedColors sx={{ width: '100%' }}>
-  <CardContent>
-    <Grid container spacing={2} alignItems="center">
-      {/* Left section */}
-      <Grid item>
-        <Avatar alt="Remy Sharp" sx={{ width: '80px', height: '80px' }} variant="soft">
-          <Typography level="h2">CP</Typography>
-        </Avatar>
-      </Grid>
-      <Grid item>
-        <CardContent>
-          <Typography level="h3">Cycle préparatoire</Typography>
-        </CardContent>
-      </Grid>
-      <Grid item xs={12} md={6} lg={4} xl={3}>
-        <CardContent>
-          <Typography
-            fontSize={72}
-            level="h2"
-            sx={{marginLeft: "6vw" }} // Set both margins to 1vw
-          >
-            { departmentCounts["CP"] }
-          </Typography>
-        </CardContent>
-      </Grid>
-    </Grid>
-  </CardContent>
-</Card>
 
-            
-          </Box>
+
+
 
           <Box
             sx={{
@@ -272,56 +291,57 @@ useEffect(() => {
             }}
           >
               <Card variant="outlined" sx={{ height: '50vh' }}>
-  <Typography level="h3">Professeur par département :</Typography>
+  <Typography level="h3">Professeur par genre :</Typography>
   <Divider inset="none" />
   <CardContent>
-    {departmentNames.length > 0 && departmentValues.length > 0 ? (
+    {departmentGanreCounts && Object.keys(departmentGanreCounts).length > 0 ? (
       <BarChart
-        xAxis={[{ scaleType: 'band', data: departmentNames }]}
-        series={[{ data: departmentValues }]}
+        xAxis={[{ scaleType: 'band', data: Object.keys(departmentGanreCounts) }]}
+        series={[{ data: Object.values(departmentGanreCounts) }]}
         sx={{ width: '100%', height: '100%' }} // Adjust based on your needs
       />
     ) : (
-      <Typography>Loading...</Typography>
+      <Typography>No data available.</Typography>
     )}
   </CardContent>
 </Card>
 
 
 <Card variant="outlined" sx={{ height: '50vh' }}>
-            <Typography level="h3">Professeur par cadre :</Typography>
-            <Divider inset="none" />
-            <CardContent>
-              {cadreNames.length > 0 && cadreValues.length > 0 ? (
-                <PieChart
-                  series={[
-                    {
-                      data: cadreNames.map((cadre, index) => ({
-                        id: index,
-                        value: cadreValues[index],
-                        label: cadre,
-                      })),
-                    },
-                  ]}
-                  sx={{
-                    width: { xs: 200, sm: 300, md: 400, lg: 500, xl: 650 }, // Adjust based on your needs
-                    height: { xs: 100, sm: 150, md: 200, lg: 250, xl: 300 }, // Adjust based on your needs
-                  }}
-                  slotProps={{
-                    legend: {
-                      direction: 'column',
-                      position: { vertical: 'middle', horizontal: 'right' },
-                      padding: 0,
-                      fontSize: 18,
-                    },
-                  }}
-                  margin={{ right: 300 }}
-                />
-              ) : (
-                <Typography>Loading...</Typography>
-              )}
-            </CardContent>
-          </Card>
+  <Typography level="h3">Professeur par cadre :</Typography>
+  <Divider inset="none" />
+  <CardContent>
+    {departmentCadreCounts && Object.keys(departmentCadreCounts).length > 0 ? (
+      <PieChart
+        series={[
+          {
+            data: Object.entries(departmentCadreCounts).map(([cadre, value]) => ({
+              id: cadre,
+              value: value,
+              label: cadre,
+            })),
+          },
+        ]}
+        sx={{
+          width: { xs: 200, sm: 300, md: 400, lg: 500, xl: 650 }, // Adjust based on your needs
+          height: { xs: 100, sm: 150, md: 200, lg: 250, xl: 300 }, // Adjust based on your needs
+        }}
+        slotProps={{
+          legend: {
+            direction: 'column',
+            position: { vertical: 'middle', horizontal: 'right' },
+            padding: 0,
+            fontSize: 18,
+          },
+        }}
+        margin={{ right: 300 }}
+      />
+    ) : (
+      <Typography>No data available.</Typography>
+    )}
+  </CardContent>
+</Card>
+
           </Box>
           
         </Box>
