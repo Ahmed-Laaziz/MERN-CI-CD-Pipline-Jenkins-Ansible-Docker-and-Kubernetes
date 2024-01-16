@@ -184,7 +184,7 @@ export default function DataGridDemo({admin_dep}) {
         }
       else{
         const response = await axios.get(
-          backLink+`/prof/professeurs` // Replace with your actual API endpoint
+          backLink+`/prof/all-professeurs` // Replace with your actual API endpoint
         );
         setProfesseurs(response.data);
       }

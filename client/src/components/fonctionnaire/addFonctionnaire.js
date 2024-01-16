@@ -226,7 +226,7 @@ const addFonctionnaire = async () => {
     console.log("collected fonctionnaire infos : " + requestData.nom)
     // Make a POST request to your backend API
     const response = await axios.post(url, requestData);
-    navigate(`/all-professors`);
+    navigate(`/all-fonctionnaires`);
     
   } catch (error) {
     console.error("Error fetching fonctionnaire data:", error);
