@@ -248,7 +248,7 @@ export default function DataGridDemo({admin_dep}) {
   }));
 
   return (
-    <Box sx={{ height: 500, width: '99%' }}>
+    <Box sx={{ height: 500, width: '100%' }}>
     <Button variant="outlined" onClick={handleExportExcel}> 
 <DownloadIcon/> Exporter sous Excel
       </Button>

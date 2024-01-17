@@ -16,9 +16,74 @@ const backLink = process.env.REACT_APP_BACK_LINK
 const steps = ['données personnelles', 'données professionnelles', 'données supplémentaires'];
 const genreOptions = ['Homme', 'Femme']
 const fonctionOptions = ['Ingénieur', 'Technicien']
+const cadreOptions = ["Ingénieur d'application", 'Technicien', 'Administrateur'];
+// const gradeOptions = ['Grade 1', 'Grade 2'];
+// const classeOptions = ['Classe 1', 'Classe 2'];
+// Define the mapping of cadreOptions to gradeOptions
+const cadreGradeMapping = {
+  "Ingénieur d'application": ['Grade Principal', 'Premier Grade'],
+  'Technicien': ['1er Grade', '2éme Grade', '3éme Grade', '4éme Grade'],
+  'Administrateur': ['1er Grade', '2éme Grade', '3éme Grade','1er Grade-Imprimerie-', '2éme Grade-Imprimerie-', '3éme Grade-Imprimerie-',],
+};
 
+// Define the mapping of grade to classeOptions
+const gradeClasseMapping = (selectedCadre) => {
+  // Define the mapping of grade to classeOptions based on the selected cadre
+  
+  if (selectedCadre) {
+    if (selectedCadre === "Ingénieur d'application") {
+      return {
+        'Grade Principal': ['402-01', '428-02', '456-03', '484-04', '512-05', '564-06'],
+        'Premier Grade': ['275-01', '300-02', '326-03', '351-04', '377-05'],
+      };
+    } else if (selectedCadre === "Technicien") {
+      return {
+        '1er Grade': ['336-01', '369-02', '403-03', '436-04', '472-05', '509-06', '542-07', '574-08', '606-09', '639-10', '675-11', '690-12', '704-13'],
+        '2éme Grade': ['275-01', '300-02', '326-03', '351-04', '377-05', '402-06', '428-07', '456-08', '484-09', '512-10', '564-ex'],
+        '3éme Grade': ['235-01', '253-02', '274-03', '296-04', '317-05', '339-06', '361-07', '382-08', '404-09', '438-10'],
+        '4éme Grade': ['207-01', '224-02', '241-03', '259-04', '276-05', '293-06', '311-07', '332-08', '353-09', '373-10'],
+      };
+    } else if (selectedCadre === "Administrateur") {
+      return {
+        '1er Grade': ['704-01', '746-02', '779-03', '812-04', '840-05', '870-06'],
+        '2éme Grade': ['336-01', '369-02', '403-03', '436-04', '472-05', '509-06', '542-07', '574-08', '606-09', '639-10','704-ex'],
+        '3éme Grade': ['275-01', '300-02', '326-03', '351-04', '377-05', '402-06', '428-07', '456-08', '484-09', '512-10', '564-ex'],
+        '1er Grade-Imprimerie-': ['704-01', '746-02', '779-03', '812-04', '840-05', '870-06'],
+        '2éme Grade-Imprimerie-': ['336-01', '369-02', '403-03', '436-04', '472-05', '509-06', '542-07', '574-08', '606-09', '639-10','704-ex'],
+        '3éme Grade-Imprimerie-': ['275-01', '300-02', '326-03', '351-04', '377-05', '402-06', '428-07', '456-08', '484-09', '512-10', '564-ex'],
+      };
+    }
+}
+return {};
+};
 export default function ColumnPinningDynamicRowHeight({prof}) {
   const navigate = useNavigate();
+
+  //Classe
+  const [selectedClasse, setSelectedClasse] = useState(null);
+
+  const handleClasseChange = (event, newValue) => {
+    setSelectedClasse(newValue);
+  };
+
+  //Grade
+  const [selectedGrade, setSelectedGrade] = useState(null);
+
+  const handleGradeChange = (event, newValue) => {
+    setSelectedGrade(newValue);
+
+    // Clear the selected classe when grade changes
+    setSelectedClasse(null);
+  };
+
+  const [selectedCadre, setSelectedCadre] = useState(null);
+  const handleCadreChange = (event, newValue) => {
+    setSelectedCadre(newValue);
+
+    // Clear the selected grade and classe when cadre changes
+    setSelectedGrade(null);
+    setSelectedClasse(null);
+  };
   
      //name 
   const [firstName, setFirstName] = React.useState('');
@@ -221,7 +286,9 @@ const addFonctionnaire = async () => {
       tel: phoneNumber,
       cin: cin,
       genre: selectedGenre,
-      cadre: selectedFonction
+      cadre: selectedCadre,
+      grade:selectedGrade,
+      classe:selectedClasse,
     };
     console.log("collected fonctionnaire infos : " + requestData.nom)
     // Make a POST request to your backend API
@@ -305,6 +372,58 @@ const addFonctionnaire = async () => {
           />
               </div>
             </Grid>
+
+
+
+            <Grid item xs={4} >
+            <div>
+                <Typography variant="subtitle1" gutterBottom>
+                  
+                Cadre (الإطار )
+                </Typography>
+                <Autocomplete
+                  id="cadre-autocomplete"
+                
+                  options={cadreOptions}
+                  value={selectedCadre}
+                  onChange={handleCadreChange}
+                  renderInput={(params) => <TextField {...params} variant="outlined" />}
+                />
+              </div>
+            </Grid>
+            <Grid item xs={4}>
+            <div>
+                <Typography variant="subtitle1" gutterBottom>
+                  
+                Grade (الدرجة)
+                </Typography>
+                <Autocomplete
+                  id="cadre-autocomplete"
+                  options={selectedCadre ? cadreGradeMapping[selectedCadre] : []}
+                  value={selectedGrade}
+                  onChange={handleGradeChange}
+                  renderInput={(params) => <TextField {...params} variant="outlined" />}
+                />
+              </div>
+            </Grid>
+            <Grid item xs={4}>
+            <div>
+                <Typography variant="subtitle1" gutterBottom>
+                  
+                Indice-Échelon (الرتبة)
+                </Typography>
+                <Autocomplete
+                    id="classe-autocomplete"
+                    options={selectedGrade ? gradeClasseMapping(selectedCadre)[selectedGrade] : []}
+                    value={selectedClasse}
+                    onChange={handleClasseChange}
+                    renderInput={(params) => <TextField {...params} variant="outlined" />}
+                  />
+              </div>
+            </Grid>
+
+
+
             <Grid item xs={2} >
             <div>
                 <Typography variant="subtitle1" gutterBottom>
@@ -321,7 +440,7 @@ const addFonctionnaire = async () => {
               </div>
             </Grid>
             
-            <Grid item xs={2}>
+            <Grid item xs={3}>
               <div>
                 <Typography variant="subtitle1" gutterBottom>
                   CIN (رقم ب.ت.وطنية)
@@ -339,23 +458,7 @@ const addFonctionnaire = async () => {
                 />
               </div>
             </Grid>
-            <Grid item xs={2} >
-            <div>
-                <Typography variant="subtitle1" gutterBottom>
-                  
-                Fonction (وظيفة)
-                </Typography>
-                <Autocomplete
-                  id="cadre-autocomplete"
-                
-                  options={fonctionOptions}
-                  value={selectedFonction}
-                  onChange={handleFonctionChange}
-                  renderInput={(params) => <TextField {...params} variant="outlined" />}
-                />
-              </div>
-            </Grid>
-            <Grid item xs={3}>
+            <Grid item xs={4}>
               <div>
                 <Typography variant="subtitle1" gutterBottom>
                   Email (البريد الإلكتروني)

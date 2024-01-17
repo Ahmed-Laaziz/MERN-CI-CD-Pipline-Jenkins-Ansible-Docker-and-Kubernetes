@@ -20,13 +20,13 @@ const backLink = process.env.REACT_APP_BACK_LINK
 const steps = ['données personnelles', 'données professionnelles', 'données supplémentaires'];
 const genreOptions = ['Homme', 'Femme']
 const departementOptions = ['TRI', 'CP']
-const cadreOptions = ["Professeur de l'enseignement superieur", 'Maitre de conférences qualifié', 'Maitre de conférences'];
+const cadreOptions = ["Professeur de l'enseignement superieur", 'Maitre de conférences habilité', 'Maitre de conférences'];
 // const gradeOptions = ['Grade 1', 'Grade 2'];
 // const classeOptions = ['Classe 1', 'Classe 2'];
 // Define the mapping of cadreOptions to gradeOptions
 const cadreGradeMapping = {
   "Professeur de l'enseignement superieur": ['Grade D', 'Grade C', 'Grade B', 'Grade A'],
-  'Maitre de conférences qualifié': ['Grade C', 'Grade B', 'Grade A'],
+  'Maitre de conférences habilité': ['Grade C', 'Grade B', 'Grade A'],
   'Maitre de conférences': ['Grade D', 'Grade C', 'Grade B', 'Grade A'],
 };
 
@@ -42,7 +42,7 @@ const gradeClasseMapping = (selectedCadre) => {
         'Grade B': ['860-01', '885-02', '915-03', '945-04'],
         'Grade A': ['760-01', '785-02', '810-03', '835-04'],
       };
-    } else if (selectedCadre === "Maitre de conférences qualifié") {
+    } else if (selectedCadre === "Maitre de conférences habilité") {
       return {
         'Grade C': ['900-01', '930-02', '960-03', '990-04', '1020-05'],
         'Grade B': ['779-01', '812-02', '840-03', '870-04'],
