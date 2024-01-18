@@ -223,61 +223,58 @@ useEffect(() => {
        >
             <Breadcrumb pageLabel="Dashboard"/>
 <>&nbsp;</>
-<Box
-  sx={{
-    display: 'grid',
-    gridTemplateColumns: 'repeat(2, 1fr)',
-    gap: 1,
-    maxWidth: '100%',
-    width: '100%',
-  }}
->
-  {departmentCadreCounts &&
-    Object.entries(departmentCadreCounts).map(([cadre, count], index) => (
-      // Display cards for the first two entries
-      index < 2 && (
-        <Card
-          variant="solid"
-          color={index === 0 ? 'primary' : 'warning'}
-          invertedColors
-          sx={{ width: '100%' }}
-          key={cadre}
-        >
-          <CardContent width="100%">
-            <Grid container spacing={2} alignItems="center" width="100%">
-              {/* Left section */}
-              <Grid item>
-                <Avatar alt="Remy Sharp" sx={{ width: '80px', height: '80px' }} variant="soft">
-                  <Typography level="h1">{cadre && cadre[11]?.toUpperCase()}</Typography>
-                </Avatar>
-              </Grid>
-              <Grid item width="60%">
-                <CardContent>
-                  <Typography level="h3">{cadre}</Typography>
-                </CardContent>
-              </Grid>
-              <Grid item xs={12} md={6} lg={4} xl={3}>
-                <CardContent>
-                  <Typography
-                    fontSize={72}
-                    level="h2"
-                    sx={{ marginLeft: 'auto', paddingRight: '1vw' }}
+{agent.fonction !== 'Secrétaire' ? (
+        <>
+          <Box
+            sx={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(2, 1fr)',
+              gap: 1,
+              maxWidth: '100%',
+              width: '100%',
+            }}
+          >
+            {departmentCadreCounts &&
+              Object.entries(departmentCadreCounts).map(([cadre, count], index) => (
+                // Display cards for the first two entries
+                index < 2 && (
+                  <Card
+                    variant="solid"
+                    color={index === 0 ? 'primary' : 'warning'}
+                    invertedColors
+                    sx={{ width: '100%' }}
+                    key={cadre}
                   >
-                    {count !== undefined ? count : 'N/A'}
-                  </Typography>
-                </CardContent>
-              </Grid>
-            </Grid>
-          </CardContent>
-        </Card>
-      )
-    ))}
-</Box>
-
-
-
-
-
+                    <CardContent width="100%">
+                      <Grid container spacing={2} alignItems="center" width="100%">
+                        {/* Left section */}
+                        <Grid item>
+                          <Avatar alt="Remy Sharp" sx={{ width: '80px', height: '80px' }} variant="soft">
+                            <Typography level="h1">{cadre && cadre[0]?.toUpperCase()}</Typography>
+                          </Avatar>
+                        </Grid>
+                        <Grid item width="60%">
+                          <CardContent>
+                            <Typography level="h3">{cadre}</Typography>
+                          </CardContent>
+                        </Grid>
+                        <Grid item xs={12} md={6} lg={4} xl={3}>
+                          <CardContent>
+                            <Typography
+                              fontSize={72}
+                              level="h2"
+                              sx={{ marginLeft: 'auto', paddingRight: '1vw' }}
+                            >
+                              {count !== undefined ? count : 'N/A'}
+                            </Typography>
+                          </CardContent>
+                        </Grid>
+                      </Grid>
+                    </CardContent>
+                  </Card>
+                )
+              ))}
+          </Box>
           <Box
             sx={{
               display: 'grid',
@@ -343,7 +340,163 @@ useEffect(() => {
 </Card>
 
           </Box>
-          
+        </>
+       ) : (
+        <>
+        <Box
+            sx={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(3, 1fr)',  // Three columns for three cards
+              gap: 1,
+              maxWidth: '100%',  // Adjust the maximum width as needed
+              width: '100%',       // Ensure the grid takes up the full width
+            }}
+          >
+        <Card variant="solid" color="primary" invertedColors sx={{ width: '100%' }}>
+                <CardContent>
+                    <Grid container spacing={2} alignItems="center">
+                    {/* Left section */}
+                    <Grid item>
+                        <Avatar alt="Remy Sharp" sx={{ width: '80px', height: '80px' }} variant="soft">
+                        <Typography level="h2">TRI</Typography>
+                        </Avatar>
+                    </Grid>
+                    <Grid item>
+                        <CardContent>
+                        <Typography level="h3">Département TRI</Typography>
+                        </CardContent>
+                    </Grid>
+                    <Grid item xs={12} md={6} lg={4} xl={3}>
+                        <CardContent>
+                        <Typography fontSize={72} level='h2' sx={{ paddingLeft: "6vw" }}>{ departmentCounts["TRI"] }</Typography>
+                        </CardContent>
+                    </Grid>
+                    </Grid>
+                </CardContent>
+            </Card>
+    
+            <Card variant="solid" color="warning" invertedColors sx={{ width: '100%' }}>
+                <CardContent>
+                    <Grid container spacing={2} alignItems="center">
+                    {/* Left section */}
+                    <Grid item>
+                        <Avatar alt="Remy Sharp" sx={{ width: '80px', height: '80px' }} variant="soft">
+                        <Typography level="h2">FCT</Typography>
+                        </Avatar>
+                    </Grid>
+                    <Grid item>
+                        <CardContent>
+                        <Typography level="h3">Département FCT</Typography>
+                        </CardContent>
+                    </Grid>
+                    <Grid item xs={12} md={6} lg={4} xl={3}>
+                        <CardContent>
+                        <Typography fontSize={72} level='h2' sx={{ paddingLeft: "6vw"}}>{ departmentCounts["FCT"] }</Typography>
+                        </CardContent>
+                    </Grid>
+                    </Grid>
+                </CardContent>
+
+            </Card>
+    
+            <Card variant="solid" color="neutral" invertedColors sx={{ width: '100%' }}>
+  <CardContent>
+    <Grid container spacing={2} alignItems="center">
+      {/* Left section */}
+      <Grid item>
+        <Avatar alt="Remy Sharp" sx={{ width: '80px', height: '80px' }} variant="soft">
+          <Typography level="h2">CP</Typography>
+        </Avatar>
+      </Grid>
+      <Grid item>
+        <CardContent>
+          <Typography level="h3">Cycle préparatoire</Typography>
+        </CardContent>
+      </Grid>
+      <Grid item xs={12} md={6} lg={4} xl={3}>
+        <CardContent>
+          <Typography
+            fontSize={72}
+            level="h2"
+            sx={{marginLeft: "6vw" }} // Set both margins to 1vw
+          >
+            { departmentCounts["CP"] }
+          </Typography>
+        </CardContent>
+      </Grid>
+    </Grid>
+  </CardContent>
+</Card>
+
+            
+          </Box>
+
+          <Box
+            sx={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(2, 1fr)',  // Three columns for three cards
+              gap: 1,
+              maxWidth: '100%',  // Adjust the maximum width as needed
+              width: '100%', 
+
+
+              marginTop: "3%"      // Ensure the grid takes up the full width
+            }}
+          >
+              <Card variant="outlined" sx={{ height: '50vh' }}>
+  <Typography level="h3">Fonctionnaires par département :</Typography>
+  <Divider inset="none" />
+  <CardContent>
+    {departmentNames.length > 0 && departmentValues.length > 0 ? (
+      <BarChart
+        xAxis={[{ scaleType: 'band', data: departmentNames }]}
+        series={[{ data: departmentValues }]}
+        sx={{ width: '100%', height: '100%' }} // Adjust based on your needs
+      />
+    ) : (
+      <Typography>Loading...</Typography>
+    )}
+  </CardContent>
+</Card>
+
+
+<Card variant="outlined" sx={{ height: '50vh' }}>
+            <Typography level="h3">Fonctionnaires par cadre :</Typography>
+            <Divider inset="none" />
+            <CardContent>
+              {cadreNames.length > 0 && cadreValues.length > 0 ? (
+                <PieChart
+                  series={[
+                    {
+                      data: cadreNames.map((cadre, index) => ({
+                        id: index,
+                        value: cadreValues[index],
+                        label: cadre,
+                      })),
+                    },
+                  ]}
+                  sx={{
+                    width: { xs: 200, sm: 300, md: 400, lg: 500, xl: 650 }, // Adjust based on your needs
+                    height: { xs: 100, sm: 150, md: 200, lg: 250, xl: 300 }, // Adjust based on your needs
+                  }}
+                  slotProps={{
+                    legend: {
+                      direction: 'column',
+                      position: { vertical: 'middle', horizontal: 'right' },
+                      padding: 0,
+                      fontSize: 18,
+                    },
+                  }}
+                  margin={{ right: 300 }}
+                />
+              ) : (
+                <Typography>Loading...</Typography>
+              )}
+            </CardContent>
+          </Card>
+        </Box>
+        </>
+      )}   
         </Box>
         ) : (
           <Box
