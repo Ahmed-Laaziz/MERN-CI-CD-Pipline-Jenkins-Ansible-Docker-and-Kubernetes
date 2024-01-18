@@ -228,7 +228,9 @@ useEffect(() => {
           <Box
             sx={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(2, 1fr)',
+              gridTemplateColumns: departmentCadreCounts
+                ? `repeat(${Object.keys(departmentCadreCounts).length}, 1fr)`
+                : '1fr', // Default value or adjust as needed
               gap: 1,
               maxWidth: '100%',
               width: '100%',
@@ -237,14 +239,15 @@ useEffect(() => {
             {departmentCadreCounts &&
               Object.entries(departmentCadreCounts).map(([cadre, count], index) => (
                 // Display cards for the first two entries
-                index < 2 && (
+                index < 5 && (
                   <Card
                     variant="solid"
-                    color={index === 0 ? 'primary' : 'warning'}
+                    color={index === 0 ? 'primary' : index === 1 ? 'warning' : 'neutral'}
                     invertedColors
                     sx={{ width: '100%' }}
                     key={cadre}
                   >
+
                     <CardContent width="100%">
                       <Grid container spacing={2} alignItems="center" width="100%">
                         {/* Left section */}
@@ -253,7 +256,7 @@ useEffect(() => {
                             <Typography level="h1">{cadre && cadre[0]?.toUpperCase()}</Typography>
                           </Avatar>
                         </Grid>
-                        <Grid item width="60%">
+                        <Grid item width="55%">
                           <CardContent>
                             <Typography level="h3">{cadre}</Typography>
                           </CardContent>
@@ -263,7 +266,7 @@ useEffect(() => {
                             <Typography
                               fontSize={72}
                               level="h2"
-                              sx={{ marginLeft: 'auto', paddingRight: '1vw' }}
+                              sx={{ marginLeft: 'auto', paddingRight: 1 }}
                             >
                               {count !== undefined ? count : 'N/A'}
                             </Typography>
@@ -361,14 +364,14 @@ useEffect(() => {
                         <Typography level="h2">TRI</Typography>
                         </Avatar>
                     </Grid>
-                    <Grid item>
+                    <Grid item width="50%">
                         <CardContent>
                         <Typography level="h3">Département TRI</Typography>
                         </CardContent>
                     </Grid>
                     <Grid item xs={12} md={6} lg={4} xl={3}>
                         <CardContent>
-                        <Typography fontSize={72} level='h2' sx={{ paddingLeft: "6vw" }}>{ departmentCounts["TRI"] }</Typography>
+                        <Typography fontSize={72} level='h2' sx={{ paddingLeft: "1vw" }}>{ departmentCounts["TRI"] }</Typography>
                         </CardContent>
                     </Grid>
                     </Grid>
@@ -384,14 +387,14 @@ useEffect(() => {
                         <Typography level="h2">FCT</Typography>
                         </Avatar>
                     </Grid>
-                    <Grid item>
+                    <Grid item width="50%">
                         <CardContent>
                         <Typography level="h3">Département FCT</Typography>
                         </CardContent>
                     </Grid>
                     <Grid item xs={12} md={6} lg={4} xl={3}>
                         <CardContent>
-                        <Typography fontSize={72} level='h2' sx={{ paddingLeft: "6vw"}}>{ departmentCounts["FCT"] }</Typography>
+                        <Typography fontSize={72} level='h2' sx={{ paddingLeft: "1vw"}}>{ departmentCounts["FCT"] }</Typography>
                         </CardContent>
                     </Grid>
                     </Grid>
@@ -408,7 +411,7 @@ useEffect(() => {
           <Typography level="h2">CP</Typography>
         </Avatar>
       </Grid>
-      <Grid item>
+      <Grid item width="50%">
         <CardContent>
           <Typography level="h3">Cycle préparatoire</Typography>
         </CardContent>
@@ -418,7 +421,7 @@ useEffect(() => {
           <Typography
             fontSize={72}
             level="h2"
-            sx={{marginLeft: "6vw" }} // Set both margins to 1vw
+            sx={{paddingLeft: "1vw" }} // Set both margins to 1vw
           >
             { departmentCounts["CP"] }
           </Typography>
