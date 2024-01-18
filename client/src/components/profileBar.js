@@ -36,18 +36,30 @@ export default function UserCard({ agent }) {
 
   const { hist } = useProf();
 
-  const cadreOptions = ["Professeur de l'enseignement superieur", 'Maitre de conférences qualifié', 'Maitre de conférences'];
+  const cadreOptions = ["Professeur de l'enseignement superieur", 'Maitre de conférences habilité', 'Maitre de conférences', "Ingénieur d'application", 'Technicien', 'Administrateur'];
   const genreOptions = ['Homme', 'Femme'];
   const cadreGradeMapping = {
     "Professeur de l'enseignement superieur": ['Grade D', 'Grade C', 'Grade B', 'Grade A'],
-    'Maitre de conférences qualifié': ['Grade C', 'Grade B', 'Grade A'],
+    'Maitre de conférences habilité': ['Grade C', 'Grade B', 'Grade A'],
     'Maitre de conférences': ['Grade D', 'Grade C', 'Grade B', 'Grade A'],
+    "Ingénieur d'application": ['Grade Principal', 'Premier Grade'],
+    'Technicien': ['1er Grade', '2éme Grade', '3éme Grade', '4éme Grade'],
+    'Administrateur': ['1er Grade', '2éme Grade', '3éme Grade','1er Grade-Imprimerie-', '2éme Grade-Imprimerie-', '3éme Grade-Imprimerie-',],
   };
   const gradeClasseMapping = {
     'Grade D': ['930-01', '960-02', '990-03', '1020-04'],
     'Grade C': ['812-01', '840-02', '870-03', '900-04'],
     'Grade B': ['639-01', '704-02', '746-03', '779-04'],
     'Grade A': ['509-01', '542-02', '574-03', '606-04'],
+    '1er Grade': ['336-01', '369-02', '403-03', '436-04', '472-05', '509-06', '542-07', '574-08', '606-09', '639-10', '675-11', '690-12', '704-13'],
+        '2éme Grade': ['275-01', '300-02', '326-03', '351-04', '377-05', '402-06', '428-07', '456-08', '484-09', '512-10', '564-ex'],
+        '3éme Grade': ['235-01', '253-02', '274-03', '296-04', '317-05', '339-06', '361-07', '382-08', '404-09', '438-10'],
+        '4éme Grade': ['207-01', '224-02', '241-03', '259-04', '276-05', '293-06', '311-07', '332-08', '353-09', '373-10'],
+        'Grade Principal': ['402-01', '428-02', '456-03', '484-04', '512-05', '564-06'],
+        'Premier Grade': ['275-01', '300-02', '326-03', '351-04', '377-05'],
+        '1er Grade-Imprimerie-': ['704-01', '746-02', '779-03', '812-04', '840-05', '870-06'],
+        '2éme Grade-Imprimerie-': ['336-01', '369-02', '403-03', '436-04', '472-05', '509-06', '542-07', '574-08', '606-09', '639-10','704-ex'],
+        '3éme Grade-Imprimerie-': ['275-01', '300-02', '326-03', '351-04', '377-05', '402-06', '428-07', '456-08', '484-09', '512-10', '564-ex'],
   };
   const steps = ['données personnelles', 'données professionnelles', 'données supplémentaires'];
 
@@ -450,7 +462,7 @@ const updateAdmin = async () => {
           {agent ? agent.prenom.split('|')[0]  + " " + agent.nom.split('|')[0] + "   |   " +  agent.prenom.split('|')[1]  + " " + agent.nom.split('|')[1] : 'Loading...'} 
           </Typography>
           <Typography level="body-sm" fontWeight="lg" textColor="text.tertiary">
-          {isAdmin ? agent.fonction : 'Professeur'} 
+          {isAdmin ? agent.fonction : (isProfesseur ? agent.cadre : 'Loading...')}
           </Typography>
           <Sheet
             sx={{

@@ -7,6 +7,7 @@ import Add from "./pages/addProfessor";
 
 import AddFonctionnaire from "./pages/fonctionnaire/add-fonctionnaire";
 import All from "./pages/allProfessors";
+import AllFonctionnaires from "./pages/fonctionnaire/all-fonctionnaires";
 import Demandes from "./pages/options";
 import Demands_from_admin from "./pages/demands/admin/demands";
 import Fonctionnaires_demands_from_admin from "./pages/demands/admin/demands-fonctionnaires";
@@ -41,6 +42,7 @@ export default function App() {
 
         <Route path="add-fonctionnaire" element={<AddFonctionnaire/>} />
         <Route path="all-professors" element={<All/>} />
+        <Route path="all-fonctionnaires" element={<AllFonctionnaires/>} />
         <Route path="demandes" element={<Demandes/>} />
         <Route path="espace-demandes" element={<Demands_from_admin/>} />
         <Route path="espace-demandes-fonctionnaires" element={<Fonctionnaires_demands_from_admin/>} />

@@ -14,7 +14,7 @@ import Button from '@mui/joy/Button';
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 import { useNavigate } from 'react-router-dom';
-import { useProf } from '../context/ProfContext';
+import { useProf } from '../../context/ProfContext';
 const backLink = process.env.REACT_APP_BACK_LINK
 const columns = [
   {
@@ -33,35 +33,10 @@ const columns = [
     sortable: true,
     // valueGetter: () => 'Professeur assistant'
   },
-  {
-    field: 'num_loyer',
-    headerName: 'Numéro de loyer',
-    type: 'number',
-    editable: false,
-  },
+  
   {
     field: 'departement',
     headerName: 'Département',
-    editable: false,
-  },
-  {
-    field: 'date_visa',
-    headerName: 'Date du visa',
-    type: 'Date',
-    valueFormatter: (params) => {
-      const date = new Date(params.value);
-      return date.toLocaleDateString('en-US');
-    },
-    editable: false,
-  },
-  {
-    field: 'date_effective',
-    headerName: 'Date effective',
-    type: 'Date',
-    valueFormatter: (params) => {
-      const date = new Date(params.value);
-      return date.toLocaleDateString('en-US');
-    },
     editable: false,
   },
   {
@@ -159,35 +134,16 @@ function MoreActionsCell({ rowParams }) {
 }
 
 
-export default function DataGridDemo({admin_dep}) {
+export default function DataGridDemo() {
   const [professeurs, setProfesseurs] = useState([]);
   
   const fetchProfessor = async () => {
     try {
-      if (admin_dep == "TRI"){
-      const response = await axios.get(
-        backLink+`/prof/professeurs-TRI` // Replace with your actual API endpoint
-      );
-      setProfesseurs(response.data);
-    }
-      else if (admin_dep == "CP"){
         const response = await axios.get(
-          backLink+`/prof/professeurs-CP` // Replace with your actual API endpoint
+          backLink+`/prof/professeurs-FCT` // Replace with your actual API endpoint
         );
         setProfesseurs(response.data);
-      }
-        else if (admin_dep == "FCT"){
-          const response = await axios.get(
-            backLink+`/prof/professeurs-FCT` // Replace with your actual API endpoint
-          );
-          setProfesseurs(response.data);
-        }
-      else{
-        const response = await axios.get(
-          backLink+`/prof/all-professeurs` // Replace with your actual API endpoint
-        );
-        setProfesseurs(response.data);
-      }
+      
       // const professeurs = response.data;
       
       // const professorsCadre = {};
@@ -248,7 +204,7 @@ export default function DataGridDemo({admin_dep}) {
   }));
 
   return (
-    <Box sx={{ height: 500, width: '100%' }}>
+    <Box sx={{ height: 500, width: '99%' }}>
     <Button variant="outlined" onClick={handleExportExcel}> 
 <DownloadIcon/> Exporter sous Excel
       </Button>

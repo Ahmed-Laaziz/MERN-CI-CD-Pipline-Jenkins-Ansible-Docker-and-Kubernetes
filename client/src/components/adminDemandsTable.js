@@ -65,6 +65,16 @@ export default function ColumnPinningDynamicRowHeight() {
     setOpenModal(false);
   };
 
+  function getRandomNumber() {
+    // Generate a random number between 0 (inclusive) and 1 (exclusive)
+    const randomFraction = Math.random();
+
+    // Scale and shift the random number to the range [1, 50]
+    const randomNumber = Math.floor(randomFraction * 50) + 1;
+
+    return randomNumber;
+}
+
   const handleApprouverClick = async (demand) => {
     setSelectedDemand(demand);
     if (selectedDemand) {
@@ -85,7 +95,8 @@ export default function ColumnPinningDynamicRowHeight() {
            }
            else if (selectedDemand.__t == 'Ordre Mission')
            {
-            navigate('/ordreMission', { state: {input1:`${selectedDemand._id}` , input5:`${agent.prenom.split('|')[0]} ${agent.nom.split('|')[0]}`, input2:`${selectedDemand.moyen_transport}`, input3:`${selectedDemand.de_date}`, input4:`${selectedDemand.a_date}`, input6:`${selectedDemand.mission_a}`, input7:`${selectedDemand.description}`}})
+            const randomNbr = getRandomNumber();
+            navigate('/ordreMission', { state: {input1:`${randomNbr}/2025` , input5:`${agent.prenom.split('|')[0]} ${agent.nom.split('|')[0]}`, input2:`${selectedDemand.moyen_transport}`, input3:`${selectedDemand.de_date}`, input4:`${selectedDemand.a_date}`, input6:`${selectedDemand.mission_a}`, input7:`${selectedDemand.description}`}})
            }
          
         // Handle the response as needed (e.g., update UI, show a notification, etc.)
@@ -167,13 +178,13 @@ export default function ColumnPinningDynamicRowHeight() {
         field: 'professorName',
         headerName: 'Employés',
 
-        width: 300,
+        width: 250,
       },
       { field: '__t', headerName: 'Type', width: 210, editable: false },
       {
         field: 'statut',
         headerName: 'Statut',
-        width: 300,
+        width: 200,
         renderCell: (params) => (
           <Stack spacing={1} sx={{ width: 1, py: 1 }}>
              {/* Display the value of the 'statut' field */}
@@ -219,17 +230,21 @@ export default function ColumnPinningDynamicRowHeight() {
           </Stack>
         ),
       },
-      { field: 'createdAt', headerName: 'Date Demande', width: 300,align: 'center', type: 'Date',valueFormatter: (params) => {
+      { field: 'createdAt', headerName: 'Date Demande', width: 210,align: 'center', type: 'Date',valueFormatter: (params) => {
         const date = new Date(params.value);
         return date.toLocaleDateString('en-US');
       },editable: false },
+      { field: 'updatedAt', headerName: 'Derniere modification',width: 210, type: 'Date', valueFormatter: (params) => {
+        const date = new Date(params.value);
+        return date.toLocaleDateString('en-US');
+      },editable: true },
       // { field: 'updatedAt', headerName: 'Derniere modification',width: 210, type: 'Date', editable: true },
       
       
       {
         field: 'actions',
         headerName: 'Actions',
-        width: 300,
+        width: 200,
         renderCell: (params) => (
           <Stack spacing={1} sx={{ width: 1, py: 1 }}>
             
