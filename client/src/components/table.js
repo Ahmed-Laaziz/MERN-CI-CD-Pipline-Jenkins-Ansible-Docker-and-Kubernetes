@@ -33,12 +33,12 @@ const columns = [
     sortable: true,
     // valueGetter: () => 'Professeur assistant'
   },
-  {
-    field: 'num_loyer',
-    headerName: 'Numéro de loyer',
-    type: 'number',
-    editable: false,
-  },
+  // {
+  //   field: 'num_loyer',
+  //   headerName: 'Numéro de loyer',
+  //   type: 'number',
+  //   editable: false,
+  // },
   {
     field: 'departement',
     headerName: 'Département',
