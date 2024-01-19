@@ -75,6 +75,19 @@ export default function ColumnPinningDynamicRowHeight() {
     return randomNumber;
 }
 
+const fetchHist = async (agentId) => {
+  console.log(agentId)
+  try {
+    const response = await axios.post(
+      backLink+`/hist/prof-hist`, {"prof": agentId} // Replace with your actual API endpoint
+    );
+    // setHistoriques(response.data);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching title:', error);
+  }
+};
+
   const handleApprouverClick = async (demand) => {
     setSelectedDemand(demand);
     if (selectedDemand) {
@@ -91,7 +104,9 @@ export default function ColumnPinningDynamicRowHeight() {
            }
            else if (selectedDemand.__t == 'Attestation Travail')
            {
-            navigate('/attestationTravail', { state: {input1:agent.prenom.split('|')[0] , input2:agent.nom.split('|')[0], input3:'Grade B', input4:agent.num_loyer, input5:agent.date_entre_ecole}})
+            const myData = await fetchHist(agent._id);
+            console.log(myData[0].cadre);
+            navigate('/attestationTravail', { state: {input1:agent.prenom.split('|')[0] , input2:agent.nom.split('|')[0], input3:myData[0].grade, input4:agent.num_loyer, input5:agent.date_entre_ecole}})
            }
            else if (selectedDemand.__t == 'Ordre Mission')
            {

@@ -27,10 +27,11 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { useProf } from '../context/ProfContext';
-
+import { useNavigate } from 'react-router-dom';
 const backLink = process.env.REACT_APP_BACK_LINK;
 
 export default function UserCard({ agent }) {
+  const navigate = useNavigate();
   const isAdmin = agent && agent.__t === 'Admin';
   const isProfesseur = agent && agent.__t === 'Professeur';
 
@@ -175,7 +176,7 @@ export default function UserCard({ agent }) {
     const updatedProf = await axios.put(
       backLink+`/prof/update-professeur`, {"prof": newProf, "hist": newHist} // Replace with your actual API endpoint
     );
-
+    navigate('/all-fonctionnaires')
     handleClose();
   }
 
