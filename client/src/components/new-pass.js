@@ -114,13 +114,13 @@ const handleEmail = async (event) => {
   const decryptedText = decrypt(eValue);
 
   try {
-    const response = await axios.post('http://localhost:4000/prof/email', {"email": decryptedText});
+    const response = await axios.post(backLink+'/prof/email', {"email": decryptedText});
     const prof = response.data
     console.log(prof)
 
     prof.password = password
 
-    const response2 = await axios.put('http://localhost:4000/prof/update-pass', {"prof": prof});
+    const response2 = await axios.put(backLink+'/prof/update-pass', {"prof": prof});
 
     navigate(`/`);
     // Handle the response as needed
@@ -174,6 +174,7 @@ const handleEmail = async (event) => {
             id="password"
             label="Mot de passe"
             name="password"
+            type="password"
             autoComplete="password"
             autoFocus
             />
@@ -185,6 +186,7 @@ const handleEmail = async (event) => {
             id="conf-password"
             label="Confirmer mot de passe"
             name="conf-password"
+            type="password"
             autoComplete="conf-password"
             />
 
