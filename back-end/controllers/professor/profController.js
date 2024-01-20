@@ -3,16 +3,26 @@ const Historique = require("../../models/historique");
 const sendEmail = require('../../business/emailSender');
 const generateRandomPassword = require('../../business/passwordGenerator');
 const mongoose = require('mongoose');
-const crypto = require('crypto');
+const CryptoJS = require('crypto-js');
+const forge = require('node-forge');
+
 
 const yourSecretKey = "2e8b32f6d789c1fa68e540f8b2c9825f";
 
+/*const encrypt = (text, secretKey) => {
+  const cipher = forge.cipher.createCipher('AES-CBC', forge.util.createBuffer(secretKey));
+  cipher.start({ iv: forge.random.getBytesSync(16) });
+  cipher.update(forge.util.createBuffer(text, 'utf-8'));
+  cipher.finish();
+  return forge.util.encode64(cipher.output.getBytes());
+};*/
+
 const encrypt = (text) => {
-  const cipher = crypto.createCipher('aes-256-cbc', yourSecretKey);
-  let encrypted = cipher.update(text, 'utf-8', 'hex');
-  encrypted += cipher.final('hex');
-  return encrypted;
+  const ciphertext = CryptoJS.AES.encrypt(text, yourSecretKey).toString();
+  return ciphertext;
 };
+
+
 
 // Define a route to retrieve and return data from the "professeur" collection
 exports.getProfs = async (req, res, next) => {
@@ -23,6 +33,16 @@ exports.getProfs = async (req, res, next) => {
       console.error('Error retrieving professeurs:', error);
       res.status(500).json({ error: 'Failed to retrieve professeurs' });
     }
+};
+
+exports.getProfByEmail = async (req, res, next) => {
+  try {
+    const Prof = await Professeur.findOne({"email": req.body.email});
+    res.status(200).json(Prof);
+  } catch (error) {
+    console.error('Error retrieving professeurs:', error);
+    res.status(500).json({ error: 'Failed to retrieve professeurs' });
+  }
 };
 
 exports.getProfsExceptFCT = async (req, res, next) => {
@@ -185,8 +205,11 @@ exports.forgotMail =  async (req, res, next) => {
 
   try{
   // Forgotten Password Email Subject
+
   const forgotPasswordSubject = 'Réinitialisation de mot de passe';
   const email = encrypt(req.body.email);
+
+  const prof = await Professeur.find({ "email": req.body.email }).sort({ date: -1 });
 
   // Forgotten Password Email Body
   const forgotPasswordText = "Cher Professeur,\n\nVous avez demandé la réinitialisation de votre mot de passe sur notre plateforme. Pour procéder à la réinitialisation, veuillez suivre le lien ci-dessous :\n\nhttp://localhost:3000/new-pass?e="+email+"\n\nSi vous n'avez pas demandé cette réinitialisation, veuillez ignorer cet e-mail.\n\nCordialement,\nVotre Équipe de Plateforme";
@@ -195,6 +218,46 @@ exports.forgotMail =  async (req, res, next) => {
   } catch (error) {
     console.error('Error adding professeur:', error);
     res.status(500).json({ error: 'Failed to add professeur' });
+  }
+}
+
+exports.updatePass = async (req, res, next) => {
+  try {
+    console.log("the professor is :")
+    console.log(req.body.prof)
+    console.log("now updating!")
+
+    const professeurId = req.body.prof._id;
+    console.log("the id is : "+professeurId) 
+    const professeurUpdates = {
+      nom: req.body.prof.nom,
+      prenom: req.body.prof.prenom,
+      email: req.body.prof.email,
+      tel: req.body.prof.tel,
+      cin: req.body.prof.cin,
+      password: req.body.prof.password,
+      genre: req.body.prof.genre,
+      num_loyer: req.body.prof.num_loyer,
+      date_entre_ecole: req.body.prof.date_entre_ecole,
+      date_fct_publique: req.body.prof.date_fct_publique,
+      num_ref: req.body.prof.num_ref,
+      date_effective: req.body.prof.date_effective,
+      anciennete: req.body.prof.anciennete,
+      date_visa: req.body.prof.date_visa,
+    };
+
+
+    const updatedProfesseur = await Professeur.findByIdAndUpdate(professeurId, professeurUpdates, { new: true });
+
+    if (!updatedProfesseur) {
+      return res.status(404).json({ error: 'Professor not found' });
+    }
+
+
+    res.status(200).json(updatedProfesseur);
+  } catch (error) {
+    console.error('Error updating professor:', error);
+    res.status(500).json({ error: 'Failed to update professor' });
   }
 }
 
