@@ -61,6 +61,7 @@ const handleEmail = async (event) => {
     
     try {
       const response = await axios.post('http://localhost:4000/prof/send', {"email": email});
+      navigate(`/`);
       // Handle the response as needed
     } catch (error) {
       // Handle errors

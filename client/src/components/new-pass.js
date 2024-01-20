@@ -25,6 +25,8 @@ import { useLocation } from 'react-router-dom';
 
 const backLink = process.env.REACT_APP_BACK_LINK;
 const yourSecretKey = "2e8b32f6d789c1fa68e540f8b2c9825f";
+//const forge = require('node-forge');
+
 
 
 function Copyright(props) {
@@ -54,42 +56,84 @@ export default function NewPass() {
   const { setToken } = useToken();
   const [emailError, setEmailError] = useState('');
 const [passwordError, setPasswordError] = useState('');
+    
+/*const decrypt = (encryptedText, secretKey) => {
+  try {
+    const decipher = forge.cipher.createDecipher('AES-CBC', forge.util.createBuffer(secretKey));
+    decipher.start({ iv: forge.random.getBytesSync(16) });
+    decipher.update(forge.util.createBuffer(forge.util.decode64(encryptedText)));
+    decipher.finish();
+    return decipher.output.data.toString('utf-8');
+  } catch (error) {
+    console.error('Decryption error:', error);
+    // Handle the error appropriately, e.g., throw or return an error message.
+    return null;
+  }
+};*/
 
-const decrypt = (encryptedText) => {
-    try {
-      console.log("Encrypted Text:", encryptedText);
-  
-      const bytes = CryptoJS.AES.decrypt(encryptedText, yourSecretKey);
-      console.log("Decrypted Bytes:", bytes);
-  
-      const decrypted = bytes.toString(CryptoJS.enc.Utf8);
-      console.log("Decrypted Text:", decrypted);
-  
-      return decrypted;
-    } catch (error) {
-      console.error('Decryption failed:', error.message);
-      return null;
-    }
-  };
+
+const decrypt = (ciphertext) => {
+  try {
+    const bytes = CryptoJS.AES.decrypt(ciphertext, yourSecretKey);
+    const originalText = bytes.toString(CryptoJS.enc.Utf8);
+    return originalText;
+  } catch (error) {
+    console.error('Decryption error:', error);
+    // Handle the error appropriately, e.g., throw or return an error message.
+    return null;
+  }
+};
+
+
+
+
+
 
 
 const handleEmail = async (event) => {
+  if (!event || !event.currentTarget) {
+    console.error('Event or event.currentTarget is undefined');
+    return;
+  }
+  
+  const data = new FormData(event.currentTarget);
+  const password = data.get('password');
+  const conf_password = data.get('conf-password');
 
-    event.preventDefault();
-    const currentUrl = window.location.href;
+  event.preventDefault();
+  const currentUrl = window.location.href;
 
-    // Parse the URL to get the search parameters
-    const urlSearchParams = new URLSearchParams(currentUrl);
+  // Parse the URL to get the search parameters
+  const urlSearchParams = new URLSearchParams(currentUrl);
 
-    // Get the value associated with the "e" parameter
-    const eValue = new URLSearchParams(location.search).get('e');
-    //console.log("encrypted text : "+eValue)
-    //console.log(currentUrl)
-    //console.log(urlSearchParams)
-    const decryptedText = decrypt(eValue);
+  // Get the value associated with the "e" parameter and decode it
+  const eValue = decodeURIComponent(new URLSearchParams(location.search).get('e')).replace(/\s/g, '+');
 
-    console.log(decryptedText)
-  };
+  console.log(eValue);
+
+  const decryptedText = decrypt(eValue);
+
+  try {
+    const response = await axios.post('http://localhost:4000/prof/email', {"email": decryptedText});
+    const prof = response.data
+    console.log(prof)
+
+    prof.password = password
+
+    const response2 = await axios.put('http://localhost:4000/prof/update-pass', {"prof": prof});
+
+    navigate(`/`);
+    // Handle the response as needed
+  } catch (error) {
+    // Handle errors
+    console.error('Error handling email:', error);
+  }
+
+  
+  console.log(decryptedText);
+
+};
+
   
 
   return (
@@ -142,7 +186,6 @@ const handleEmail = async (event) => {
             label="Confirmer mot de passe"
             name="conf-password"
             autoComplete="conf-password"
-            autoFocus
             />
 
               <Button
