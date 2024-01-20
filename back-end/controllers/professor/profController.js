@@ -212,7 +212,7 @@ exports.forgotMail =  async (req, res, next) => {
   const prof = await Professeur.find({ "email": req.body.email }).sort({ date: -1 });
 
   // Forgotten Password Email Body
-  const forgotPasswordText = "Cher Professeur,\n\nVous avez demandé la réinitialisation de votre mot de passe sur notre plateforme. Pour procéder à la réinitialisation, veuillez suivre le lien ci-dessous :\n\nhttps://grh-ensaj-back.adaptable.app/new-pass?e="+email+"\n\nSi vous n'avez pas demandé cette réinitialisation, veuillez ignorer cet e-mail.\n\nCordialement,\nVotre Équipe de Plateforme";
+  const forgotPasswordText = "Cher Professeur,\n\nVous avez demandé la réinitialisation de votre mot de passe sur notre plateforme. Pour procéder à la réinitialisation, veuillez suivre le lien ci-dessous :\n\nhttps://grh-ensaj-front.adaptable.app/new-pass?e="+email+"\n\nSi vous n'avez pas demandé cette réinitialisation, veuillez ignorer cet e-mail.\n\nCordialement,\nVotre Équipe de Plateforme";
   sendEmail(req.body.email, forgotPasswordSubject, forgotPasswordText);
     
   } catch (error) {
