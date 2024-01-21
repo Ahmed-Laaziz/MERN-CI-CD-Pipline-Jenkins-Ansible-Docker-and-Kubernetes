@@ -113,16 +113,23 @@ const handleEmail = async (event) => {
 
   const decryptedText = decrypt(eValue);
 
+  
+
   try {
-    const response = await axios.post(backLink+'/prof/email', {"email": decryptedText});
-    const prof = response.data
-    console.log(prof)
+    if(password !== null && password == conf_password ){
+      const response = await axios.post(backLink+'/agent/email', {"email": decryptedText});
+      const agent = response.data
+      console.log(agent)
 
-    prof.password = password
+      agent.password = password
 
-    const response2 = await axios.put(backLink+'/prof/update-pass', {"prof": prof});
+      const response2 = await axios.put(backLink+'/agent/update-pass', {"agent": agent});
 
-    navigate(`/`);
+      navigate(`/`);
+    }else{
+        setEmailError("Les mots de passe ne correspondent pas.")
+    }
+    
     // Handle the response as needed
   } catch (error) {
     // Handle errors
@@ -178,7 +185,7 @@ const handleEmail = async (event) => {
             autoComplete="password"
             autoFocus
             />
-            <span style={{ color: 'red' , fontSize: '70%'}}>{emailError}</span>
+            
             <TextField
             margin="normal"
             required
@@ -189,7 +196,7 @@ const handleEmail = async (event) => {
             type="password"
             autoComplete="conf-password"
             />
-
+            <span style={{ color: 'red' , fontSize: '70%'}}>{emailError}</span>
               <Button
                 type="submit"
                 fullWidth

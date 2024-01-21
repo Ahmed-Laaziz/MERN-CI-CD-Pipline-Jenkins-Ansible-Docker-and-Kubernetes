@@ -4,7 +4,6 @@ const sendEmail = require('../../business/emailSender');
 const generateRandomPassword = require('../../business/passwordGenerator');
 const mongoose = require('mongoose');
 const CryptoJS = require('crypto-js');
-const forge = require('node-forge');
 
 
 const yourSecretKey = "2e8b32f6d789c1fa68e540f8b2c9825f";
