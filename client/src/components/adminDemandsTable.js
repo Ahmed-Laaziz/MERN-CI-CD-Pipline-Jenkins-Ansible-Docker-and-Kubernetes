@@ -189,13 +189,13 @@ const fetchHist = async (agentId) => {
 
   const columns = React.useMemo(
     () => [
-      {
-        field: 'professorName',
-        headerName: 'Fonctionnaires',
+      // {
+      //   field: 'professorName',
+      //   headerName: 'Fonctionnaires',
 
-        width: 250,
-      },
-      { field: '__t', headerName: 'Type', width: 210, editable: false },
+      //   width: 250,
+      // },
+      { field: '__t', headerName: 'Type', width: 290, editable: false },
       {
         field: 'statut',
         headerName: 'Statut',
@@ -245,11 +245,11 @@ const fetchHist = async (agentId) => {
           </Stack>
         ),
       },
-      { field: 'createdAt', headerName: 'Date Demande', width: 210,align: 'center', type: 'Date',valueFormatter: (params) => {
+      { field: 'createdAt', headerName: 'Date Demande', width: 250,align: 'center', type: 'Date',valueFormatter: (params) => {
         const date = new Date(params.value);
         return date.toLocaleDateString('en-US');
       },editable: false },
-      { field: 'updatedAt', headerName: 'Derniere modification',width: 210, type: 'Date', valueFormatter: (params) => {
+      { field: 'updatedAt', headerName: 'Derniere modification',width: 250, type: 'Date', valueFormatter: (params) => {
         const date = new Date(params.value);
         return date.toLocaleDateString('en-US');
       },editable: true },
@@ -313,16 +313,20 @@ const fetchHist = async (agentId) => {
   const fetchDemandes = async () => {
     try {
       const response = await axios.get(backLink+`/demandes/enAttenteDemands`);
+     
       const demandData = response.data;
+      
       const professorNames = {};
-      for (const demand of demandData) {
-        try {
-          const professorResponse = await axios.get(backLink+`/agent/agents/${demand.professeur}`);
-          professorNames[demand.professeur] = professorResponse.data.nom.split('|')[0] + " " + professorResponse.data.prenom.split('|')[0]; // Replace 'nom' with the actual professor name field
-        } catch (error) {
-          console.error('Error fetching professor name:', error);
-        }
-      }
+      
+      // for (const demand of demandData) {
+      //   try {
+      //     const professorResponse = await axios.get(backLink+`/agent/agents/${demand.professeur}`);
+      //     professorNames[demand.professeur] = professorResponse.data.nom.split('|')[0] + " " + professorResponse.data.prenom.split('|')[0]; // Replace 'nom' with the actual professor name field
+      //   } catch (error) {
+      //     console.error('Error fetching professor name:', error);
+      //   }
+      // }
+      
   
       // Attach professor names to demand objects
       const demandsWithProfessorNames = demandData.map((demand) => ({
@@ -330,9 +334,8 @@ const fetchHist = async (agentId) => {
         professorName: professorNames[demand.professeur] || 'N/A', // Provide a default value if name not found
         __t: separateByCapitalLetters(demand.__t),
       }));
-  
+      
       setDemandes(demandsWithProfessorNames);
-      console.log(demandsWithProfessorNames)
     } catch (error) {
       console.error('Error fetching demandes:', error);
     }

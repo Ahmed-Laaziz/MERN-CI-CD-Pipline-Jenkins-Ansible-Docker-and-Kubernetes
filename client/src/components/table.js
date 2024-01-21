@@ -174,6 +174,7 @@ else {
       headerName: 'Département',
       editable: false,
     },
+
     {
       field: 'moreActions',
       headerName: 'Autres Actions',

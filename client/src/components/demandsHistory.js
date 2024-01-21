@@ -158,7 +158,7 @@ export default function ColumnPinningDynamicRowHeight({prof}) {
       }));
   
       setDemandes(demandsWithProfessorNames);
-      console.log(demandsWithProfessorNames)
+      // console.log(demandsWithProfessorNames)
     } catch (error) {
       console.error('Error fetching demandes:', error);
     }

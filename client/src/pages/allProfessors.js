@@ -68,7 +68,6 @@ useEffect(() => {
               <Drawer role='Chef' pageTitle={"Fonctionnaires"}/>
             ) : (agent.__t === "Admin")?(
               <Drawer role='Admin' pageTitle={"Fonctionnaires"}/>
-
             ):null
           ) : null}
         
