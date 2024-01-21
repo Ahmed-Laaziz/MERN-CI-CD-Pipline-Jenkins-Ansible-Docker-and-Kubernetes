@@ -175,26 +175,6 @@ else {
       editable: false,
     },
     {
-      field: 'date_visa',
-      headerName: 'Date du visa',
-      type: 'Date',
-      valueFormatter: (params) => {
-        const date = new Date(params.value);
-        return date.toLocaleDateString('en-US');
-      },
-      editable: false,
-    },
-    {
-      field: 'date_effective',
-      headerName: 'Date effective',
-      type: 'Date',
-      valueFormatter: (params) => {
-        const date = new Date(params.value);
-        return date.toLocaleDateString('en-US');
-      },
-      editable: false,
-    },
-    {
       field: 'moreActions',
       headerName: 'Autres Actions',
       sortable: false,
