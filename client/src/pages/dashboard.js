@@ -408,7 +408,7 @@ useEffect(() => {
       {/* Left section */}
       <Grid item>
         <Avatar alt="Remy Sharp" sx={{ width: '80px', height: '80px' }} variant="soft">
-          <Typography level="h2">CP</Typography>
+          <Typography level="h2">STIN</Typography>
         </Avatar>
       </Grid>
       <Grid item width="50%">
