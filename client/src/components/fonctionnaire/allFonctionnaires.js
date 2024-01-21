@@ -36,7 +36,7 @@ const columns = [
   
   {
     field: 'departement',
-    headerName: 'Département',
+    headerName: 'Service',
     editable: false,
   },
   {

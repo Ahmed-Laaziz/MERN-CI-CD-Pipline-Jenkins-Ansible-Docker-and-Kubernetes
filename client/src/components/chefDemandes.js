@@ -276,7 +276,7 @@ export default function ColumnPinningDynamicRowHeight({dep}) {
   
       setDemandes(demandsWithProfessorNames);
       }
-      else if (dep =="CP"){
+      else if (dep =="STIN"){
         const response = await axios.get(backLink + `/demandes/chefDemandsCP`);
         const demandData = response.data;
         const demandsWithProfessorNames = [];

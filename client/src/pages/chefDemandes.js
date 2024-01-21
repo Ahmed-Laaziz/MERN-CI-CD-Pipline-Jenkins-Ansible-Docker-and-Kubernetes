@@ -82,7 +82,7 @@ export default function AdminDemandes(){
   }}
 >
 
-<Breadcrumb pageLabel="Demandes des employés"/>
+<Breadcrumb pageLabel="Demandes des fonctionnaires"/>
 
 <>&nbsp;</>
 

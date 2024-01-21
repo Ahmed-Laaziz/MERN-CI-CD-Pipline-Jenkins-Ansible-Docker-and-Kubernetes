@@ -120,7 +120,7 @@ exports.getDemandesForProfesseur = async (req, res) => {
       .sort({ createdAt: -1 })
         .populate({
           path: 'professeur',
-          match: { departement: 'CP' } // Filter professors by department 'TRI'
+          match: { departement: 'STIN' } // Filter professors by department 'TRI'
         })
         .exec();
   
