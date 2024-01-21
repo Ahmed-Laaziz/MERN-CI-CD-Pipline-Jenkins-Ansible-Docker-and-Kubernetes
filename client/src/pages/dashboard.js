@@ -377,31 +377,8 @@ useEffect(() => {
                     </Grid>
                 </CardContent>
             </Card>
-    
-            <Card variant="solid" color="warning" invertedColors sx={{ width: '100%' }}>
-                <CardContent>
-                    <Grid container spacing={2} alignItems="center">
-                    {/* Left section */}
-                    <Grid item>
-                        <Avatar alt="Remy Sharp" sx={{ width: '80px', height: '80px' }} variant="soft">
-                        <Typography level="h2">FCT</Typography>
-                        </Avatar>
-                    </Grid>
-                    <Grid item width="50%">
-                        <CardContent>
-                        <Typography level="h3">Service FCT</Typography>
-                        </CardContent>
-                    </Grid>
-                    <Grid item xs={12} md={6} lg={4} xl={3}>
-                        <CardContent>
-                        <Typography fontSize={72} level='h2' sx={{ paddingLeft: "1vw"}}>{ departmentCounts["FCT"] }</Typography>
-                        </CardContent>
-                    </Grid>
-                    </Grid>
-                </CardContent>
 
-            </Card>
-    
+
             <Card variant="solid" color="neutral" invertedColors sx={{ width: '100%' }}>
   <CardContent>
     <Grid container spacing={2} alignItems="center">
@@ -430,6 +407,32 @@ useEffect(() => {
     </Grid>
   </CardContent>
 </Card>
+    
+            <Card variant="solid" color="warning" invertedColors sx={{ width: '100%' }}>
+                <CardContent>
+                    <Grid container spacing={2} alignItems="center">
+                    {/* Left section */}
+                    <Grid item>
+                        <Avatar alt="Remy Sharp" sx={{ width: '80px', height: '80px' }} variant="soft">
+                        <Typography level="h2">FCT</Typography>
+                        </Avatar>
+                    </Grid>
+                    <Grid item width="50%">
+                        <CardContent>
+                        <Typography level="h3">Service FCT</Typography>
+                        </CardContent>
+                    </Grid>
+                    <Grid item xs={12} md={6} lg={4} xl={3}>
+                        <CardContent>
+                        <Typography fontSize={72} level='h2' sx={{ paddingLeft: "1vw"}}>{ departmentCounts["FCT"] }</Typography>
+                        </CardContent>
+                    </Grid>
+                    </Grid>
+                </CardContent>
+
+            </Card>
+    
+           
 
             
           </Box>
