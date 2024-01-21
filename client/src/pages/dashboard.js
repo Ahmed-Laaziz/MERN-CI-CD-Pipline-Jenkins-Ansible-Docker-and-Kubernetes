@@ -291,7 +291,7 @@ useEffect(() => {
             }}
           >
               <Card variant="outlined" sx={{ height: '50vh' }}>
-  <Typography level="h3">Professeur par genre :</Typography>
+  <Typography level="h3">Fonctionnaires par genre :</Typography>
   <Divider inset="none" />
   <CardContent>
     {departmentGanreCounts && Object.keys(departmentGanreCounts).length > 0 ? (
@@ -308,7 +308,7 @@ useEffect(() => {
 
 
 <Card variant="outlined" sx={{ height: '50vh' }}>
-  <Typography level="h3">Professeur par cadre :</Typography>
+  <Typography level="h3">Fonctionnaires par cadre :</Typography>
   <Divider inset="none" />
   <CardContent>
     {departmentCadreCounts && Object.keys(departmentCadreCounts).length > 0 ? (
@@ -389,7 +389,7 @@ useEffect(() => {
                     </Grid>
                     <Grid item width="50%">
                         <CardContent>
-                        <Typography level="h3">Département FCT</Typography>
+                        <Typography level="h3">Service FCT</Typography>
                         </CardContent>
                     </Grid>
                     <Grid item xs={12} md={6} lg={4} xl={3}>
@@ -413,7 +413,7 @@ useEffect(() => {
       </Grid>
       <Grid item width="50%">
         <CardContent>
-          <Typography level="h3">Cycle préparatoire</Typography>
+          <Typography level="h3">Département STIN</Typography>
         </CardContent>
       </Grid>
       <Grid item xs={12} md={6} lg={4} xl={3}>
@@ -423,7 +423,7 @@ useEffect(() => {
             level="h2"
             sx={{paddingLeft: "1vw" }} // Set both margins to 1vw
           >
-            { departmentCounts["CP"] }
+            { departmentCounts["STIN"] }
           </Typography>
         </CardContent>
       </Grid>
@@ -447,7 +447,7 @@ useEffect(() => {
             }}
           >
               <Card variant="outlined" sx={{ height: '50vh' }}>
-  <Typography level="h3">Fonctionnaires par département :</Typography>
+  <Typography level="h3">Fonctionnaires par département / service :</Typography>
   <Divider inset="none" />
   <CardContent>
     {departmentNames.length > 0 && departmentValues.length > 0 ? (
