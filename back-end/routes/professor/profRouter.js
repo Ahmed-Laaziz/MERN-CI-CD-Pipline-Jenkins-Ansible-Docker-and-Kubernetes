@@ -11,8 +11,11 @@ router.get('/professeurs-FCT', profController.getProfsFCT);
 router.post('/add-professeur', profController.addProf);
 
 router.put('/update-professeur', profController.updateProfesseur)
+router.put('/update-pass', profController.updatePass)
 
 router.post('/send', profController.forgotMail)
+
+router.post('/email', profController.getProfByEmail)
 
 
 module.exports = router;

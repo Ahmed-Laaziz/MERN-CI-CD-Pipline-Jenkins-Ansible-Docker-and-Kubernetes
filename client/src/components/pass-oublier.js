@@ -60,7 +60,8 @@ const handleEmail = async (event) => {
     event.preventDefault(); // Prevents the default form submission behavior
     
     try {
-      const response = await axios.post('http://localhost:4000/prof/send', {"email": email});
+      const response = await axios.post(backLink+'/agent/send', {"email": email});
+      setEmailError('Un courrier a été envoyé à votre adresse e-mail.')
       // Handle the response as needed
     } catch (error) {
       // Handle errors
