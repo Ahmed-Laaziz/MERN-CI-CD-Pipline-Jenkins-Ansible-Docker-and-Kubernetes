@@ -191,7 +191,7 @@ const fetchHist = async (agentId) => {
     () => [
       {
         field: 'professorName',
-        headerName: 'Employés',
+        headerName: 'Fonctionnaires',
 
         width: 250,
       },

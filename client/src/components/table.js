@@ -16,63 +16,7 @@ import { saveAs } from 'file-saver';
 import { useNavigate } from 'react-router-dom';
 import { useProf } from '../context/ProfContext';
 const backLink = process.env.REACT_APP_BACK_LINK
-const columns = [
-  {
-    field: 'prenom',
-    headerName: 'Prénom',
-    editable: true,
-  },
-  {
-    field: 'nom',
-    headerName: 'Nom',
-    editable: false,
-  },
-  {
-    field: 'cadre',
-    headerName: 'Cadre',
-    sortable: true,
-    // valueGetter: () => 'Professeur assistant'
-  },
-  // {
-  //   field: 'num_loyer',
-  //   headerName: 'Numéro de loyer',
-  //   type: 'number',
-  //   editable: false,
-  // },
-  {
-    field: 'departement',
-    headerName: 'Département',
-    editable: false,
-  },
-  {
-    field: 'date_visa',
-    headerName: 'Date du visa',
-    type: 'Date',
-    valueFormatter: (params) => {
-      const date = new Date(params.value);
-      return date.toLocaleDateString('en-US');
-    },
-    editable: false,
-  },
-  {
-    field: 'date_effective',
-    headerName: 'Date effective',
-    type: 'Date',
-    valueFormatter: (params) => {
-      const date = new Date(params.value);
-      return date.toLocaleDateString('en-US');
-    },
-    editable: false,
-  },
-  {
-    field: 'moreActions',
-    headerName: 'Autres Actions',
-    sortable: false,
-    renderCell: (params) => {
-      return <MoreActionsCell rowParams={params} />;
-    },
-  },
-];
+
 
 function CustomMenu({ onHistoriqueClick, onProfileClick }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -160,6 +104,108 @@ function MoreActionsCell({ rowParams }) {
 
 
 export default function DataGridDemo({admin_dep}) {
+  var columns = []
+
+if (admin_dep == "FCT"){
+  columns = [
+    {
+      field: 'prenom',
+      headerName: 'Prénom',
+      editable: true,
+    },
+    {
+      field: 'nom',
+      headerName: 'Nom',
+      editable: false,
+    },
+    {
+      field: 'cadre',
+      headerName: 'Cadre',
+      sortable: true,
+      // valueGetter: () => 'Professeur assistant'
+    },
+    // {
+    //   field: 'num_loyer',
+    //   headerName: 'Numéro de loyer',
+    //   type: 'number',
+    //   editable: false,
+    // },
+    {
+      field: 'departement',
+      headerName: 'Service',
+      editable: false,
+    },
+    {
+      field: 'moreActions',
+      headerName: 'Autres Actions',
+      sortable: false,
+      renderCell: (params) => {
+        return <MoreActionsCell rowParams={params} />;
+      },
+    },
+  ];
+}
+else {
+  columns = [
+    {
+      field: 'prenom',
+      headerName: 'Prénom',
+      editable: true,
+    },
+    {
+      field: 'nom',
+      headerName: 'Nom',
+      editable: false,
+    },
+    {
+      field: 'cadre',
+      headerName: 'Cadre',
+      sortable: true,
+      // valueGetter: () => 'Professeur assistant'
+    },
+    // {
+    //   field: 'num_loyer',
+    //   headerName: 'Numéro de loyer',
+    //   type: 'number',
+    //   editable: false,
+    // },
+    {
+      field: 'departement',
+      headerName: 'Département',
+      editable: false,
+    },
+    {
+      field: 'date_visa',
+      headerName: 'Date du visa',
+      type: 'Date',
+      valueFormatter: (params) => {
+        const date = new Date(params.value);
+        return date.toLocaleDateString('en-US');
+      },
+      editable: false,
+    },
+    {
+      field: 'date_effective',
+      headerName: 'Date effective',
+      type: 'Date',
+      valueFormatter: (params) => {
+        const date = new Date(params.value);
+        return date.toLocaleDateString('en-US');
+      },
+      editable: false,
+    },
+    {
+      field: 'moreActions',
+      headerName: 'Autres Actions',
+      sortable: false,
+      renderCell: (params) => {
+        return <MoreActionsCell rowParams={params} />;
+      },
+    },
+  ];
+}
+
+
   const [professeurs, setProfesseurs] = useState([]);
   
   const fetchProfessor = async () => {
@@ -170,7 +216,7 @@ export default function DataGridDemo({admin_dep}) {
       );
       setProfesseurs(response.data);
     }
-      else if (admin_dep == "CP"){
+      else if (admin_dep == "STIN"){
         const response = await axios.get(
           backLink+`/prof/professeurs-CP` // Replace with your actual API endpoint
         );

@@ -60,11 +60,11 @@ exports.getProfsFCT = async (req, res, next) => {
 // Define a route to retrieve and return professors for the department "CP"
 exports.getProfsCP = async (req, res, next) => {
   try {
-      const profsCP = await Professeur.find({ departement: 'CP' });
+      const profsCP = await Professeur.find({ departement: 'STIN' });
       res.status(200).json(profsCP);
   } catch (error) {
-      console.error('Error retrieving CP professors:', error);
-      res.status(500).json({ error: 'Failed to retrieve CP professors' });
+      console.error('Error retrieving STIN professors:', error);
+      res.status(500).json({ error: 'Failed to retrieve STIN professors' });
   }
 };
 

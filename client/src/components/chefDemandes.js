@@ -155,7 +155,7 @@ export default function ColumnPinningDynamicRowHeight({dep}) {
     () => [
       {
         field: 'professorName',
-        headerName: 'Professeur',
+        headerName: 'Fonctionnaire',
         width: 210,
       },
       { field: '__t', headerName: 'Type', width: 210, editable: false },

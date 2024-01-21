@@ -84,7 +84,7 @@ useEffect(() => {
     // boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)", // Add the boxShadow property
   }}
 >
-<Breadcrumb pageLabel="Tous les Employés"/>
+<Breadcrumb pageLabel="Tous les autres fonctionnaires"/>
 
 <>&nbsp;</>
 

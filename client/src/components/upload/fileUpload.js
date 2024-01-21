@@ -2,7 +2,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { FormControl, InputLabel, Select, MenuItem, LinearProgress } from '@mui/material';
-
+import Grid from '@mui/joy/Grid';
+import Autocomplete from '@mui/joy/Autocomplete';
 import TextField from '@mui/material/TextField';
 import { Button, Input, Typography } from '@mui/material';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
@@ -46,8 +47,17 @@ function App() {
         fetchProfessors();
     }, []);
 
-    const handleSelectChange = (e) => {
-        setSelectedProfId(e.target.value);
+    const [selectedProfessor, setSelectedProfessor] = useState('');
+
+    const handleSelectChange = (event, newValue) => {
+        // setSelectedProfId(e.target.value);
+        // console.log(selectedProfId);
+        setSelectedProfessor(newValue);
+        if (newValue) {
+        // Store the ID of the selected professor
+        const professorId = newValue._id;
+        setSelectedProfId(professorId); // Update selectedProfId state with the professor's ID
+        }
     };
 
     const submitImage = async (e) => {
@@ -101,8 +111,8 @@ function App() {
         <div className="App">
             <center><h3>Envoi des documents</h3></center>
             <form className="formStyle" onSubmit={submitImage}>
-                <FormControl fullWidth>
-                    <InputLabel id="select-professor-label">Selectionner un employé</InputLabel>
+                {/* <FormControl fullWidth>
+                    <InputLabel id="select-professor-label">Selectionner un fonctionnaire</InputLabel>
                     <Select
                         labelId="select-professor-label"
                         id="select-professor"
@@ -118,11 +128,49 @@ function App() {
                             </MenuItem>
                         ))}
                     </Select>
-                </FormControl>
+                </FormControl> */}
+
+
+
+                <FormControl fullWidth>
+      <Grid container alignItems="center">
+        <Grid item xs={3}>
+          <InputLabel htmlFor="professor-select"><b>Selectionner un fonctionnaire:</b></InputLabel>
+        </Grid>
+        <Grid item xs={9}>
+          <Autocomplete
+            id="professor-select"
+            options={professors}
+            getOptionLabel={(professor) =>
+              professor ? `${professor.prenom.split('|')[0]} ${professor.nom.split('|')[0]} | ${professor.prenom.split('|')[1]} ${professor.nom.split('|')[1]}` : ''
+            }
+            value={selectedProfessor}
+            onChange={handleSelectChange} // Use the custom handler for Autocomplete change
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label=""
+                placeholder="Search professors"
+                variant="outlined"
+              />
+            )}
+          />
+        </Grid>
+      </Grid>
+    </FormControl>
+
+
+
                 <br />
                 <div>&nbsp;</div>
+                <FormControl fullWidth>
+                <Grid container alignItems="center">
+                <Grid item xs={3}>
+          <InputLabel htmlFor="outlined-basic"><b>Ajouter un titre:</b></InputLabel>
+        </Grid>
+        <Grid item xs={9}>
                 <TextField
-                    id="outlined-basic" label="Ajouter un titre" variant="outlined"
+                    id="outlined-basic" variant="outlined"
                     type="text"
                     className="form-control"
                     value={title}
@@ -130,6 +178,9 @@ function App() {
                     fullWidth
                     onChange={(e) => setTitle(e.target.value)}
                 />
+                </Grid>
+                </Grid>
+                </FormControl>
                 <br />
                 <div>&nbsp;</div>
                 <div>

@@ -80,7 +80,7 @@ export default function AdminDemandes(){
     // boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)", // Add the boxShadow property
   }}
 >
-<Breadcrumb pageLabel="Demandes des employés"/>
+<Breadcrumb pageLabel="Demandes des fonctionnaires"/>
 
 <>&nbsp;</>
 
