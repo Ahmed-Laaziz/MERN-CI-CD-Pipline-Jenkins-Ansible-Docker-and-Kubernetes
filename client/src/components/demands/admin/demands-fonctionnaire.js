@@ -385,7 +385,7 @@ useEffect(() => {
   <Option value="att2">Autorisation de quitter le territoire - الإذن بمغادرة التراب الوطني</Option>
   <Option value="att3">Décision de congé administratif - إجازة إدارية</Option>
   <Option value="att5">Ordre de mission -  تكليف بمهمة</Option>
-  <Option value="att4">Attestation de reprise de travail - شهادةاستئناف العمل</Option>
+  {/* <Option value="att4">Attestation de reprise de travail - شهادةاستئناف العمل</Option> */}
 </Select>
     </Grid>
   </Grid>

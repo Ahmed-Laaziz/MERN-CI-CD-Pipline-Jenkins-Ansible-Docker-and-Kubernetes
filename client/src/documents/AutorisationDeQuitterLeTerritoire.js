@@ -46,8 +46,8 @@ class ComponentToPrint extends React.Component {
                         <div class="third"><img src={ucd} className="ucd-image" /></div>
                     </div>
                     <div class="div2">
-                        <h1>Autorisation<br />
-                            à quitter le territoire</h1>
+                        <h3>Autorisation<br />
+                            à quitter le territoire</h3>
                     </div>
                     <div class="div3">
                         <p> &ensp;&ensp;&ensp;&ensp;Vu le Dahir N°1.58.008 du 04 Chaâbane 1377 (24 Février 1958) portant statut particulier de la fonction publique.<br /></p>
@@ -55,9 +55,9 @@ class ComponentToPrint extends React.Component {
                         <p> &ensp;&ensp;&ensp;&ensp;Vu la demande présentée par : Mr <b>{input1}</b> : <b>{input2}</b> à l’Ecole Nationale des Sciences Appliquées d’El Jadida.</p>
                     </div>
                     <div class="div2">
-                        <h3>Le Directeur<br />
-                            de l’Ecole Nationale des Sciences Appliquées d’El Jadida</h3>
-                        <h4>Décide ce qui suit</h4>
+                        <h4>Le Directeur<br />
+                            de l’Ecole Nationale des Sciences Appliquées d’El Jadida</h4>
+                        <h5>Décide ce qui suit</h5>
                     </div>
                     <div class="div3">
                         <p><b><u>Article 1</u>   : </b>   à compter du <b>{input3}</b> au <b>{input4}</b></p>
@@ -74,10 +74,10 @@ class ComponentToPrint extends React.Component {
                         <p> &ensp;&ensp;&ensp;&ensp;Cette autorisation est délivrée à l’intéressé(e) pour servir et valoir ce que de droit.</p>
                     </div>
                     <div class="div4">
-                        <p> Fait à El Jadida, le {currentDate}</p><br /><br />
+                        <p> Fait à El Jadida, le {currentDate}</p>
                     </div>
-                    <br />
-                    <br />
+                    {/* <br />
+                    <br /> */}
                     <div class="div5">
                         <p>Route Nationale N°1 (Route AZEMMOUR), Km 6, ELHAOUZIA</p>
                         <p>الطريق الوطنية رقم 1 (طريق أزمور)، كلم 6، الحوزية </p>
@@ -88,10 +88,7 @@ class ComponentToPrint extends React.Component {
                     </div>
                     <div class="div7">
                         <p>   Téléphone : +212 523 39 56 79 +212 523 3448 22الهاتف :
-                        </p><p>
-                            fax : +212 523 39 49 15الفاكس:
-                        </p><p>
-                            www.ensaj.ucd.ac.ma</p>
+                        </p>
                     </div>
                 </div>
             </div>

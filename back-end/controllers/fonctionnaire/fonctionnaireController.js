@@ -32,7 +32,7 @@ exports.addFonctionnaire = async (req, res, next) => {
   
       
       const emailSubject = 'Bienvenue a notre plateforme';
-      const emailText = `Cher Fonctionnaire,\n\nVous avez été ajouté à notre plateforme. Votre email de connexion est : ${req.body.email}\nVotre mot de passe est : ${randomPassword}\n\nVeuillez utiliser ces identifiants pour vous connecter.\n\nCordialement,\nVotre Équipe de Plateforme`;
+      const emailText = `Cher Fonctionnaire,\n\nVous avez été ajouté à notre plateforme. Votre email de connexion est : ${req.body.email}\nVotre mot de passe est : ${randomPassword}\n\nVeuillez utiliser ces identifiants pour vous connecter a notre plateforme : http://localhost:3000\n\nCordialement,\nVotre Équipe de Plateforme`;
   
       sendEmail(req.body.email, emailSubject, emailText);
       res.status(200).json(savedFonctionnaire);
