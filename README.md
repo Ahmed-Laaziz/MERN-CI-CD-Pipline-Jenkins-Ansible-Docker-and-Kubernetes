@@ -50,7 +50,7 @@ To deploy the Human Resources Management (HRM) application using Docker, follow 
 2. Open a terminal and run the following command to pull the pre-built Docker image from the Docker Hub registry:
 
    ```bash
-   docker pull ahmedlaaziz/grh_app
+   docker-compose up -d
 
 ## Contact
 
