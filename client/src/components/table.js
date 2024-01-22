@@ -1,12 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
-import { Redirect } from "react-router-dom";
+import axios from 'axios';
 import { DataGrid } from '@mui/x-data-grid';
-import axios from 'axios'; // Import Axios
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-import IconButton from '@mui/material/IconButton';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import DownloadIcon from '@mui/icons-material/Download';
@@ -15,46 +10,8 @@ import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 import { useNavigate } from 'react-router-dom';
 import { useProf } from '../context/ProfContext';
-const backLink = process.env.REACT_APP_BACK_LINK
 
-
-function CustomMenu({ onHistoriqueClick, onProfileClick }) {
-  const [anchorEl, setAnchorEl] = React.useState(null);
-
-  const handleMenuOpen = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-  };
-
-  return (
-    <div>
-      <Button
-        variant="soft"
-        aria-label="profile"
-        aria-controls="profile-menu"
-        aria-haspopup="true"
-        onClick={onProfileClick}
-        style={{ marginRight: '0.5vw' }}
-      >
-        Profile
-      </Button>
-      <Button
-        variant="soft"
-        aria-label="historique"
-        aria-controls="historique-menu"
-        aria-haspopup="true"
-        onClick={onHistoriqueClick}
-      >
-        Historique
-      </Button>
-    </div>
-  );
-}
-
-
+const backLink = process.env.REACT_APP_BACK_LINK;
 
 function MoreActionsCell({ rowParams }) {
   const navigate = useNavigate();
@@ -102,161 +59,77 @@ function MoreActionsCell({ rowParams }) {
   );
 }
 
+function CustomMenu({ onHistoriqueClick, onProfileClick }) {
+  const [anchorEl, setAnchorEl] = React.useState(null);
 
-export default function DataGridDemo({admin_dep}) {
-  var columns = []
+  const handleMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
 
-if (admin_dep == "FCT"){
-  columns = [
-    {
-      field: 'prenom',
-      headerName: 'Prénom',
-      editable: true,
-    },
-    {
-      field: 'nom',
-      headerName: 'Nom',
-      editable: false,
-    },
-    {
-      field: 'cadre',
-      headerName: 'Cadre',
-      sortable: true,
-      // valueGetter: () => 'Professeur assistant'
-    },
-    // {
-    //   field: 'num_loyer',
-    //   headerName: 'Numéro de loyer',
-    //   type: 'number',
-    //   editable: false,
-    // },
-    {
-      field: 'departement',
-      headerName: 'Service',
-      editable: false,
-    },
-    {
-      field: 'moreActions',
-      headerName: 'Autres Actions',
-      sortable: false,
-      renderCell: (params) => {
-        return <MoreActionsCell rowParams={params} />;
-      },
-    },
-  ];
-}
-else {
-  columns = [
-    {
-      field: 'prenom',
-      headerName: 'Prénom',
-      editable: true,
-    },
-    {
-      field: 'nom',
-      headerName: 'Nom',
-      editable: false,
-    },
-    {
-      field: 'cadre',
-      headerName: 'Cadre',
-      sortable: true,
-      // valueGetter: () => 'Professeur assistant'
-    },
-    // {
-    //   field: 'num_loyer',
-    //   headerName: 'Numéro de loyer',
-    //   type: 'number',
-    //   editable: false,
-    // },
-    {
-      field: 'departement',
-      headerName: 'Département',
-      editable: false,
-    },
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
 
-    {
-      field: 'moreActions',
-      headerName: 'Autres Actions',
-      sortable: false,
-      renderCell: (params) => {
-        return <MoreActionsCell rowParams={params} />;
-      },
-    },
-  ];
+  return (
+    <div>
+      <Button
+        variant="soft"
+        aria-label="profile"
+        aria-controls="profile-menu"
+        aria-haspopup="true"
+        onClick={onProfileClick}
+        style={{ marginRight: '0.5vw' }}
+      >
+        Profile
+      </Button>
+      <Button
+        variant="soft"
+        aria-label="historique"
+        aria-controls="historique-menu"
+        aria-haspopup="true"
+        onClick={onHistoriqueClick}
+      >
+        Historique
+      </Button>
+    </div>
+  );
 }
 
-
+function DataGridDemo({ admin_dep }) {
   const [professeurs, setProfesseurs] = useState([]);
-  
+  const navigate = useNavigate();
+  const { updateProf, updateHist } = useProf();
+
   const fetchProfessor = async () => {
     try {
-      if (admin_dep == "TRI"){
-      const response = await axios.get(
-        backLink+`/prof/professeurs-TRI` // Replace with your actual API endpoint
-      );
+      let response;
+      if (admin_dep == 'TRI') {
+        response = await axios.get(backLink + `/prof/professeurs-TRI`);
+      } else if (admin_dep == 'STIN') {
+        response = await axios.get(backLink + `/prof/professeurs-CP`);
+      } else if (admin_dep == 'FCT') {
+        response = await axios.get(backLink + `/prof/professeurs-FCT`);
+      } else {
+        response = await axios.get(backLink + `/prof/all-professeurs`);
+      }
       setProfesseurs(response.data);
-    }
-      else if (admin_dep == "STIN"){
-        const response = await axios.get(
-          backLink+`/prof/professeurs-CP` // Replace with your actual API endpoint
-        );
-        setProfesseurs(response.data);
-      }
-        else if (admin_dep == "FCT"){
-          const response = await axios.get(
-            backLink+`/prof/professeurs-FCT` // Replace with your actual API endpoint
-          );
-          setProfesseurs(response.data);
-        }
-      else{
-        const response = await axios.get(
-          backLink+`/prof/all-professeurs` // Replace with your actual API endpoint
-        );
-        setProfesseurs(response.data);
-      }
-      // const professeurs = response.data;
-      
-      // const professorsCadre = {};
-      // for (const professeur of professeurs) {
-      //   try {
-      //     const response = await axios.post(
-      //       backLink+`/hist/prof-hist`, {"prof": professeur._id} // Replace with your actual API endpoint
-      //     );
-      //     professorsCadre[professeur._id] = response.data[0].cadre; // Replace 'nom' with the actual professor name field
-      //   } catch (error) {
-      //     console.error('Error fetching professor name:', error);
-      //   }
-      // }
     } catch (error) {
-      console.error('Error fetching title:', error);
+      console.error('Error fetching professors:', error);
     }
   };
 
-  // Attach professor names to demand objects
-  // const demandsWithProfessorNames = professeurs.map((professeur) => ({
-  //   ...professeur,
-  //   cadre: 'professeur assistant', // Provide a default value if name not found
-  // }));
-  
-  
-  console.log(professeurs)
-
   useEffect(() => {
-    // Fetch the title from the backend API
-
-    fetchProfessor(); // Call the fetchTitle function when the component mounts
-  }, []);
+    fetchProfessor();
+  }, [admin_dep]);
 
   const handleExportExcel = () => {
     const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
     const fileExtension = '.xlsx';
 
-    // Exclude password column from export
     const dataForExport = professeurs.map(({ password, ...rest }) => rest);
 
     const ws = XLSX.utils.json_to_sheet(dataForExport);
-    const wb = { Sheets: { 'data': ws }, SheetNames: ['data'] };
+    const wb = { Sheets: { data: ws }, SheetNames: ['data'] };
     const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
 
     const data = new Blob([excelBuffer], { type: fileType });
@@ -265,38 +138,59 @@ else {
   };
 
   const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
+  const columns = [
+    {
+      field: 'prenom',
+      headerName: 'Prénom',
+      editable: true,
+    },
+    {
+      field: 'nom',
+      headerName: 'Nom',
+      editable: false,
+    },
+    {
+      field: 'cadre',
+      headerName: 'Cadre',
+      sortable: true,
+    },
+    {
+      field: 'departement',
+      headerName: admin_dep == 'FCT' ? 'Service' : 'Département',
+      editable: false,
+    },
+    {
+      field: 'moreActions',
+      headerName: 'Autres Actions',
+      sortable: false,
+      renderCell: (params) => <MoreActionsCell rowParams={params} />,
+    },
+  ];
 
-  // Adjust column widths based on screen size
   const responsiveColumns = columns.map((column) => ({
     ...column,
-    width: 'auto', // Set width to 'auto'
-    flex: 1, // Set flex property for each column
+    width: isSmallScreen ? 'auto' : 150,
+    flex: 1,
   }));
 
   return (
     <Box sx={{ height: 500, width: '100%' }}>
-    <Button variant="outlined" onClick={handleExportExcel}> 
-<DownloadIcon/> Exporter sous Excel
+      <Button variant="outlined" onClick={handleExportExcel}>
+        <DownloadIcon /> Exporter sous Excel
       </Button>
-      <div>
-      &ensp;
-      </div>
+      <div>&ensp;</div>
       <DataGrid
-        rows={professeurs} // Use the fetched data for rows
+        rows={professeurs}
         columns={responsiveColumns}
         getRowId={(row) => row._id}
-        initialState={{
-          pagination: {
-            paginationModel: {
-              pageSize: 7,
-            },
-          },
-        }}
-        pageSizeOptions={[5]}
+        pageSize={isSmallScreen ? 5 : 7}
         checkboxSelection
         disableRowSelectionOnClick
       />
     </Box>
   );
 }
+
+export default DataGridDemo;

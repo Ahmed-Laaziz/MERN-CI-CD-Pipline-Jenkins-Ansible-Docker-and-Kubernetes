@@ -256,7 +256,7 @@ useEffect(() => {
                             <Typography level="h1">{cadre && cadre[0]?.toUpperCase()}</Typography>
                           </Avatar>
                         </Grid>
-                        <Grid item width="55%">
+                        <Grid item width="50%">
                           <CardContent>
                             <Typography level="h3">{cadre}</Typography>
                           </CardContent>

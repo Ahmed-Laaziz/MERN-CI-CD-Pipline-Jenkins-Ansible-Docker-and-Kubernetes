@@ -80,11 +80,11 @@ export default function ProfileData({ agent }) {
   
   <FormControl>
     <FormLabel>Grade (الرتبة)</FormLabel>
-    <Input endDecorator={<CreditCardIcon /> } defaultValue={(isProfesseur && hist) ? hist[0].grade : 'Loading...'} disabled sx={{fontFamily:'bold'}}/>
+    <Input endDecorator={<CreditCardIcon /> } defaultValue={(isProfesseur && hist && hist[0]?.grade) ? hist[0].grade : 'Loading...'} disabled sx={{fontFamily:'bold'}}/>
   </FormControl>
   <FormControl>
     <FormLabel>Classe (الدرجة)</FormLabel>
-    <Input endDecorator={<CreditCardIcon /> } defaultValue={(isProfesseur && hist) ? hist[0].classe : 'Loading...'} disabled sx={{fontFamily:'bold'}}/>
+    <Input endDecorator={<CreditCardIcon /> } defaultValue={(isProfesseur && hist && hist[0]?.classe) ? hist[0].classe : 'Loading...'} disabled sx={{fontFamily:'bold'}}/>
   </FormControl>
 
   <FormControl>
