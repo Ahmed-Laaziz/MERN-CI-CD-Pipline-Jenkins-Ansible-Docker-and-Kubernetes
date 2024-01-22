@@ -132,7 +132,7 @@ exports.addProf =  async (req, res, next) => {
 
     const emailSubject = 'Bienvenue a notre plateforme';
 
-    const emailText = `Cher Professeur,\n\nVous avez été ajouté à notre plateforme. Votre email de connexion est : ${req.body.email}\nVotre mot de passe est : ${randomPassword}\n\nVeuillez utiliser ces identifiants pour vous connecter a notre plateforme : https://grh-ensaj-front.vercel.app\n\nCordialement,\nVotre Équipe de Plateforme`;
+    const emailText = `Cher Professeur,\n\nVous avez été ajouté à notre plateforme. Votre email de connexion est : ${req.body.email}\nVotre mot de passe est : ${randomPassword}\n\nVeuillez utiliser ces identifiants pour vous connecter a notre plateforme : http://localhost:3000\n\nCordialement,\nVotre Équipe de Plateforme`;
 
     sendEmail(req.body.email, emailSubject, emailText);
       res.status(200).json(savedProfesseur);
@@ -211,7 +211,7 @@ exports.forgotMail =  async (req, res, next) => {
   const prof = await Professeur.find({ "email": req.body.email }).sort({ date: -1 });
 
   // Forgotten Password Email Body
-  const forgotPasswordText = "Cher Professeur,\n\nVous avez demandé la réinitialisation de votre mot de passe sur notre plateforme. Pour procéder à la réinitialisation, veuillez suivre le lien ci-dessous :\n\nhttps://grh-ensaj-front.vercel.app//new-pass?e="+email+"\n\nSi vous n'avez pas demandé cette réinitialisation, veuillez ignorer cet e-mail.\n\nCordialement,\nVotre Équipe de Plateforme";
+  const forgotPasswordText = "Cher Professeur,\n\nVous avez demandé la réinitialisation de votre mot de passe sur notre plateforme. Pour procéder à la réinitialisation, veuillez suivre le lien ci-dessous :\n\nhttp://localhost:3000/new-pass?e="+email+"\n\nSi vous n'avez pas demandé cette réinitialisation, veuillez ignorer cet e-mail.\n\nCordialement,\nVotre Équipe de Plateforme";
   sendEmail(req.body.email, forgotPasswordSubject, forgotPasswordText);
     
   } catch (error) {

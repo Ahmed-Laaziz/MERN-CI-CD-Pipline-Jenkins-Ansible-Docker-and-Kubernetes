@@ -10,7 +10,7 @@ db.agents.insertMany([
     cin: 'AB111111',
     password: '123',
     genre: 'Home',
-    fonction: 'Agent administratif',
+    fonction: 'Secrétaire',
     dep_label: '__',
     __t: 'Admin'
   },
