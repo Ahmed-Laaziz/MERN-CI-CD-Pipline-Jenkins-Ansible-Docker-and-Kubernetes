@@ -11,6 +11,7 @@ db.agents.insertMany([
     password: '123',
     genre: 'Home',
     fonction: 'Agent administratif',
+    dep_label: '__',
     __t: 'Admin'
   },
   {
@@ -40,13 +41,13 @@ db.agents.insertMany([
   {
     nom: 'chef',
     prenom: 'chef',
-    email: 'chef@chef-cp.com',
+    email: 'chef@chef-stin.com',
     tel: '987654321',
     cin: 'XY222222',
     password: '123',
     genre: 'Home',
     fonction: 'Chef de Département',
-    dep_label: 'CP',
+    dep_label: 'STIN',
     __t:'Admin'
   }
 ]);
