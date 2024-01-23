@@ -15,6 +15,7 @@ import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 import { useNavigate } from 'react-router-dom';
 import { useProf } from '../../context/ProfContext';
+import AddIcon from '@mui/icons-material/Add';
 const backLink = process.env.REACT_APP_BACK_LINK
 const columns = [
   {
@@ -136,6 +137,10 @@ function MoreActionsCell({ rowParams }) {
 
 export default function DataGridDemo() {
   const [professeurs, setProfesseurs] = useState([]);
+  const navigate = useNavigate();
+  function handleAddUser(){
+      navigate('/add-fonctionnaire')
+  }
   
   const fetchProfessor = async () => {
     try {
@@ -207,6 +212,12 @@ export default function DataGridDemo() {
     <Box sx={{ height: 500, width: '99%' }}>
     <Button variant="outlined" onClick={handleExportExcel}> 
 <DownloadIcon/> Exporter sous Excel
+      </Button>
+      &nbsp;
+        &nbsp;
+      
+      <Button variant="solid" onClick={handleAddUser}>
+        <AddIcon /> Nouveau fonctionnaire
       </Button>
       <div>
       &ensp;

@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { FormControl, InputLabel, Select, MenuItem, LinearProgress } from '@mui/material';
+import { FormControl, InputLabel, Select, MenuItem, LinearProgress, Box } from '@mui/material';
 import Grid from '@mui/joy/Grid';
 import Autocomplete from '@mui/joy/Autocomplete';
 import TextField from '@mui/material/TextField';
@@ -109,7 +109,7 @@ function App() {
 
     return (
         <div className="App">
-            <center><h3>Envoi des documents</h3></center>
+            {/* <center><h3>Envoi des documents</h3></center> */}
             <form className="formStyle" onSubmit={submitImage}>
                 {/* <FormControl fullWidth>
                     <InputLabel id="select-professor-label">Selectionner un fonctionnaire</InputLabel>
@@ -183,38 +183,45 @@ function App() {
                 </FormControl>
                 <br />
                 <div>&nbsp;</div>
-                <div>
+                <center>
+                <Grid container alignItems="center" justifyContent="center" sx={{height: "20%" ,width: "40%"}} >
                     <label htmlFor="upload-file">
                         <Input
                             id="upload-file"
                             type="file"
                             inputProps={{ accept: 'application/pdf' }}
                             onChange={(e) => setFile(e.target.files[0])}
-                            style={{ display: 'none' }}
+                            style={{ display: 'none', borderBlockColor: 'white', color:"white", borderColor:"white"}}
                         />
+                        
                         <Button
                             variant="outlined"
                             component="span"
-                            startIcon={<CloudUploadIcon />}
+                            // startIcon={<CloudUploadIcon />}
                         >
-                            Choisir un fichier
+                            {!showSuccessMessage && (
+                             <img src="https://colorlib.com/wp-content/uploads/sites/2/jquery-file-upload-scripts.png" height={"20%"} width={"90%"}></img>
+                            )}
                         </Button>
                     </label>
                     {file && !showSuccessMessage && (
                         <Typography variant="body1" gutterBottom>
                             fichier choisi: {file.name}
+                            
                         </Typography>
                     )}
                     {showSuccessMessage && (
                         <Typography variant="body1" gutterBottom>
-                            Fichier téléchargé avec succès!
+                            <img src="https://assets.materialup.com/uploads/c8a1e109-dca0-4b9e-9aa6-1e339b5ba903/preview.gif" height={"80%"} width={"80%"}></img>
                         </Typography>
                     )}
-                </div>
+                </Grid>
+                
                 <br />
                 <Button variant="contained" endIcon={<SendIcon />} type="submit">
                     Envoyer
                 </Button>
+                </center>
             </form>
             <div>
               &nbsp;

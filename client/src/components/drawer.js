@@ -23,7 +23,6 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import GroupIcon from '@mui/icons-material/Group';
 import HomeIcon from '@mui/icons-material/Home';
 import ArticleIcon from '@mui/icons-material/Article';
-import { Link } from 'react-router-dom';
 import Avatar from '@mui/joy/Avatar';
 import Badge from '@mui/material/Badge';
 import NotificationsIcon from '@mui/icons-material/Notifications';
@@ -37,7 +36,7 @@ import { useProf } from '../context/ProfContext';
 import SendAndArchiveIcon from '@mui/icons-material/SendAndArchive';
 import SendIcon from '@mui/icons-material/Send';
 import AddBoxIcon from '@mui/icons-material/AddBox';
-
+import { Link, useLocation } from 'react-router-dom';
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
 
 const drawerWidth = 240;
@@ -111,6 +110,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 
 export default function MiniDrawer({role, pageTitle, notifs, id}) {
+  const location = useLocation();
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [anchorNotifEl, setAnchorNotifEl] = React.useState(null);
@@ -337,6 +337,9 @@ export default function MiniDrawer({role, pageTitle, notifs, id}) {
             minHeight: 48,
             justifyContent: open ? 'initial' : 'center',
             px: 2.5,
+            backgroundColor: location.pathname === '/home' ? '#99c2ff' : 'transparent', // Light blue color
+            boxShadow: location.pathname === '/home' ? '0px 5px 15px rgba(0, 0, 0, 0.35)' : 'none', // Subtle shadow
+            borderRadius: 8,
           }}
         >
           <ListItemIcon
@@ -348,7 +351,7 @@ export default function MiniDrawer({role, pageTitle, notifs, id}) {
           >
             <HomeIcon/>
           </ListItemIcon>
-          <ListItemText primary="Accueil" sx={{ opacity: open ? 1 : 0 }} />
+          <ListItemText primary="Accueil" sx={{ opacity: open ? 1 : 0, color: '#000a1a' }} />
         </ListItemButton>
       </Link>
     </ListItem>
@@ -366,6 +369,9 @@ export default function MiniDrawer({role, pageTitle, notifs, id}) {
             minHeight: 48,
             justifyContent: open ? 'initial' : 'center',
             px: 2.5,
+            backgroundColor: location.pathname === '/all-professors' ? '#99c2ff' : 'transparent', // Light blue color
+            boxShadow: location.pathname === '/all-professors' ? '0px 5px 15px rgba(0, 0, 0, 0.35)' : 'none', // Subtle shadow
+            borderRadius: 8,
           }}
         >
           <ListItemIcon
@@ -377,43 +383,21 @@ export default function MiniDrawer({role, pageTitle, notifs, id}) {
           >
             <GroupIcon/>
           </ListItemIcon>
-          <ListItemText primary="Professeurs" sx={{ opacity: open ? 1 : 0 }} />
+          <ListItemText primary="Professeurs" sx={{ opacity: open ? 1 : 0 , color: '#000a1a' }} />
         </ListItemButton>
       </Link>
     </ListItem>
 
     <ListItem disablePadding sx={{ display: 'block' }}>
-      {/* Use the Link component to specify the "to" prop */}
-      <Link to="/add-professor" style={{ textDecoration: 'none' }}>
-        <ListItemButton
-          sx={{
-            minHeight: 48,
-            justifyContent: open ? 'initial' : 'center',
-            px: 2.5,
-          }}
-        >
-          <ListItemIcon
-            sx={{
-              minWidth: 0,
-              mr: open ? 3 : 'auto',
-              justifyContent: 'center',
-            }}
-          >
-            <PersonAddIcon/>
-          </ListItemIcon>
-          <ListItemText primary="Ajouter professeur" sx={{ opacity: open ? 1 : 0 }} />
-        </ListItemButton>
-      </Link>
-    </ListItem>
-
-    <ListItem disablePadding sx={{ display: 'block' }}>
-      {/* Use the Link component to specify the "to" prop */}
       <Link to="/all-fonctionnaires" style={{ textDecoration: 'none' }}>
         <ListItemButton
           sx={{
             minHeight: 48,
             justifyContent: open ? 'initial' : 'center',
             px: 2.5,
+            backgroundColor: location.pathname === '/all-fonctionnaires' ? '#99c2ff' : 'transparent', // Light blue color
+            boxShadow: location.pathname === '/all-fonctionnaires' ? '0px 5px 15px rgba(0, 0, 0, 0.35)' : 'none', // Subtle shadow
+            borderRadius: 8,
           }}
         >
           <ListItemIcon
@@ -425,44 +409,20 @@ export default function MiniDrawer({role, pageTitle, notifs, id}) {
           >
             <GroupIcon/>
           </ListItemIcon>
-          <ListItemText primary="Fonctionnaires" sx={{ opacity: open ? 1 : 0 }} />
+          <ListItemText primary="Fonctionnaires" sx={{ opacity: open ? 1 : 0 , color: '#000a1a' }} />
         </ListItemButton>
       </Link>
     </ListItem>
-
     <ListItem disablePadding sx={{ display: 'block' }}>
-      {/* Use the Link component to specify the "to" prop */}
-      <Link to="/add-fonctionnaire" style={{ textDecoration: 'none' }}>
-        <ListItemButton
-          sx={{
-            minHeight: 48,
-            justifyContent: open ? 'initial' : 'center',
-            px: 2.5,
-          }}
-        >
-          <ListItemIcon
-            sx={{
-              minWidth: 0,
-              mr: open ? 3 : 'auto',
-              justifyContent: 'center',
-            }}
-          >
-            <GroupAddIcon/>
-          </ListItemIcon>
-          <ListItemText primary="Ajouter fonctionnaire" sx={{ opacity: open ? 1 : 0 }} />
-        </ListItemButton>
-      </Link>
-    </ListItem>
-
-
-    <ListItem disablePadding sx={{ display: 'block' }}>
-      {/* Use the Link component to specify the "to" prop */}
       <Link to="/admin-demandes" style={{ textDecoration: 'none' }}>
         <ListItemButton
           sx={{
             minHeight: 48,
             justifyContent: open ? 'initial' : 'center',
             px: 2.5,
+            backgroundColor: location.pathname === '/admin-demandes' ? '#99c2ff' : 'transparent', // Light blue color
+            boxShadow: location.pathname === '/admin-demandes' ? '0px 5px 15px rgba(0, 0, 0, 0.35)' : 'none', // Subtle shadow
+            borderRadius: 8,
           }}
         >
           <ListItemIcon
@@ -474,7 +434,7 @@ export default function MiniDrawer({role, pageTitle, notifs, id}) {
           >
             <RuleFolderIcon/>
           </ListItemIcon>
-          <ListItemText primary="Demandes" sx={{ opacity: open ? 1 : 0 }} />
+          <ListItemText primary="Demandes" sx={{ opacity: open ? 1 : 0 , color: '#000a1a' }} />
         </ListItemButton>
       </Link>
     </ListItem>
@@ -488,6 +448,9 @@ export default function MiniDrawer({role, pageTitle, notifs, id}) {
             minHeight: 48,
             justifyContent: open ? 'initial' : 'center',
             px: 2.5,
+            backgroundColor: location.pathname === '/file-upload' ? '#99c2ff' : 'transparent', // Light blue color
+            boxShadow: location.pathname === '/file-upload' ? '0px 5px 15px rgba(0, 0, 0, 0.35)' : 'none', // Subtle shadow
+            borderRadius: 8,
           }}
         >
           <ListItemIcon
@@ -499,7 +462,7 @@ export default function MiniDrawer({role, pageTitle, notifs, id}) {
           >
             <SendIcon/>
           </ListItemIcon>
-          <ListItemText primary="Documents" sx={{ opacity: open ? 1 : 0 }} />
+          <ListItemText primary="Documents" sx={{ opacity: open ? 1 : 0 , color: '#000a1a' }} />
         </ListItemButton>
       </Link>
     </ListItem>
@@ -513,6 +476,9 @@ export default function MiniDrawer({role, pageTitle, notifs, id}) {
             minHeight: 48,
             justifyContent: open ? 'initial' : 'center',
             px: 2.5,
+            backgroundColor: location.pathname === '/espace-demandes' ? '#99c2ff' : 'transparent', // Light blue color
+            boxShadow: location.pathname === '/espace-demandes' ? '0px 5px 15px rgba(0, 0, 0, 0.35)' : 'none', // Subtle shadow
+            borderRadius: 8,
           }}
         >
           <ListItemIcon
@@ -524,7 +490,7 @@ export default function MiniDrawer({role, pageTitle, notifs, id}) {
           >
             <AddBoxIcon/>
           </ListItemIcon>
-          <ListItemText primary="Espace des demandes" sx={{ opacity: open ? 1 : 0 }} />
+          <ListItemText primary="Espace des demandes" sx={{ opacity: open ? 1 : 0 , color: '#000a1a' }} />
         </ListItemButton>
       </Link>
     </ListItem>
@@ -566,6 +532,9 @@ export default function MiniDrawer({role, pageTitle, notifs, id}) {
           minHeight: 48,
           justifyContent: open ? 'initial' : 'center',
           px: 2.5,
+          backgroundColor: location.pathname === '/demandes' ? '#99c2ff' : 'transparent', // Light blue color
+            boxShadow: location.pathname === '/demandes' ? '0px 5px 15px rgba(0, 0, 0, 0.35)' : 'none', // Subtle shadow
+            borderRadius: 8,
         }}
       >
         <ListItemIcon
@@ -577,7 +546,7 @@ export default function MiniDrawer({role, pageTitle, notifs, id}) {
         >
           <ArticleIcon />
         </ListItemIcon>
-        <ListItemText primary="Demandes" sx={{ opacity: open ? 1 : 0 }} />
+        <ListItemText primary="Demandes" sx={{ opacity: open ? 1 : 0 , color: '#000a1a' }} />
       </ListItemButton>
     </Link>
   </ListItem>
@@ -591,6 +560,9 @@ export default function MiniDrawer({role, pageTitle, notifs, id}) {
           minHeight: 48,
           justifyContent: open ? 'initial' : 'center',
           px: 2.5,
+          backgroundColor: location.pathname === '/files-download' ? '#99c2ff' : 'transparent', // Light blue color
+            boxShadow: location.pathname === '/files-download' ? '0px 5px 15px rgba(0, 0, 0, 0.35)' : 'none', // Subtle shadow
+            borderRadius: 8,
         }}
       >
         <ListItemIcon
@@ -602,7 +574,7 @@ export default function MiniDrawer({role, pageTitle, notifs, id}) {
         >
           <SendAndArchiveIcon />
         </ListItemIcon>
-        <ListItemText primary="Documents" sx={{ opacity: open ? 1 : 0 }} />
+        <ListItemText primary="Documents" sx={{ opacity: open ? 1 : 0 , color: '#000a1a' }} />
       </ListItemButton>
     </Link>
   </ListItem>
@@ -618,6 +590,9 @@ export default function MiniDrawer({role, pageTitle, notifs, id}) {
             minHeight: 48,
             justifyContent: open ? 'initial' : 'center',
             px: 2.5,
+            backgroundColor: location.pathname === '/all-professors' ? '#99c2ff' : 'transparent', // Light blue color
+            boxShadow: location.pathname === '/all-professors' ? '0px 5px 15px rgba(0, 0, 0, 0.35)' : 'none', // Subtle shadow
+            borderRadius: 8,
           }}
         >
           <ListItemIcon
@@ -629,7 +604,7 @@ export default function MiniDrawer({role, pageTitle, notifs, id}) {
           >
             <GroupIcon/>
           </ListItemIcon>
-          <ListItemText primary="Professeurs" sx={{ opacity: open ? 1 : 0 }} />
+          <ListItemText primary="Professeurs" sx={{ opacity: open ? 1 : 0 , color: '#000a1a' }} />
         </ListItemButton>
       </Link>
     </ListItem>
@@ -642,6 +617,9 @@ export default function MiniDrawer({role, pageTitle, notifs, id}) {
             minHeight: 48,
             justifyContent: open ? 'initial' : 'center',
             px: 2.5,
+            backgroundColor: location.pathname === '/chef-demandes' ? '#99c2ff' : 'transparent', // Light blue color
+            boxShadow: location.pathname === '/chef-demandes' ? '0px 5px 15px rgba(0, 0, 0, 0.35)' : 'none', // Subtle shadow
+            borderRadius: 8,
           }}
         >
           <ListItemIcon
@@ -653,7 +631,7 @@ export default function MiniDrawer({role, pageTitle, notifs, id}) {
           >
             <RuleFolderIcon/>
           </ListItemIcon>
-          <ListItemText primary="Demandes" sx={{ opacity: open ? 1 : 0 }} />
+          <ListItemText primary="Demandes" sx={{ opacity: open ? 1 : 0 , color: '#000a1a' }} />
         </ListItemButton>
       </Link>
     </ListItem>
@@ -676,6 +654,9 @@ export default function MiniDrawer({role, pageTitle, notifs, id}) {
             minHeight: 48,
             justifyContent: open ? 'initial' : 'center',
             px: 2.5,
+            backgroundColor: location.pathname === '/historiques' ? '#99c2ff' : 'transparent', // Light blue color
+            boxShadow: location.pathname === '/historiques' ? '0px 5px 15px rgba(0, 0, 0, 0.35)' : 'none', // Subtle shadow
+            borderRadius: 8,
           }}
         >
           <ListItemIcon
@@ -687,7 +668,7 @@ export default function MiniDrawer({role, pageTitle, notifs, id}) {
           >
             <HistoryIcon/>
           </ListItemIcon>
-          <ListItemText primary="historiques" sx={{ opacity: open ? 1 : 0 }} />
+          <ListItemText primary="historiques" sx={{ opacity: open ? 1 : 0 , color: '#000a1a' }} />
         </ListItemButton>
       </Link>
     </ListItem>
@@ -699,6 +680,9 @@ export default function MiniDrawer({role, pageTitle, notifs, id}) {
           minHeight: 48,
           justifyContent: open ? 'initial' : 'center',
           px: 2.5,
+          backgroundColor: location.pathname === '/prof-demandes' ? '#99c2ff' : 'transparent', // Light blue color
+            boxShadow: location.pathname === '/prof-demandes' ? '0px 5px 15px rgba(0, 0, 0, 0.35)' : 'none', // Subtle shadow
+            borderRadius: 8,
         }}
       >
         <ListItemIcon
@@ -710,7 +694,7 @@ export default function MiniDrawer({role, pageTitle, notifs, id}) {
         >
           <CollectionsBookmarkIcon />
         </ListItemIcon>
-        <ListItemText primary="Tous les demandes" sx={{ opacity: open ? 1 : 0 }} />
+        <ListItemText primary="Tous les demandes" sx={{ opacity: open ? 1 : 0 , color: '#000a1a' }} />
       </ListItemButton>
     </Link>
   </ListItem>

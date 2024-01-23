@@ -67,7 +67,7 @@ export default function AdminDemandes(){
     return(
         <Box sx={{ display: 'flex' }}>
 
-        <Drawer role='Chef' pageTitle={"Demandes des Employés"}/>
+        <Drawer role='Chef' pageTitle={"Demandes"}/>
 
         
         <Box
@@ -82,7 +82,7 @@ export default function AdminDemandes(){
   }}
 >
 
-<Breadcrumb pageLabel="Demandes des fonctionnaires"/>
+<Breadcrumb pageLabel="Demandes"/>
 
 <>&nbsp;</>
 

@@ -66,7 +66,7 @@ export default function AdminDemandes(){
 
     return(
         <Box sx={{ display: 'flex' }}>
-        <Drawer role='Admin' pageTitle={"Demandes des Fonctionnaires"}/>
+        <Drawer role='Admin' pageTitle={"Demandes"}/>
 
         
         <Box
@@ -80,7 +80,7 @@ export default function AdminDemandes(){
     // boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)", // Add the boxShadow property
   }}
 >
-<Breadcrumb pageLabel="Demandes des fonctionnaires"/>
+<Breadcrumb pageLabel="Demandes"/>
 
 <>&nbsp;</>
 

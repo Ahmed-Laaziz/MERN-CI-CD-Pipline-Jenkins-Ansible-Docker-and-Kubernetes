@@ -68,9 +68,9 @@ useEffect(() => {
         {
   agent ? (
     agent.__t === "Admin" && agent.fonction === "Chef de Département" ? (
-      <Drawer role='Chef' pageTitle={"Demandes"} />
+      <Drawer role='Chef' pageTitle={"Historique des demandes"} />
     ) : agent.__t === "Admin" ? (
-      <Drawer role='Admin' pageTitle={"Demandes"} />
+      <Drawer role='Admin' pageTitle={"Historique des demandes"} />
     ) : agent.__t === "Professeur" ? (
       <></>
     ) : null

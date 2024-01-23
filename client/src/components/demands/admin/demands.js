@@ -347,12 +347,12 @@ useEffect(() => {
 
 <FormControl fullWidth>
       <Grid container alignItems="center">
-        <Grid item xs={4}>
+        <Grid item xs={5}>
 
           <InputLabel htmlFor="professor-select"><b>Selectionner un fonctionnaire:</b></InputLabel>
 
         </Grid>
-        <Grid item xs={8}>
+        <Grid item xs={7}>
           <Autocomplete
             id="professor-select"
             options={professors}
@@ -378,10 +378,10 @@ useEffect(() => {
 
 <FormControl fullWidth>
   <Grid container alignItems="center">
-    <Grid item xs={4}>
+    <Grid item xs={5}>
       <InputLabel htmlFor="select-label"><b>Selectionner un document:</b></InputLabel>
     </Grid>
-    <Grid item xs={8}>
+    <Grid item xs={7}>
     <Select defaultValue="att1" onChange={handleChange} disabled={!selectedProfessor}>
   <Option value="att1">Attestation de travail - شهادة عمل</Option>
   <Option value="att2">Autorisation de quitter le territoire - الإذن بمغادرة التراب الوطني</Option>

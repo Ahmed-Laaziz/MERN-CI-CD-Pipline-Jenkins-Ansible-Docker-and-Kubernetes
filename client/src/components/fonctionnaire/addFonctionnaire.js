@@ -15,6 +15,7 @@ import axios from 'axios';
 const backLink = process.env.REACT_APP_BACK_LINK
 const steps = ['données personnelles', 'données professionnelles', 'données supplémentaires'];
 const genreOptions = ['Homme', 'Femme']
+const serviceOptions = ['RH', 'Scolarité', 'Informatique']
 const fonctionOptions = ['Ingénieur', 'Technicien']
 const cadreOptions = ["Ingénieur d'application", 'Technicien', 'Administrateur'];
 // const gradeOptions = ['Grade 1', 'Grade 2'];
@@ -168,11 +169,15 @@ export default function ColumnPinningDynamicRowHeight({prof}) {
 
     //Cadre
   const [selectedGenre, setSelectedGenre] = useState(null);
+  const [selectedService, setSelectedService] = useState(null);
   const [selectedFonction, setSelectedFonction] = useState(null);
   
 
   const handleGenreChange = (event, newValue) => {
     setSelectedGenre(newValue);
+  };
+  const handleServiceChange = (event, newValue) => {
+    setSelectedService(newValue);
   };
   const handleFonctionChange = (event, newValue) => {
     setSelectedFonction(newValue);
@@ -289,6 +294,7 @@ const addFonctionnaire = async () => {
       cadre: selectedCadre,
       grade:selectedGrade,
       classe:selectedClasse,
+      departement:selectedService
     };
     console.log("collected fonctionnaire infos : " + requestData.nom)
     // Make a POST request to your backend API
@@ -439,8 +445,24 @@ const addFonctionnaire = async () => {
                 />
               </div>
             </Grid>
+
+            <Grid item xs={2} >
+            <div>
+                <Typography variant="subtitle1" gutterBottom>
+                  
+                Service (خدمة)
+                </Typography>
+                <Autocomplete
+                  id="cadre-autocomplete"
+                  options={serviceOptions}
+                  value={selectedService}
+                  onChange={handleServiceChange}
+                  renderInput={(params) => <TextField {...params} variant="outlined" />}
+                />
+              </div>
+            </Grid>
             
-            <Grid item xs={3}>
+            <Grid item xs={2}>
               <div>
                 <Typography variant="subtitle1" gutterBottom>
                   CIN (رقم ب.ت.وطنية)
@@ -458,7 +480,7 @@ const addFonctionnaire = async () => {
                 />
               </div>
             </Grid>
-            <Grid item xs={4}>
+            <Grid item xs={3}>
               <div>
                 <Typography variant="subtitle1" gutterBottom>
                   Email (البريد الإلكتروني)

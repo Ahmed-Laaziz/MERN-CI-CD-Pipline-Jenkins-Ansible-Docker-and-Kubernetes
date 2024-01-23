@@ -10,7 +10,7 @@ import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 import { useNavigate } from 'react-router-dom';
 import { useProf } from '../context/ProfContext';
-
+import AddIcon from '@mui/icons-material/Add';
 const backLink = process.env.REACT_APP_BACK_LINK;
 
 function MoreActionsCell({ rowParams }) {
@@ -66,6 +66,7 @@ function CustomMenu({ onHistoriqueClick, onProfileClick }) {
     setAnchorEl(event.currentTarget);
   };
 
+  
   const handleMenuClose = () => {
     setAnchorEl(null);
   };
@@ -99,6 +100,14 @@ function DataGridDemo({ admin_dep }) {
   const [professeurs, setProfesseurs] = useState([]);
   const navigate = useNavigate();
   const { updateProf, updateHist } = useProf();
+  function handleAddUser(){
+    if (admin_dep != "FCT"){
+    navigate('/add-professor')}
+    else {
+      navigate('/add-fonctionnaire')
+    }
+  }
+
 
   const fetchProfessor = async () => {
     try {
@@ -179,6 +188,13 @@ function DataGridDemo({ admin_dep }) {
     <Box sx={{ height: 500, width: '100%' }}>
       <Button variant="outlined" onClick={handleExportExcel}>
         <DownloadIcon /> Exporter sous Excel
+      </Button>
+      
+        &nbsp;
+        &nbsp;
+      
+      <Button variant="solid" onClick={handleAddUser}>
+        <AddIcon /> Nouveau professeur
       </Button>
       <div>&ensp;</div>
       <DataGrid
