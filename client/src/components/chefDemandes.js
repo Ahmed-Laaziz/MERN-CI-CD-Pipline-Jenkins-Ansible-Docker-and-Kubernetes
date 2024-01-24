@@ -302,7 +302,7 @@ export default function ColumnPinningDynamicRowHeight({dep}) {
       for (const demand of demandData) {
         try {
           console.log(demand.professeur);
-          if (demand.professeur && demand.professeur.departement === dep) {
+         if (demand.professeur && (demand.professeur.departement === 'Rh' || demand.professeur.departement === 'Scolarité' || demand.professeur.departement === 'Informatique')) {
             console.log("yes")
             const professorResponse = await axios.get(backLink + `/agent/agents/${demand.professeur._id}`);
             const professor = professorResponse.data;
