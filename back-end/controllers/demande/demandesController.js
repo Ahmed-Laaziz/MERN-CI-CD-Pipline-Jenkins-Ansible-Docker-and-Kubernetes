@@ -148,7 +148,7 @@ exports.getDemandesForProfesseur = async (req, res) => {
       .sort({ createdAt: -1 })
         .populate({
           path: 'professeur',
-          match: { departement: 'FCT' } // Filter professors by department 'TRI'
+          match: { departement: { $in: ['Rh', 'Scolarité', 'Informatique'] } }
         })
         .exec();
   
