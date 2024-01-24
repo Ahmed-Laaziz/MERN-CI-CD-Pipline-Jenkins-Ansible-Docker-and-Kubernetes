@@ -13,7 +13,7 @@ import axios from 'axios';
 const backLink = process.env.REACT_APP_BACK_LINK
 const steps = ['données personnelles', 'données professionnelles', 'données supplémentaires'];
 const genreOptions = ['Homme', 'Femme']
-const serviceOptions = ['RH', 'Scolarité', 'Informatique']
+const serviceOptions = ['Rh', 'Scolarité', 'Informatique']
 const fonctionOptions = ['Ingénieur', 'Technicien']
 const cadreOptions = ["Ingénieur d'application", 'Technicien', 'Administrateur'];
 
