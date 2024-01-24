@@ -413,7 +413,7 @@ useEffect(() => {
               </Grid>
               <Grid item width="45%">
                 <CardContent>
-                  <Typography level="h3">{`Département ${departmentKey}`}</Typography>
+                  <Typography level="h3">{`Service ${departmentKey}`}</Typography>
                 </CardContent>
               </Grid>
               <Grid>
