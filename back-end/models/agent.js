@@ -5,11 +5,11 @@ const Schema = mongoose.Schema;
 const agentSchema = new Schema({
     nom: {
         type: String,
-        required: true
+        required: false
     },
     prenom: {
         type: String,
-        required: true
+        required: false
     },
     email: {
         type: String,
@@ -18,11 +18,11 @@ const agentSchema = new Schema({
     },
     tel: {
         type: String,
-        required: true
+        required: false
     },
     cin: {
         type: String,
-        required: true
+        required: false
     },
     password: {
         type: String,
@@ -30,7 +30,7 @@ const agentSchema = new Schema({
     },
     genre: {
         type: String,
-        required: true
+        required: false
     },
 }
 , {timestamps: true})
