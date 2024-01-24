@@ -38,7 +38,7 @@ exports.getProfByEmail = async (req, res, next) => {
 
 exports.getProfsExceptFCT = async (req, res, next) => {
   try {
-      const profsExceptFCT = await Professeur.find({ departement: { $nin: ['FCT', 'RH', 'Scolarité', 'Informatique'] } });
+      const profsExceptFCT = await Professeur.find({ departement: { $nin: ['FCT', 'Rh', 'Scolarité', 'Informatique'] } });
       res.status(200).json(profsExceptFCT);
   } catch (error) {
       console.error('Error retrieving professors except FCT:', error);
@@ -60,7 +60,7 @@ exports.getProfsTRI = async (req, res, next) => {
 // Define a route to retrieve and return professors for the department "FCT"
 exports.getProfsFCT = async (req, res, next) => {
   try {
-      const profsFCT = await Professeur.find({ departement: { $in: ['FCT', 'RH', 'Scolarité', 'Informatique'] } });
+      const profsFCT = await Professeur.find({ departement: { $in: ['FCT', 'Rh', 'Scolarité', 'Informatique'] } });
       res.status(200).json(profsFCT);
   } catch (error) {
       console.error('Error retrieving FCT professors:', error);
