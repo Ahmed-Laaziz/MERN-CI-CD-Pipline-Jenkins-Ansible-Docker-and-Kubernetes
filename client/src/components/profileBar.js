@@ -28,6 +28,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { useProf } from '../context/ProfContext';
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 const backLink = process.env.REACT_APP_BACK_LINK;
 
 export default function UserCard({ agent }) {
@@ -127,6 +128,7 @@ export default function UserCard({ agent }) {
     setTelValue(agent ? agent.tel : '');
     setEmailValue(agent ? agent.email : '');
     setSelectedGenre(agent ? agent.genre : null);
+    setSelectedDepartement(agent ? agent.departement : null)
 
     //For professor only
     setSelectedCadre(hist ? hist[0].cadre : '');
@@ -149,6 +151,7 @@ export default function UserCard({ agent }) {
       num_loyer: loyerValue,
       date_entre_ecole: selectedDateSchool,
       date_fct_publique: selectedDateFct,
+      departement: selectedDepartement,
       num_ref: 2121,
       date_effective: selectedDateEffective,
       anciennete: ancienneteValue,
@@ -176,7 +179,7 @@ export default function UserCard({ agent }) {
     const updatedProf = await axios.put(
       backLink+`/prof/update-professeur`, {"prof": newProf, "hist": newHist} // Replace with your actual API endpoint
     );
-    navigate('/all-fonctionnaires')
+    navigate('/all-professors')
     handleClose();
   }
 
@@ -327,6 +330,27 @@ const handleEmailChange = (event) => {
   }
 };
 
+const [departementOptions, setDepartementOptions] = React.useState([])
+
+  const fetchDepartements = async () => {
+    try {
+      const response = await axios.get(`${backLink}/departements/all-departements`);
+      const libeleValues = response.data.map((departement) => departement.libele);
+      setDepartementOptions(libeleValues);
+      console.log("deps: " + libeleValues);
+    } catch (error) {
+      console.error('Error fetching departements:', error);
+    }
+  };
+
+  
+
+  const [selectedDepartement, setSelectedDepartement] = useState(null);
+
+  const handleDepartementChange = (event, newValue) => {
+    setSelectedDepartement(newValue);
+  };
+
 const handleGenreChange = (event, newValue) => {
   setSelectedGenre(newValue);
 };
@@ -422,8 +446,10 @@ const updateAdmin = async () => {
   }
 };
 
-
   
+useEffect(()=>{
+  fetchDepartements()
+}, [])
 
   return (
     <Box
@@ -519,9 +545,9 @@ const updateAdmin = async () => {
               handleClose();
             }}
           >
-            <Stack spacing={2}>
+            <Stack spacing={1}>
             <FormControl>
-  <Grid container spacing={2} style={{ marginTop: "2%" }}>
+  <Grid container spacing={2} style={{ marginTop: "1%" }}>
     <Grid item xs={6}>
       <FormLabel>Nom :</FormLabel>
       <TextField
@@ -639,7 +665,7 @@ const updateAdmin = async () => {
 
           <StepContent style={{ width: '30em' }}>
             
-              <Grid container spacing={2} style={{ marginTop: "2%" }}>
+              <Grid container spacing={2} style={{ marginTop: "1%" }}>
                 <Grid item xs={6}>
                   <FormLabel>Nom :</FormLabel>
                   <TextField
@@ -661,7 +687,7 @@ const updateAdmin = async () => {
                   />
                 </Grid>
               </Grid>
-              <Grid container spacing={2} style={{ marginTop: "2%" }}>
+              <Grid container spacing={2} style={{ marginTop: "1%" }}>
                 <Grid item xs={6}>
                   <FormLabel>النسب :</FormLabel>
                   <TextField
@@ -679,7 +705,7 @@ const updateAdmin = async () => {
                   />
                 </Grid>
               </Grid>
-              <Grid container spacing={2} style={{ marginTop: "2%" }}>
+              <Grid container spacing={2} style={{ marginTop: "1%" }}>
                 <Grid item xs={6}>
                   <FormLabel> CIN (رقم ب.ت.وطنية) :</FormLabel>
                   <TextField
@@ -740,7 +766,7 @@ const updateAdmin = async () => {
         </Step>
         <Step key="Step2">
   <StepContent style={{ width: '30em' }}>
-    <Grid container style={{ marginTop: '4%' }} xs={12}>
+    <Grid container style={{ marginTop: '1%' }} xs={12}>
       <FormLabel>Cadre (الإطار) :</FormLabel>
       {cadreOptions && cadreOptions.length > 0 && (
         <Autocomplete
@@ -795,7 +821,7 @@ const updateAdmin = async () => {
     </Grid>
     <Grid container style={{ marginTop: '4%' }} xs={12}>
       <FormLabel>Date d'entrée dans l'établissement (ت.و. المؤسسة)</FormLabel>
-      {selectedDateFct && selectedDateFct.length > 0 && (
+      {selectedGrade && selectedGrade.length > 0 && (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DatePicker
             fullWidth
@@ -832,6 +858,18 @@ const updateAdmin = async () => {
         <Step key="Step3">
 
           <StepContent style={{ width: '30em' }}>
+          <Grid item xs={6}>
+        <FormLabel>Département (قسم)</FormLabel>
+        {selectedDepartement && selectedDepartement.length > 0 && (
+          <Autocomplete
+            id="grade-autocomplete"
+            options={departementOptions ? departementOptions : []}
+            value={selectedDepartement}
+            onChange={handleDepartementChange}
+            renderInput={(params) => <TextField {...params} variant="outlined" />}
+          />
+        )}
+      </Grid>
               <Grid container style={{marginTop:"4%"}} xs={12}>
                   <FormLabel>
                   Numéro de loyer (رقم التأجير)
