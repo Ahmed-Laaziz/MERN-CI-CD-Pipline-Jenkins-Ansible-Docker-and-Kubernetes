@@ -6,7 +6,6 @@ import ProfileBar from '../components/profileBar';
 import ProfileData from '../components/profileData';
 import jwt_decode from 'jwt-decode';
 import axios from'axios';
-// import { useToken } from '../auth/TokenContext';
 import ErrorPage from './404';
 
 const backLink = process.env.REACT_APP_BACK_LINK
@@ -64,10 +63,6 @@ useEffect(() => {
 }, [notifs]);
 
 
-// if (!agent) {
-//   return <div>Loading...</div>;
-// }
-
   const navigate = useNavigate();
 
     useEffect(() => {
@@ -77,10 +72,7 @@ useEffect(() => {
           // Set the token in your component state
           setToken(storedToken);
         }
-        // } else {
-        //   // If no token is found, navigate to the login page
-        //   navigate('/');
-        // }
+
       }, [navigate]);
     return(
         

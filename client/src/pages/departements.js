@@ -1,7 +1,7 @@
-import CustomeTable from '../../components/fonctionnaire/allFonctionnaires';
-import Drawer from '../../components/drawer';
+import CustomeTable from '../components/allDepartements';
+import Drawer from '../components/drawer';
 import Box from '@mui/material/Box';
-import Breadcrumb from '../../components/breadcrumb';
+import Breadcrumb from '../components/breadcrumb';
 import jwt_decode from 'jwt-decode';
 import axios from'axios';
 import React, { useState, useEffect } from 'react';
@@ -42,10 +42,6 @@ useEffect(() => {
 }, [agentId]);
 
 
-// if (!agent) {
-//   return <div>Loading...</div>;
-// }
-
   const navigate = useNavigate();
 
     useEffect(() => {
@@ -55,14 +51,15 @@ useEffect(() => {
           // Set the token in your component state
           setToken(storedToken);
         }
+
       }, [navigate]);
     return(
         <Box sx={{ display: 'flex' }}>
            {agent ? (
             (agent.__t === "Admin" && agent.fonction === "Chef de Département") ? (
-              <Drawer role='Chef' pageTitle={"Fonctionnaires"}/>
+              <Drawer role='Chef' pageTitle={"Departements"}/>
             ) : (agent.__t === "Admin")?(
-              <Drawer role='Admin' pageTitle={"Fonctionnaires"}/>
+              <Drawer role='Admin' pageTitle={"Departements"}/>
             ):null
           ) : null}
         
@@ -78,13 +75,10 @@ useEffect(() => {
     // boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)", // Add the boxShadow property
   }}
 >
-<Breadcrumb pageLabel="Fonctionnaires"/>
+<Breadcrumb pageLabel="Tous les Departements"/>
 
 <>&nbsp;</>
-
-  
-
-  {agent?(
+{agent?(
   <CustomeTable sx={{marginTop:'10%'}}/>
 ):null}
 </Box>

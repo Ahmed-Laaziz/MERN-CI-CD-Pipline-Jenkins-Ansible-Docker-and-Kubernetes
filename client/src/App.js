@@ -28,6 +28,10 @@ import FilesDownload from "./pages/profFiles";
 import Dashboard from "./pages/dashboard";
 import RetreiveSide from "./components/pass-oublier";
 import NewPass from "./components/new-pass";
+
+import AllDepartements from "./pages/departements";
+import AddDepartement from "./pages/addDepartement";
+
 export default function App() {
   return (
     <div>
@@ -61,6 +65,9 @@ export default function App() {
         <Route path="files-download" element={<FilesDownload/>} />
         <Route path="retrieve" element={<RetreiveSide/>} />
         <Route path="new-pass" element={<NewPass/>} />
+
+        <Route path="all-departements" element={<AllDepartements/>} />
+        <Route path="add-departement" element={<AddDepartement/>} />
         {/* </Route> */}
       </Routes>
     </BrowserRouter>

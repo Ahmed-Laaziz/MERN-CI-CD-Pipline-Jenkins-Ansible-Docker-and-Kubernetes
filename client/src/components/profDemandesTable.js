@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import PrintIcon from '@mui/icons-material/Print';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import { DataGrid} from '@mui/x-data-grid';
-import jwt_decode from 'jwt-decode';
 import Input from '@mui/joy/Input';
 import Grid from '@mui/joy/Grid';
 import FormControl from '@mui/joy/FormControl';
@@ -258,21 +256,10 @@ const handleDateAChange = (date) => {
                 </Button>
               </React.Fragment>
             )}
-            {/* <Button
-              variant="outlined"
-              size="small"
-              startIcon={<PrintIcon />}
-              disabled={params.row.statut !== 'Approuvée'}
-              onClick={() => handlePrintClick(params.row)}
-            >
-              Print
-            </Button> */}
           </Stack>
         ),
       },
-      
     ],
-    // [showEditDelete],
   );
 
   const [demandes, setDemandes] = useState([]);
@@ -305,9 +292,6 @@ const handleDateAChange = (date) => {
 
   return (
     <div style={{ width: '100%' }}>
-      {/* <Button sx={{ mb: 1 }} onClick={handleToggleClick}>
-        Toggle edit & delete
-      </Button> */}
       <div style={{ height: 600 }}>
         <DataGrid
           rows={demandes}
@@ -370,15 +354,12 @@ const handleDateAChange = (date) => {
     <Grid item xs={6}>
       <Button
         type="submit"
-        // disabled
-        // onClick={handleApprouverClick}
         sx={{
           backgroundColor: "#2980B6",
           color: "white",
           '&:hover': {
             backgroundColor: '#1D597E',
           },
-          // Add margin to create space between the buttons
           margin: '0 10px',
         }}
       >
@@ -495,15 +476,12 @@ const handleDateAChange = (date) => {
   <Grid item xs={6}>
     <Button
       type="submit"
-      
-      // onClick={handleApprouverClick}
       sx={{
         backgroundColor: "#2980B6",
         color: "white",
         '&:hover': {
           backgroundColor: '#1D597E',
         },
-        // Add margin to create space between the buttons
         margin: '0 10px',
       }}
     >

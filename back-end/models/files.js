@@ -1,4 +1,3 @@
-// File model (file.js)
 const mongoose = require('mongoose');
 
 const PdfDetailsSchema = new mongoose.Schema(

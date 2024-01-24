@@ -4,8 +4,6 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
@@ -20,13 +18,9 @@ import { useToken } from '../auth/TokenContext';
 import { useProf } from '../context/ProfContext';
 import CryptoJS from 'crypto-js';
 import { useLocation } from 'react-router-dom';
-//import stream from 'stream-browserify';
-
 
 const backLink = process.env.REACT_APP_BACK_LINK;
 const yourSecretKey = "2e8b32f6d789c1fa68e540f8b2c9825f";
-//const forge = require('node-forge');
-
 
 
 function Copyright(props) {
@@ -42,9 +36,6 @@ function Copyright(props) {
   );
 }
 
-// TODO remove, this demo shouldn't need to reset the theme.
-
-
 const defaultTheme = createTheme();
 
 export default function NewPass() {
@@ -56,20 +47,6 @@ export default function NewPass() {
   const { setToken } = useToken();
   const [emailError, setEmailError] = useState('');
 const [passwordError, setPasswordError] = useState('');
-    
-/*const decrypt = (encryptedText, secretKey) => {
-  try {
-    const decipher = forge.cipher.createDecipher('AES-CBC', forge.util.createBuffer(secretKey));
-    decipher.start({ iv: forge.random.getBytesSync(16) });
-    decipher.update(forge.util.createBuffer(forge.util.decode64(encryptedText)));
-    decipher.finish();
-    return decipher.output.data.toString('utf-8');
-  } catch (error) {
-    console.error('Decryption error:', error);
-    // Handle the error appropriately, e.g., throw or return an error message.
-    return null;
-  }
-};*/
 
 
 const decrypt = (ciphertext) => {

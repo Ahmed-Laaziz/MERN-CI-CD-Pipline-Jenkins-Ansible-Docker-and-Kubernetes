@@ -1,7 +1,6 @@
 import Stepper from '../components/stepper';
 import Drawer from '../components/drawer';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import Breadcrumb from '../components/breadcrumb';
 export default function home(){
     return(

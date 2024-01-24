@@ -1,11 +1,11 @@
-import AddForm from '../../components/fonctionnaire/addFonctionnaire';
-import Drawer from '../../components/drawer';
+import AddForm from '../components/addDepartement';
+import Drawer from '../components/drawer';
 import Box from '@mui/material/Box';
-import Breadcrumb from '../../components/breadcrumb';
+import Breadcrumb from '../components/breadcrumb';
 export default function home(){
     return(
         <Box sx={{ display: 'flex' }}>
-        <Drawer role='Admin' pageTitle={'Nouveau Fonctionnaire'}/>
+        <Drawer role='Admin' pageTitle={'Nouveau Departement'}/>
         <Box
   component="main"
   sx={{
@@ -17,9 +17,9 @@ export default function home(){
     boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)", // Add the boxShadow property
   }}
 >
-<Breadcrumb pageLabel="Nouveau fonctionnaire"/>
+<Breadcrumb pageLabel="Nouveau Departement"/>
 <>&nbsp;</>
-  <AddForm />
+<AddForm />
 </Box>
 
       </Box>

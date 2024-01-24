@@ -1,9 +1,5 @@
-// File controller (fileController.js)
 const File = require('../../models/files');
 const mongoose = require('mongoose');
-// fileController.js (Controller)
-const multer = require('multer');
-const path = require('path');
 
 
 const uploadFile = async (req, res) => {

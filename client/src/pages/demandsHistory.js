@@ -1,7 +1,6 @@
 import DemandesTable from '../components/demandsHistory';
 import Drawer from '../components/drawer';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import Breadcrumb from '../components/breadcrumb';
 import jwt_decode from 'jwt-decode';
 import axios from'axios';
@@ -43,10 +42,6 @@ useEffect(() => {
 }, [agentId]);
 
 
-// if (!agent) {
-//   return <div>Loading...</div>;
-// }
-
   const navigate = useNavigate();
 
     useEffect(() => {
@@ -56,10 +51,7 @@ useEffect(() => {
           // Set the token in your component state
           setToken(storedToken);
         }
-        // } else {
-        //   // If no token is found, navigate to the login page
-        //   navigate('/');
-        // }
+
       }, [navigate]);
 
 

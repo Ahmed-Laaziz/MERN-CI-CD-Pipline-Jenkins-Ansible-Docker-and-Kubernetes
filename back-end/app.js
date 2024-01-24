@@ -8,10 +8,8 @@ require('dotenv').config();
 const connectDB = require('./database/db');
 
 var indexRouter = require('./routes/index');
-
 var adminRouter = require('./routes/admin/adminRouter');
 var fonctionnaireRouter = require('./routes/fonctionnaire/fonctionnaireRouter')
-
 var agentRouter = require('./routes/agent/agentRouter');
 var authRouter = require('./routes/auth/authRouter');
 var profRouter = require('./routes/professor/profRouter');
@@ -23,14 +21,13 @@ var demandeOrdreMission = require('./routes/demande/ordreMission');
 var profDemandeRouter = require('./routes/demande/demandes');
 var notifRouter = require('./routes/notifications/notification');
 var fileRouter = require('./routes/file/fileRouter');
+var depRouter = require('./routes/departement/departementRouter');
 var app = express();
 
 // Connect to the database when the app starts
 connectDB();
 
-// view engine setup
 app.set('views', path.join(__dirname, 'views'));
-// app.set('view engine', 'jade');
 
 // Enable CORS middleware production
 app.use(cors(
@@ -42,7 +39,6 @@ app.use(cors(
 ));
 
 // Enable CORS middleware developement
-// app.use(cors())
 app.use("/files", express.static("files"));
 app.use(logger('dev'));
 app.use(express.json());
@@ -51,10 +47,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-
 app.use('/admin', adminRouter);
 app.use('/fonctionnaire', fonctionnaireRouter);
-
 app.use('/agent', agentRouter);
 app.use('/auth', authRouter);
 app.use('/prof', profRouter);
@@ -66,6 +60,8 @@ app.use('/demandeOrdreMission', demandeOrdreMission)
 app.use('/demandes', profDemandeRouter)
 app.use('/notifs', notifRouter)
 app.use('/FilesManagement', fileRouter);
+app.use('/departements', depRouter);
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

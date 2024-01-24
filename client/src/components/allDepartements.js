@@ -3,35 +3,21 @@ import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
 import axios from 'axios'; // Import Axios
 import { useTheme } from '@mui/material/styles';
-import DownloadIcon from '@mui/icons-material/Download';
 import Button from '@mui/joy/Button';
-import * as XLSX from 'xlsx';
-import { saveAs } from 'file-saver';
 import { useNavigate } from 'react-router-dom';
-import { useProf } from '../../context/ProfContext';
+import { useProf } from '../context/ProfContext';
 import AddIcon from '@mui/icons-material/Add';
 
 const backLink = process.env.REACT_APP_BACK_LINK
 const columns = [
   {
-    field: 'prenom',
-    headerName: 'Prénom',
+    field: 'libele',
+    headerName: 'Libelé',
     editable: true,
   },
   {
-    field: 'nom',
-    headerName: 'Nom',
-    editable: false,
-  },
-  {
-    field: 'cadre',
-    headerName: 'Cadre',
-    sortable: true,
-  },
-  
-  {
-    field: 'departement',
-    headerName: 'Service',
+    field: 'description',
+    headerName: 'Description',
     editable: false,
   },
   {
@@ -62,19 +48,18 @@ function CustomMenu({ onHistoriqueClick, onProfileClick }) {
         aria-label="profile"
         aria-controls="profile-menu"
         aria-haspopup="true"
-        onClick={onProfileClick}
         style={{ marginRight: '0.5vw' }}
       >
-        Profile
+        Modifier
       </Button>
       <Button
         variant="soft"
         aria-label="historique"
         aria-controls="historique-menu"
+        color="danger"
         aria-haspopup="true"
-        onClick={onHistoriqueClick}
       >
-        Historique
+        Supprimer
       </Button>
     </div>
   );
@@ -96,80 +81,37 @@ function MoreActionsCell({ rowParams }) {
     setAnchorEl(null);
   };
 
-  const handleHistoriqueClick = async () => {
-    const hists = await axios.post(
-      backLink+`/hist/prof-hist`, {"prof": rowParams.row._id} // Replace with your actual API endpoint
-    );
-    
-    updateHist(hists.data);
-    
-    navigate("/historiques");
-    handleMenuClose();
-  };
-
-  const handleProfileClick = async () => {
-    updateProf(rowParams.row);
-
-    const hists = await axios.post(
-      backLink+`/hist/prof-hist`, {"prof": rowParams.row._id} // Replace with your actual API endpoint
-    );
-    
-    updateHist(hists.data);
-    
-    navigate("/prof-profile");
-    handleMenuClose();
-  };
-
   return (
-    <CustomMenu
-  onHistoriqueClick={handleHistoriqueClick}
-  onProfileClick={handleProfileClick}
-/>
+    <CustomMenu/>
   );
 }
 
 
 export default function DataGridDemo() {
-  const [professeurs, setProfesseurs] = useState([]);
+  const [departements, setDepartements] = useState([]);
   const navigate = useNavigate();
-  function handleAddUser(){
-      navigate('/add-fonctionnaire')
+  function handleAddDep(){
+      navigate('/add-departement')
   }
   
-  const fetchProfessor = async () => {
+  const fetchDepartements = async () => {
     try {
         const response = await axios.get(
-          backLink+`/prof/professeurs-FCT` // Replace with your actual API endpoint
+          `${backLink}/departements/all-departements` // Replace with your actual API endpoint
         );
-        setProfesseurs(response.data);
+        setDepartements(response.data);
     } catch (error) {
       console.error('Error fetching title:', error);
     }
   };
 
-  console.log(professeurs)
+  console.log(departements)
 
   useEffect(() => {
     // Fetch the title from the backend API
 
-    fetchProfessor(); // Call the fetchTitle function when the component mounts
+    fetchDepartements(); // Call the fetchTitle function when the component mounts
   }, []);
-
-  const handleExportExcel = () => {
-    const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
-    const fileExtension = '.xlsx';
-
-    // Exclude password column from export
-    const dataForExport = professeurs.map(({ password, ...rest }) => rest);
-
-    const ws = XLSX.utils.json_to_sheet(dataForExport);
-    const wb = { Sheets: { 'data': ws }, SheetNames: ['data'] };
-    const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
-
-    const data = new Blob([excelBuffer], { type: fileType });
-    const fileName = 'professeurs' + fileExtension;
-    saveAs(data, fileName);
-  };
 
   const theme = useTheme();
 
@@ -183,20 +125,17 @@ export default function DataGridDemo() {
 
   return (
     <Box sx={{ height: 500, width: '99%' }}>
-    <Button variant="outlined" onClick={handleExportExcel}> 
-<DownloadIcon/> Exporter sous Excel
-      </Button>
       &nbsp;
         &nbsp;
       
-      <Button variant="solid" onClick={handleAddUser}>
-        <AddIcon /> Nouveau fonctionnaire
+      <Button variant="solid" onClick={handleAddDep}>
+        <AddIcon /> Nouveau Departement
       </Button>
       <div>
       &ensp;
       </div>
       <DataGrid
-        rows={professeurs} // Use the fetched data for rows
+        rows={departements} // Use the fetched data for rows
         columns={responsiveColumns}
         getRowId={(row) => row._id}
         initialState={{

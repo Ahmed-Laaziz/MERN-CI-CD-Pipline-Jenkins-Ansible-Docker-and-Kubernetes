@@ -453,7 +453,6 @@ const updateAdmin = async () => {
         <AspectRatio flex ratio="1" maxHeight={182} sx={{ minWidth: 182 }}>
           <img
             src="https://img.freepik.com/premium-vector/avatar-profile-icon_188544-4755.jpg"
-            // srcSet="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=286&dpr=2 2x"
             loading="lazy"
             alt=""
           />
@@ -892,11 +891,6 @@ const updateAdmin = async () => {
       </Stepper>
             </FormControl>
             </Stack>
-            {/*<Box sx={{ display: 'flex', gap: 1.5, '& > button': { flex: 1 } }} style={{marginTop:"12%"}}>
-            <Button variant="solid" color="primary">
-              Valider
-                    </Button>
-          </Box>*/}
           </form>
         </ModalDialog>
       </Modal>

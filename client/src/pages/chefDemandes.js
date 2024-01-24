@@ -1,7 +1,6 @@
 import DemandesTable from '../components/chefDemandes';
 import Drawer from '../components/drawer';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import Breadcrumb from '../components/breadcrumb';
 import jwt_decode from 'jwt-decode';
 import axios from'axios';
@@ -25,8 +24,7 @@ export default function AdminDemandes(){
   // Get the user ID from the token
   const agentId = getUserIdFromToken(token);
   const [agent, setAgent] = useState(null);
-  // console.log('userId : ' + agentId);
-  // console.log(agent.dep_label)
+
   useEffect(() => {
     const fetchAgentData = async () => {
       try {
@@ -42,11 +40,7 @@ export default function AdminDemandes(){
     }
   }, [agentId]);
   
-  
-  // if (!agent) {
-  //   return <div>Loading...</div>;
-  // }
-  
+
     const navigate = useNavigate();
   
       useEffect(() => {
@@ -56,10 +50,7 @@ export default function AdminDemandes(){
             // Set the token in your component state
             setToken(storedToken);
           }
-          // } else {
-          //   // If no token is found, navigate to the login page
-          //   navigate('/');
-          // }
+
         }, [navigate]);
   
 
@@ -86,8 +77,6 @@ export default function AdminDemandes(){
 
 <>&nbsp;</>
 
-  {/* <DemandesTable dep = {agent.dep_label} sx={{marginTop:'10%'}}/> */}
-  
   {agent?(
   <DemandesTable dep = {agent.dep_label} sx={{marginTop:'10%'}}/>
 ):null}

@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import Drawer from "../components/drawer";
 import Box from '@mui/material/Box';
 import jwt_decode from 'jwt-decode';
-import Button from '@mui/joy/Button';
 import axios from'axios';
 import Card from '@mui/joy/Card';
 import CardContent from '@mui/joy/CardContent';
@@ -16,8 +15,6 @@ import Grid from '@mui/material/Grid';
 import Avatar from '@mui/joy/Avatar';
 import Divider from '@mui/joy/Divider';
 import Breadcrumb from '../components/breadcrumb';
-
-// import { useToken } from '../auth/TokenContext';
 import ErrorPage from './404';
 
 const backLink = process.env.REACT_APP_BACK_LINK
@@ -51,18 +48,7 @@ const [tri, setTri] = useState([]);
       //console.log("all professors: ")
       console.log("tri professors :")
       console.log(tri)
-      
-      // const professorsCadre = {};
-      // for (const professeur of professeurs) {
-      //   try {
-      //     const response = await axios.post(
-      //       backLink+`/hist/prof-hist`, {"prof": professeur._id} // Replace with your actual API endpoint
-      //     );
-      //     professorsCadre[professeur._id] = response.data[0].cadre; // Replace 'nom' with the actual professor name field
-      //   } catch (error) {
-      //     console.error('Error fetching professor name:', error);
-      //   }
-      // }
+
     } catch (error) {
       console.error('Error fetching title:', error);
     }
@@ -176,15 +162,12 @@ useEffect(() => {
   }
 }, [agent]);
 
+const cardColors = ['primary'];
+const cardColors2 = ['warning'];
 
 useEffect(() => {
   console.log("notifs:", notifs);
 }, [notifs]);
-
-
-// if (!agent) {
-//   return <div>Loading...</div>;
-// }
 
   const navigate = useNavigate();
 
@@ -195,10 +178,7 @@ useEffect(() => {
           // Set the token in your component state
           setToken(storedToken);
         }
-        // } else {
-        //   // If no token is found, navigate to the login page
-        //   navigate('/');
-        // }
+
       }, [navigate]);
       return (
         <div>
@@ -346,96 +326,112 @@ useEffect(() => {
         </>
        ) : (
         <>
-        <Box
-            sx={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(3, 1fr)',  // Three columns for three cards
-              gap: 1,
-              maxWidth: '100%',  // Adjust the maximum width as needed
-              width: '100%',       // Ensure the grid takes up the full width
-            }}
-          >
-        <Card variant="solid" color="primary" invertedColors sx={{ width: '100%' }}>
+        <Box>
+        <Typography level="h3" sx={{marginTop: '1%' }}>Departements :</Typography>
+  <Divider inset="none" sx={{ marginBottom: '2%', marginTop: '1%' }}/>
+  <Box
+    sx={{
+      display: 'grid',
+      gridTemplateColumns: `repeat(${Object.keys(departmentCounts)
+        .filter(departmentKey => departmentKey === departmentKey.toUpperCase() && departmentKey !== 'FCT').length}, 1fr)`,
+      gap: 2,
+      maxWidth: '100%',
+      width: '100%',
+    }}
+  >
+    {Object.keys(departmentCounts)
+      .filter(departmentKey => departmentKey === departmentKey.toUpperCase() && departmentKey !== 'FCT')
+      .map((departmentKey, index) => (
+        <Card
+          key={departmentKey}
+          variant="soft"
+          color={cardColors[index % cardColors.length]} // Cycling through the colors for each card
+          invertedColors
+          sx={{ width: '100%' }}
+        >
+          <CardContent>
+            <Grid container spacing={2} alignItems="center">
+              {/* Left section */}
+              <Grid item>
+                <Avatar alt="Department Avatar" sx={{ width: '80px', height: '80px' }} variant="soft">
+                  <Typography level="h1" color="common.white">
+                    {departmentKey[0]?.toUpperCase()}
+                  </Typography>
+                </Avatar>
+              </Grid>
+              <Grid item width="45%">
                 <CardContent>
-                    <Grid container spacing={2} alignItems="center">
-                    {/* Left section */}
-                    <Grid item>
-                        <Avatar alt="Remy Sharp" sx={{ width: '80px', height: '80px' }} variant="soft">
-                        <Typography level="h2">TRI</Typography>
-                        </Avatar>
-                    </Grid>
-                    <Grid item width="50%">
-                        <CardContent>
-                        <Typography level="h3">Département TRI</Typography>
-                        </CardContent>
-                    </Grid>
-                    <Grid item xs={12} md={6} lg={4} xl={3}>
-                        <CardContent>
-                        <Typography fontSize={72} level='h2' sx={{ paddingLeft: "1vw" }}>{ departmentCounts["TRI"] }</Typography>
-                        </CardContent>
-                    </Grid>
-                    </Grid>
+                  <Typography level="h3">{`Département ${departmentKey}`}</Typography>
                 </CardContent>
-            </Card>
-
-
-            <Card variant="solid" color="neutral" invertedColors sx={{ width: '100%' }}>
-  <CardContent>
-    <Grid container spacing={2} alignItems="center">
-      {/* Left section */}
-      <Grid item>
-        <Avatar alt="Remy Sharp" sx={{ width: '80px', height: '80px' }} variant="soft">
-          <Typography level="h2">STIN</Typography>
-        </Avatar>
-      </Grid>
-      <Grid item width="50%">
-        <CardContent>
-          <Typography level="h3">Département STIN</Typography>
-        </CardContent>
-      </Grid>
-      <Grid item xs={12} md={6} lg={4} xl={3}>
-        <CardContent>
-          <Typography
-            fontSize={72}
-            level="h2"
-            sx={{paddingLeft: "1vw" }} // Set both margins to 1vw
-          >
-            { departmentCounts["STIN"] }
-          </Typography>
-        </CardContent>
-      </Grid>
-    </Grid>
-  </CardContent>
-</Card>
-    
-            <Card variant="solid" color="warning" invertedColors sx={{ width: '100%' }}>
+              </Grid>
+              <Grid>
                 <CardContent>
-                    <Grid container spacing={2} alignItems="center">
-                    {/* Left section */}
-                    <Grid item>
-                        <Avatar alt="Remy Sharp" sx={{ width: '80px', height: '80px' }} variant="soft">
-                        <Typography level="h2">FCT</Typography>
-                        </Avatar>
-                    </Grid>
-                    <Grid item width="50%">
-                        <CardContent>
-                        <Typography level="h3">Service FCT</Typography>
-                        </CardContent>
-                    </Grid>
-                    <Grid item xs={12} md={6} lg={4} xl={3}>
-                        <CardContent>
-                        <Typography fontSize={72} level='h2' sx={{ paddingLeft: "1vw"}}>{ departmentCounts["FCT"] }</Typography>
-                        </CardContent>
-                    </Grid>
-                    </Grid>
+                  <Typography fontSize={72} level="h2" sx={{ paddingLeft: '12vw', paddingTop: 0 }}>
+                    {departmentCounts[departmentKey]}
+                  </Typography>
                 </CardContent>
+              </Grid>
+            </Grid>
+          </CardContent>
+        </Card>
+      ))}
+  </Box>
+</Box>
 
-            </Card>
-    
-           
+<Box>
+  <Typography level="h3" sx={{marginTop: '1%' }}>Services :</Typography>
+  <Divider inset="none" sx={{ marginBottom: '2%', marginTop: '1%' }}/>
+  <Box
+    sx={{
+      display: 'grid',
+      gridTemplateColumns: `repeat(${Object.keys(departmentCounts)
+        .filter(departmentKey => departmentKey !== departmentKey.toUpperCase() && departmentKey).length}, 1fr)`,
+      gap: 2,
+      maxWidth: '100%',
+      width: '100%',
+    }}
+  >
+    {Object.keys(departmentCounts)
+      .filter(departmentKey => departmentKey !== departmentKey.toUpperCase() && departmentKey)
+      .map((departmentKey, index) => (
+        <Card
+          key={departmentKey}
+          variant="soft"
+          color={cardColors2[index % cardColors2.length]} // Cycling through the colors for each card
+          invertedColors
+          sx={{ width: '100%' }}
+        >
+          <CardContent>
+            <Grid container spacing={2} alignItems="center">
+              {/* Left section */}
+              <Grid item>
+                <Avatar alt="Department Avatar" sx={{ width: '80px', height: '80px' }} variant="soft">
+                  <Typography level="h1" color="common.white">
+                    {departmentKey[0]?.toUpperCase()}
+                  </Typography>
+                </Avatar>
+              </Grid>
+              <Grid item width="45%">
+                <CardContent>
+                  <Typography level="h3">{`Département ${departmentKey}`}</Typography>
+                </CardContent>
+              </Grid>
+              <Grid>
+                <CardContent>
+                  <Typography fontSize={72} level="h2" sx={{ paddingLeft: '12vw', paddingTop: 0 }}>
+                    {departmentCounts[departmentKey]}
+                  </Typography>
+                </CardContent>
+              </Grid>
+            </Grid>
+          </CardContent>
+        </Card>
+      ))}
+  </Box>
+</Box>
 
-            
-          </Box>
+
+
 
           <Box
             sx={{
@@ -455,7 +451,7 @@ useEffect(() => {
   <CardContent>
     {departmentNames.length > 0 && departmentValues.length > 0 ? (
       <BarChart
-        xAxis={[{ scaleType: 'band', data: departmentNames }]}
+        xAxis={[{ scaleType: 'band', data: departmentNames.filter(name => name !== 'FCT') }]}
         series={[{ data: departmentValues }]}
         sx={{ width: '100%', height: '100%' }} // Adjust based on your needs
       />
@@ -464,6 +460,7 @@ useEffect(() => {
     )}
   </CardContent>
 </Card>
+
 
 
 <Card variant="outlined" sx={{ height: '50vh' }}>

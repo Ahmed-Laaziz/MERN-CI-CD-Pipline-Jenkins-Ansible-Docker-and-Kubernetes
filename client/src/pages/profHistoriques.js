@@ -40,10 +40,7 @@ const navigate = useNavigate();
           // Set the token in your component state
           setToken(storedToken);
         }
-        // } else {
-        //   // If no token is found, navigate to the login page
-        //   navigate('/');
-        // }
+
       }, [navigate]);
 useEffect(() => {
   const fetchAgentData = async () => {
@@ -61,18 +58,10 @@ useEffect(() => {
 }, [agentId]);
 
 
-// if (!agent) {
-//   return <div>Loading...</div>;
-// }
-
   
 
   return (
     <Box sx={{ display: "flex" }}>
-      {/* <Drawer role={prof._t} /> */}
-      {/* {agent?(
-        <Drawer role={agent.__t} pageTitle={"Historique"}/>
-      ):null} */}
 
 
 {

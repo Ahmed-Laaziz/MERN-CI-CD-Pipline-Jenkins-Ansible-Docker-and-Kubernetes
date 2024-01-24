@@ -1,21 +1,6 @@
 const Admin = require("../../models/admin");
 const mongoose = require('mongoose');
 
-// const DB_USER = 'root';
-// const DB_PASSWORD = 'example';
-// const DB_PORT = 27017
-// const DB_HOST = 'mongo'
-//Docker
-// const URI = `mongodb://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}`
-
-// mongoose.connect('mongodb://cluster0.i5myq.mongodb.net:27017/ensaj', {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true,
-//   user: 'ahmed',
-//   pass: 'ahmed123'
-// });
-
-// Add a route to retrieve and display a list of Professeurs
 exports.getAdmins = async (req, res, next) => {
     try {
       const allAdmins = await Admin.find({});

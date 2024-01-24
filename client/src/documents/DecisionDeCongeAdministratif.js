@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import ReactToPrint from "react-to-print";
 import ensa from "../images/ensaj1.png";
 import ucd from "../images/Logo_UCD.png";

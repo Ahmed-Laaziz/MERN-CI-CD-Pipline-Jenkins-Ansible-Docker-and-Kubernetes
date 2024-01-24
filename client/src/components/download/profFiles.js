@@ -70,9 +70,6 @@ export default function ColumnPinningDynamicRowHeight({prof}) {
 
   return (
     <div style={{ width: '100%' }}>
-      {/* <Button sx={{ mb: 1 }} onClick={handleToggleClick}>
-        Toggle edit & delete
-      </Button> */}
       <h5>
  <center> Tous les documents envoyés a : {prof && prof.prenom && prof.prenom.split('|')[0]} {prof && prof.nom && prof.nom.split('|')[0]}</center>
 </h5>

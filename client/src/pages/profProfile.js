@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
-
 import Drawer from '../components/drawer';
 import Box from '@mui/material/Box';
-import Breadcrumb from '../components/breadcrumb';
 import ProfileBar from '../components/profileBar';
 import ProfileData from '../components/profileData';
 import { useProf } from '../context/ProfContext';

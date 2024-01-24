@@ -2,11 +2,6 @@ import React, { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
 import axios from 'axios'; // Import Axios
-import { useLocation } from 'react-router-dom';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-import IconButton from '@mui/material/IconButton';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
 import { useProf } from '../context/ProfContext';
 const backLink = process.env.REACT_APP_BACK_LINK;
 
@@ -70,10 +65,6 @@ export function DataHist() {
           console.error('Error fetching professor cadre:', error);
         }
       }
-
-      
-
-     
 
     } catch (error) {
       console.error('Error fetching title:', error);

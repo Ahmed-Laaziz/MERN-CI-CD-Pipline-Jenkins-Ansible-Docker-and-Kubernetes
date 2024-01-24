@@ -579,21 +579,13 @@ const addDemande5 = async () => {
               <Grid item xs={6} >
                 <FormLabel>Date d'absence : تاريخ التغيب</FormLabel>
                 <LocalizationProvider dateAdapter={AdapterDayjs} >
-                <DatePicker 
-                // value={selectedDateVisa} // Pass the selectedDate as the value
-                // onChange={handleDateVisaChange} // Handle date selection
-                // sx={{width:"100%"}}
-                />
+                <DatePicker/>
               </LocalizationProvider>
               </Grid>
               <Grid item xs={6} >
                 <FormLabel>Date reprise : تاريخ الالتحاق</FormLabel>
                 <LocalizationProvider dateAdapter={AdapterDayjs} >
-                <DatePicker 
-                // value={selectedDateVisa} // Pass the selectedDate as the value
-                // onChange={handleDateVisaChange} // Handle date selection
-                // sx={{width:"100%"}}
-                />
+                <DatePicker/>
               </LocalizationProvider>
               </Grid>
               </Grid>

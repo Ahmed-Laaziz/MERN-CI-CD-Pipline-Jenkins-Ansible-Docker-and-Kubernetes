@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import Box from '@mui/material/Box';
 import Stepper from '@mui/material/Stepper';
@@ -19,11 +19,11 @@ import axios from 'axios';
 const backLink = process.env.REACT_APP_BACK_LINK
 const steps = ['données personnelles', 'données professionnelles', 'données supplémentaires'];
 const genreOptions = ['Homme', 'Femme']
-const departementOptions = ['TRI', 'STIN']
+
 const cadreOptions = ["Professeur de l'enseignement superieur", 'Maitre de conférences habilité', 'Maitre de conférences'];
-// const gradeOptions = ['Grade 1', 'Grade 2'];
-// const classeOptions = ['Classe 1', 'Classe 2'];
-// Define the mapping of cadreOptions to gradeOptions
+
+
+
 const cadreGradeMapping = {
   "Professeur de l'enseignement superieur": ['Grade D', 'Grade C', 'Grade B', 'Grade A'],
   'Maitre de conférences habilité': ['Grade C', 'Grade B', 'Grade A'],
@@ -128,6 +128,24 @@ export default function HorizontalNonLinearStepper() {
     setActiveStep(0);
     setCompleted({});
   };
+
+
+  const [departementOptions, setDepartementOptions] = React.useState([])
+
+  const fetchDepartements = async () => {
+    try {
+      const response = await axios.get(`${backLink}/departements/all-departements`);
+      const libeleValues = response.data.map((departement) => departement.libele);
+      setDepartementOptions(libeleValues);
+      console.log("deps: " + libeleValues);
+    } catch (error) {
+      console.error('Error fetching departements:', error);
+    }
+  };
+
+  useEffect(()=>{
+    fetchDepartements()
+  }, [])
 
 
   //Email
@@ -705,19 +723,23 @@ const [phoneNumber, setPhoneNumber] = React.useState('');
               </div>
             </Grid>
             <Grid item xs={2}>
-              
               <div>
                 <Typography variant="subtitle1" gutterBottom>
-                  
-                Département (قسم)
+                  Département (قسم)
                 </Typography>
-                <Autocomplete
-                  id="cadre-autocomplete"
-                  options={departementOptions}
-                  value={selectedDepartement}
-                  onChange={handleDepartementChange}
-                  renderInput={(params) => <TextField {...params} variant="outlined" />}
-                />
+                {departementOptions && departementOptions.length > 0 ? (
+                  <Autocomplete
+                    id="cadre-autocomplete"
+                    options={departementOptions}
+                    value={selectedDepartement}
+                    onChange={handleDepartementChange}
+                    renderInput={(params) => <TextField {...params} variant="outlined" />}
+                  />
+                ) : (
+                  <Typography variant="body2" color="error">
+                    No departement options available.
+                  </Typography>
+                )}
               </div>
             </Grid>
             <Grid item xs={2}>

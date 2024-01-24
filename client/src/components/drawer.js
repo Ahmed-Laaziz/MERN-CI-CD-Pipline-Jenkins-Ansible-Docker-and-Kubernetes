@@ -17,10 +17,8 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
-import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import GroupIcon from '@mui/icons-material/Group';
+import DomainIcon from '@mui/icons-material/Domain';
 import HomeIcon from '@mui/icons-material/Home';
 import ArticleIcon from '@mui/icons-material/Article';
 import Avatar from '@mui/joy/Avatar';
@@ -37,7 +35,7 @@ import SendAndArchiveIcon from '@mui/icons-material/SendAndArchive';
 import SendIcon from '@mui/icons-material/Send';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import { Link, useLocation } from 'react-router-dom';
-import GroupAddIcon from '@mui/icons-material/GroupAdd';
+import EngineeringIcon from '@mui/icons-material/Engineering';
 
 const drawerWidth = 240;
 const backLink = process.env.REACT_APP_BACK_LINK;
@@ -407,12 +405,39 @@ export default function MiniDrawer({role, pageTitle, notifs, id}) {
               justifyContent: 'center',
             }}
           >
-            <GroupIcon/>
+            <EngineeringIcon/>
           </ListItemIcon>
           <ListItemText primary="Fonctionnaires" sx={{ opacity: open ? 1 : 0 , color: '#000a1a' }} />
         </ListItemButton>
       </Link>
     </ListItem>
+
+    <ListItem disablePadding sx={{ display: 'block' }}>
+      <Link to="/all-departements" style={{ textDecoration: 'none' }}>
+        <ListItemButton
+          sx={{
+            minHeight: 48,
+            justifyContent: open ? 'initial' : 'center',
+            px: 2.5,
+            backgroundColor: location.pathname === '/all-departements' ? '#99c2ff' : 'transparent', // Light blue color
+            boxShadow: location.pathname === '/all-departements' ? '0px 5px 15px rgba(0, 0, 0, 0.35)' : 'none', // Subtle shadow
+            borderRadius: 8,
+          }}
+        >
+          <ListItemIcon
+            sx={{
+              minWidth: 0,
+              mr: open ? 3 : 'auto',
+              justifyContent: 'center',
+            }}
+          >
+            <DomainIcon/>
+          </ListItemIcon>
+          <ListItemText primary="Departements" sx={{ opacity: open ? 1 : 0 , color: '#000a1a' }} />
+        </ListItemButton>
+      </Link>
+    </ListItem>
+
     <ListItem disablePadding sx={{ display: 'block' }}>
       <Link to="/admin-demandes" style={{ textDecoration: 'none' }}>
         <ListItemButton
@@ -494,31 +519,6 @@ export default function MiniDrawer({role, pageTitle, notifs, id}) {
         </ListItemButton>
       </Link>
     </ListItem>
-
-
-    {/* <ListItem disablePadding sx={{ display: 'block' }}>
-      
-      <Link to="/espace-demandes-fonctionnaires" style={{ textDecoration: 'none' }}>
-        <ListItemButton
-          sx={{
-            minHeight: 48,
-            justifyContent: open ? 'initial' : 'center',
-            px: 2.5,
-          }}
-        >
-          <ListItemIcon
-            sx={{
-              minWidth: 0,
-              mr: open ? 3 : 'auto',
-              justifyContent: 'center',
-            }}
-          >
-            <AddBoxIcon/>
-          </ListItemIcon>
-          <ListItemText primary="Demandes fonctionnaires" sx={{ opacity: open ? 1 : 0 }} />
-        </ListItemButton>
-      </Link>
-    </ListItem> */}
 
   </>
 ) : localStorage.getItem('type') === 'Professeur' ? (
@@ -638,11 +638,6 @@ export default function MiniDrawer({role, pageTitle, notifs, id}) {
   </>
 ):<></>}
 
- {/* <<<<<<< HEAD */}
- 
- {/* ======= */}
-{/* { localStorage.getItem('type') === 'Professeur' ? ( */}
-
  
   { userRole === 'Professeur' ? ( 
   <>
@@ -708,30 +703,6 @@ export default function MiniDrawer({role, pageTitle, notifs, id}) {
           
         </List>
         <Divider />
-        {/* <List>
-          {['All mail', 'Trash', 'Drafts'].map((text, index) => (
-            <ListItem key={text} disablePadding sx={{ display: 'block' }}>
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                  }}
-                >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List> */}
       </Drawer>
       
     </Box>

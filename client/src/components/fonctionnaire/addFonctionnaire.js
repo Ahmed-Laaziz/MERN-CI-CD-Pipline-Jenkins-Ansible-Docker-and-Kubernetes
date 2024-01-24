@@ -1,26 +1,22 @@
 import React from 'react';
 import { useState } from 'react';
 import Box from '@mui/material/Box';
-
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
-import Modal from '@mui/material/Modal';
 import InputAdornment from '@mui/material/InputAdornment';
 import Autocomplete from '@mui/material/Autocomplete';
 import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
+
 const backLink = process.env.REACT_APP_BACK_LINK
 const steps = ['données personnelles', 'données professionnelles', 'données supplémentaires'];
 const genreOptions = ['Homme', 'Femme']
 const serviceOptions = ['RH', 'Scolarité', 'Informatique']
 const fonctionOptions = ['Ingénieur', 'Technicien']
 const cadreOptions = ["Ingénieur d'application", 'Technicien', 'Administrateur'];
-// const gradeOptions = ['Grade 1', 'Grade 2'];
-// const classeOptions = ['Classe 1', 'Classe 2'];
-// Define the mapping of cadreOptions to gradeOptions
+
 const cadreGradeMapping = {
   "Ingénieur d'application": ['Grade Principal', 'Premier Grade'],
   'Technicien': ['1er Grade', '2éme Grade', '3éme Grade', '4éme Grade'],
@@ -182,9 +178,6 @@ export default function ColumnPinningDynamicRowHeight({prof}) {
   const handleFonctionChange = (event, newValue) => {
     setSelectedFonction(newValue);
   };
-  // const handleDepartementChange = (event, newValue) => {
-  //   setSelectedDepartement(newValue);
-  // };
 
 
   //CIN
@@ -308,8 +301,6 @@ const addFonctionnaire = async () => {
     // setIsLoading(false);
   }
 };
-
-//   const [showEditDelete, setShowEditDelete] = React.useState(true);''
 
   return (
     <Box sx={{ width: '100%' }}>

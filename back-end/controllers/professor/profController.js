@@ -8,14 +8,6 @@ const CryptoJS = require('crypto-js');
 
 const yourSecretKey = "2e8b32f6d789c1fa68e540f8b2c9825f";
 
-/*const encrypt = (text, secretKey) => {
-  const cipher = forge.cipher.createCipher('AES-CBC', forge.util.createBuffer(secretKey));
-  cipher.start({ iv: forge.random.getBytesSync(16) });
-  cipher.update(forge.util.createBuffer(text, 'utf-8'));
-  cipher.finish();
-  return forge.util.encode64(cipher.output.getBytes());
-};*/
-
 const encrypt = (text) => {
   const ciphertext = CryptoJS.AES.encrypt(text, yourSecretKey).toString();
   return ciphertext;

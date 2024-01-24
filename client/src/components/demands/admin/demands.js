@@ -131,8 +131,6 @@ export default function FAQCard({prof}) {
   
 const handleValidate = () => {
   if(selectedOption==='att1'){
-    // console.log("in att1")
-    // navigate('/attestationTravail', { state: {input1:prof.prenom.split('|')[0] , input2:prof.nom.split('|')[0], input3:'Grade B', input4:prof.num_loyer, input5:prof.date_entre_ecole}})
     setOpenAtt1(true);
 }
     else if(selectedOption==='att2'){
@@ -163,8 +161,6 @@ const handleDescriptionMissionChange = (event) => {
 
 const addDemande1 = async () => {
   try {
-    // Show the spinner while the backend request is in progress
-    // setIsLoading(true);
     const url = backLink+"/demandeAttestationTravail/add-demande-attestation-travail"; // URL for the backend API
     const requestData = {
       professeur: selectedProfId, // Send the user input as a parameter in the request body
@@ -333,17 +329,6 @@ useEffect(() => {
           <Typography fontSize="sm" sx={{ mt: 0.5 }}>
             Choisissez votre document de besoin et remplire le formulaire avec les données appropriées
           </Typography>
-
-
-
-          {/* <Select value={selectedProfId} onChange={handleSelectChange}>
-            <MenuItem>Selectionner un professeur</MenuItem>
-            {professors.map((prof) => (
-                <MenuItem  value={prof._id}>
-                {`${prof.prenom.split('|')[0]} ${prof.nom.split('|')[0]} | ${prof.prenom.split('|')[1]} ${prof.nom.split('|')[1]}`}
-                </MenuItem>
-            ))}
-            </Select> */}
 
 <FormControl fullWidth>
       <Grid container alignItems="center">
@@ -661,21 +646,13 @@ useEffect(() => {
               <Grid item xs={6} >
                 <FormLabel>Date d'absence : تاريخ التغيب</FormLabel>
                 <LocalizationProvider dateAdapter={AdapterDayjs} >
-                <DatePicker 
-                // value={selectedDateVisa} // Pass the selectedDate as the value
-                // onChange={handleDateVisaChange} // Handle date selection
-                // sx={{width:"100%"}}
-                />
+                <DatePicker/>
               </LocalizationProvider>
               </Grid>
               <Grid item xs={6} >
                 <FormLabel>Date reprise : تاريخ الالتحاق</FormLabel>
                 <LocalizationProvider dateAdapter={AdapterDayjs} >
-                <DatePicker 
-                // value={selectedDateVisa} // Pass the selectedDate as the value
-                // onChange={handleDateVisaChange} // Handle date selection
-                // sx={{width:"100%"}}
-                />
+                <DatePicker/>
               </LocalizationProvider>
               </Grid>
               </Grid>

@@ -53,7 +53,6 @@ export default function FAQCard({prof}) {
   };
 
 
-  // Array of university objects with real names from Morocco and France
   const universities = [
     { label: 'Université de Paris', country: 'France' },
     { label: 'Sorbonne Université', country: 'France' },
@@ -131,8 +130,6 @@ export default function FAQCard({prof}) {
   
 const handleValidate = () => {
   if(selectedOption==='att1'){
-    // console.log("in att1")
-    // navigate('/attestationTravail', { state: {input1:prof.prenom.split('|')[0] , input2:prof.nom.split('|')[0], input3:'Grade B', input4:prof.num_loyer, input5:prof.date_entre_ecole}})
     setOpenAtt1(true);
 }
     else if(selectedOption==='att2'){
@@ -163,8 +160,6 @@ const handleDescriptionMissionChange = (event) => {
 
 const addDemande1 = async () => {
   try {
-    // Show the spinner while the backend request is in progress
-    // setIsLoading(true);
     const url = backLink+"/demandeAttestationTravail/add-demande-attestation-travail"; // URL for the backend API
     const requestData = {
       professeur: selectedProfId, // Send the user input as a parameter in the request body
@@ -177,16 +172,13 @@ const addDemande1 = async () => {
   } catch (error) {
     console.error("Error fetching abstract:", error);
   } finally {
-    // Hide the spinner after the backend request is completed
-    // setIsLoading(false);
+
   }
 };
 
 
 const addDemande2 = async () => {
   try {
-    // Show the spinner while the backend request is in progress
-    // setIsLoading(true);
     const url = backLink+"/demande/add-demande-quitter-territoire"; // URL for the backend API
     const requestData = {
       professeur: selectedProfId, // Send the user input as a parameter in the request body
@@ -202,16 +194,13 @@ const addDemande2 = async () => {
   } catch (error) {
     console.error("Error fetching abstract:", error);
   } finally {
-    // Hide the spinner after the backend request is completed
-    // setIsLoading(false);
+
   }
 };
 
 
 const addDemande3 = async () => {
   try {
-    // Show the spinner while the backend request is in progress
-    // setIsLoading(true);
     const url = backLink+"/demandeConge/add-demande-conge"; // URL for the backend API
     const requestData = {
       professeur: selectedProfId, // Send the user input as a parameter in the request body
@@ -233,8 +222,6 @@ const addDemande3 = async () => {
 
 const addDemande5 = async () => {
   try {
-    // Show the spinner while the backend request is in progress
-    // setIsLoading(true);
     const url = backLink+"/demandeOrdreMission/add-demande-ordre-mission"; // URL for the backend API
     const requestData = {
       professeur: selectedProfId, // Send the user input as a parameter in the request body
@@ -334,17 +321,6 @@ useEffect(() => {
             Choisissez votre document de besoin et remplire le formulaire avec les données appropriées
           </Typography>
 
-
-
-          {/* <Select value={selectedProfId} onChange={handleSelectChange}>
-            <MenuItem>Selectionner un professeur</MenuItem>
-            {professors.map((prof) => (
-                <MenuItem  value={prof._id}>
-                {`${prof.prenom.split('|')[0]} ${prof.nom.split('|')[0]} | ${prof.prenom.split('|')[1]} ${prof.nom.split('|')[1]}`}
-                </MenuItem>
-            ))}
-            </Select> */}
-
 <FormControl fullWidth>
       <Grid container alignItems="center">
         <Grid item xs={4}>
@@ -385,7 +361,6 @@ useEffect(() => {
   <Option value="att2">Autorisation de quitter le territoire - الإذن بمغادرة التراب الوطني</Option>
   <Option value="att3">Décision de congé administratif - إجازة إدارية</Option>
   <Option value="att5">Ordre de mission -  تكليف بمهمة</Option>
-  {/* <Option value="att4">Attestation de reprise de travail - شهادةاستئناف العمل</Option> */}
 </Select>
     </Grid>
   </Grid>
@@ -402,7 +377,6 @@ useEffect(() => {
     mx: 'auto',
   }}
 >
-  {/* {selectedOption === 'att1' ? 'Imprimer' : 'Valider'} */}
   Valider
 </Button>
 
@@ -426,7 +400,6 @@ useEffect(() => {
                 required
                 value={selectedDate1} // Pass the selectedDate as the value
                 onChange={handleDate1Change} // Handle date selection
-                // sx={{width:"100%"}}
                 />
               </LocalizationProvider>
               </Grid>
@@ -436,7 +409,6 @@ useEffect(() => {
                 <DatePicker 
                 value={selectedDate2} // Pass the selectedDate as the value
                 onChange={handleDate2Change} // Handle date selection
-                // sx={{width:"100%"}}
                 />
               </LocalizationProvider>
               </Grid>
@@ -520,7 +492,6 @@ useEffect(() => {
                 <DatePicker 
                 value={selectedDateConge1} // Pass the selectedDate as the value
                 onChange={handleDateConge1Change} // Handle date selection
-                // sx={{width:"100%"}}
                 />
               </LocalizationProvider>
               </Grid>
@@ -530,7 +501,6 @@ useEffect(() => {
                 <DatePicker 
                 value={selectedDateConge2} // Pass the selectedDate as the value
                 onChange={handleDateConge2Change} // Handle date selection
-                // sx={{width:"100%"}}
                 />
               </LocalizationProvider>
               </Grid>
@@ -573,7 +543,6 @@ useEffect(() => {
                 required
                 value={selectedDateMission1} // Pass the selectedDate as the value
                 onChange={handleDateMission1Change} // Handle date selection
-                // sx={{width:"100%"}}
                 />
               </LocalizationProvider>
               </Grid>
@@ -583,15 +552,11 @@ useEffect(() => {
                 <DatePicker 
                 value={selectedDateMission2} // Pass the selectedDate as the value
                 onChange={handleDateMission2Change} // Handle date selection
-                // sx={{width:"100%"}}
                 />
               </LocalizationProvider>
               </Grid>
               </Grid>
               </FormControl>
-
-
-
               
               <FormControl>
               <Grid container spacing={2} style={{marginTop:"2%"}}>
@@ -660,20 +625,13 @@ useEffect(() => {
                 <FormLabel>Date d'absence : تاريخ التغيب</FormLabel>
                 <LocalizationProvider dateAdapter={AdapterDayjs} >
                 <DatePicker 
-                // value={selectedDateVisa} // Pass the selectedDate as the value
-                // onChange={handleDateVisaChange} // Handle date selection
-                // sx={{width:"100%"}}
                 />
               </LocalizationProvider>
               </Grid>
               <Grid item xs={6} >
                 <FormLabel>Date reprise : تاريخ الالتحاق</FormLabel>
                 <LocalizationProvider dateAdapter={AdapterDayjs} >
-                <DatePicker 
-                // value={selectedDateVisa} // Pass the selectedDate as the value
-                // onChange={handleDateVisaChange} // Handle date selection
-                // sx={{width:"100%"}}
-                />
+                <DatePicker />
               </LocalizationProvider>
               </Grid>
               </Grid>
