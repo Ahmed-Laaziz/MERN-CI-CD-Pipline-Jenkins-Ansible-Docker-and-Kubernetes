@@ -221,7 +221,7 @@ useEffect(() => {
                 // Display cards for the first two entries
                 index < 5 && (
                   <Card
-                    variant="solid"
+                    variant="soft"
                     color={index === 0 ? 'primary' : index === 1 ? 'warning' : 'neutral'}
                     invertedColors
                     sx={{ width: '100%' }}
@@ -411,14 +411,14 @@ useEffect(() => {
                   </Typography>
                 </Avatar>
               </Grid>
-              <Grid item width="45%">
+              <Grid item width="60%">
                 <CardContent>
                   <Typography level="h3">{`Service ${departmentKey}`}</Typography>
                 </CardContent>
               </Grid>
               <Grid>
                 <CardContent>
-                  <Typography fontSize={72} level="h2" sx={{ paddingLeft: '12vw', paddingTop: 0 }}>
+                  <Typography fontSize={72} level="h2" sx={{ paddingLeft: '1vw', paddingTop: 0 }}>
                     {departmentCounts[departmentKey]}
                   </Typography>
                 </CardContent>

@@ -88,7 +88,7 @@ export function DataHist() {
   return (
     <Box sx={{ height: 400, width: '99%' }}>
       <DataGrid
-        rows={hist} // Use the fetched data for rows
+        rows={hists} // Use the fetched data for rows
         columns={responsiveColumns}
         getRowId={(row) => row._id}
         initialState={{

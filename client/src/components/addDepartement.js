@@ -49,7 +49,7 @@ export default function DepartementForm() {
           <Grid item xs={6}>
             <div>
               <Typography variant="subtitle1" gutterBottom>
-                Libellé du Département
+                Code du Département
               </Typography>
               <TextField
                 variant="outlined"
@@ -63,7 +63,7 @@ export default function DepartementForm() {
           <Grid item xs={6}>
             <div>
               <Typography variant="subtitle1" gutterBottom>
-                Description du Département
+                Libellé du Département
               </Typography>
               <TextField
                 variant="outlined"
