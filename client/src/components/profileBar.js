@@ -222,6 +222,38 @@ const cadreGradeMapping2 = {
     handleClose();
   }
 
+  const handleSubmitFonc = async () => {
+    const newFonc = {
+      id: idValue,
+      departement: selectedDepartement,
+      num_ref: preuveValue,
+      nom: nomValue+" | "+nisbaValue,
+      prenom: prenomValue+" | "+asmValue,
+      email: emailValue,
+      tel: telValue,
+      cin: cinValue,
+      genre: selectedGenre
+    } 
+
+    const newHist = {  
+      cadre : selectedCadre,    
+      grade: selectedGrade,
+      classe: selectedClasse,
+    }
+
+    console.log("The new fonc is : ")
+    console.log(newFonc)
+
+    console.log("The new hist is : ")
+    console.log(newHist)
+
+    const updatedProf = await axios.put(
+      `http://localhost:4000/fonctionnaire/update-fonc`, {"fonc": newFonc, "hist": newHist} // Replace with your actual API endpoint
+    );
+    navigate('/all-fonctionnaires')
+    handleClose();
+  }
+
   const handleClose = () => {
     setOpenAtt2(false);
   }
@@ -527,7 +559,7 @@ useEffect(()=>{
           {agent ? agent.prenom.split('|')[0]  + " " + agent.nom.split('|')[0] + "   |   " +  agent.prenom.split('|')[1]  + " " + agent.nom.split('|')[1] : 'Loading...'} 
           </Typography>
           <Typography level="body-sm" fontWeight="lg" textColor="text.tertiary">
-          {isAdmin ? agent.fonction : (isProfesseur ? agent.cadre : 'Loading...')}
+          {isAdmin ? agent.fonction : (isProfesseur && agent.cadre ? agent.cadre : 'Loading...')}
           </Typography>
           <Sheet
             sx={{
@@ -1044,7 +1076,7 @@ useEffect(()=>{
             <Button disabled={activeStep === 0} onClick={handleBack} variant="outlined" color="primary">
               Back
             </Button>
-            <Button variant="solid" color="primary" onClick={handleSubmit}>
+            <Button variant="solid" color="primary" onClick={handleSubmitFonc}>
               Valider
             </Button>
             </Box>

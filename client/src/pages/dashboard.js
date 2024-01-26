@@ -84,6 +84,7 @@ const [agent, setAgent] = useState(null);
 const [notifs, setNotifs] = useState(null);
 const [departmentCadreCounts, setDepartmentCadreCounts] = useState(null);
 const [departmentGanreCounts, setDepartmentGenreCounts] = useState(null);
+const services = ['Rh', 'Scolarité', 'Informatique']
 
 console.log('userId : ' + agentId);
 useEffect(() => {
@@ -128,39 +129,48 @@ useEffect(() => {
 
 useEffect(() => {
   if (agent && agent.dep_label) {
-    const counts = professeurs
-      .filter(professor => professor.departement === agent.dep_label)
-      .reduce((counts, professor) => {
-        const depcadre = professor.cadre;
-        counts[depcadre] = (counts[depcadre] || 0) + 1;
-        return counts;
-      }, {});
+    let filteredProfessors;
+    if (agent.dep_label === "FCT") {
+      filteredProfessors = professeurs.filter(professor => services.includes(professor.departement));
+    } else {
+      filteredProfessors = professeurs.filter(professor => professor.departement === agent.dep_label);
+    }
+
+    const counts = filteredProfessors.reduce((counts, professor) => {
+      const depcadre = professor.cadre;
+      counts[depcadre] = (counts[depcadre] || 0) + 1;
+      return counts;
+    }, {});
 
     setDepartmentCadreCounts(counts);
-
 
     console.log("dep counts :");
     console.log(counts);
   }
-}, [agent]);
+}, [agent, services, professeurs]);
 
 useEffect(() => {
   if (agent && agent.dep_label) {
-    const counts = professeurs
-      .filter(professor => professor.departement === agent.dep_label)
-      .reduce((counts, professor) => {
-        const depgenre = professor.genre;
-        counts[depgenre] = (counts[depgenre] || 0) + 1;
-        return counts;
-      }, {});
+    let filteredProfessors;
+    if (agent.dep_label === "FCT") {
+      filteredProfessors = professeurs.filter(professor => services.includes(professor.departement));
+    } else {
+      filteredProfessors = professeurs.filter(professor => professor.departement === agent.dep_label);
+    }
+
+    const counts = filteredProfessors.reduce((counts, professor) => {
+      const depgenre = professor.genre;
+      counts[depgenre] = (counts[depgenre] || 0) + 1;
+      return counts;
+    }, {});
 
     setDepartmentGenreCounts(counts);
-
 
     console.log("genre counts :");
     console.log(counts);
   }
-}, [agent]);
+}, [agent, services, professeurs]);
+
 
 const cardColors = ['primary'];
 const cardColors2 = ['warning'];
