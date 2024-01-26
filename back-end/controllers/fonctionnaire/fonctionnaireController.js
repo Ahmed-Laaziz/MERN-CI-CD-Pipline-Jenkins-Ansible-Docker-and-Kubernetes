@@ -1,8 +1,10 @@
 const Fonctionnaire = require("../../models/fonctionnaire");
+const Professeur = require("../../models/professeur");
+const Historique = require("../../models/historique");
 const mongoose = require('mongoose');
 const generateRandomPassword = require('../../business/passwordGenerator');
 const sendEmail = require('../../business/emailSender');
-// Add a route to retrieve and display a list of Professeurs
+// Add a route to retrieve and display a list of foncesseurs
 exports.getFonctionnaires = async (req, res, next) => {
     try {
       const allFonctionnaires = await Fonctionnaire.find({});
@@ -37,8 +39,8 @@ exports.addFonctionnaire = async (req, res, next) => {
       sendEmail(req.body.email, emailSubject, emailText);
       res.status(200).json(savedFonctionnaire);
       } catch (error) {
-        console.error('Error adding professeur:', error);
-        res.status(500).json({ error: 'Failed to add professeur' });
+        console.error('Error adding foncesseur:', error);
+        res.status(500).json({ error: 'Failed to add foncesseur' });
       }
   };
 
@@ -66,4 +68,56 @@ exports.addFonctionnaire = async (req, res, next) => {
         console.error('Error updating Fonctionnaire:', error);
         res.status(500).json({ error: 'Failed to update Fonctionnaire' });
     }
+};
+
+exports.updateFonc = async (req, res, next) => {
+  try {
+    const foncId = req.body.fonc.id; 
+    const foncUpdates = {
+      nom: req.body.fonc.nom,
+      prenom: req.body.fonc.prenom,
+      email: req.body.fonc.email,
+      tel: req.body.fonc.tel,
+      cin: req.body.fonc.cin,
+      genre: req.body.fonc.genre,
+      departement: req.body.departement
+    };
+
+    const newHist = {
+      grade: req.body.hist.grade,
+      cadre: req.body.hist.cadre,
+      classe: req.body.hist.classe,
+    };
+
+    console.log("the cadre is :"+req.body.hist.cadre)
+
+    const hist = await Historique.find({ "professeur": foncId }).sort({ date: -1 });
+
+    const changesDetected = hist.length > 0 &&
+      (newHist.classe != hist[0].classe || newHist.grade != hist[0].grade || newHist.cadre != hist[0].cadre);
+
+
+    const updatedfonc = await Professeur.findByIdAndUpdate(foncId, foncUpdates, { new: true });
+
+    if (changesDetected) {
+      const newHistoricalRecord = new Historique({
+        professeur: foncId,
+        grade: newHist.grade,
+        cadre: newHist.cadre,
+        classe: newHist.classe,
+        date: new Date(), 
+      });
+
+      await newHistoricalRecord.save();
+    }
+
+    if (!updatedfonc) {
+      return res.status(404).json({ error: 'foncessor not found' });
+    }
+
+    res.status(200).json(updatedfonc);
+  } catch (error) {
+    console.error('Error updating foncessor:', error);
+    res.status(500).json({ error: 'Failed to update foncessor' });
+  }
 };
