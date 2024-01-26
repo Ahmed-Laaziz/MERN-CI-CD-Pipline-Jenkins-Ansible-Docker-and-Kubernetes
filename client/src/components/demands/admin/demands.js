@@ -293,7 +293,7 @@ useEffect(() => {
           Demandes
         </Typography>
         <Typography textColor="primary.200">
-          Espace demandes administratives pour les employés de l'ENSAJ.
+          Espace des demandes administratives pour les fonctionnaires de l'ENSAJ.
         </Typography>
       </CardOverflow>
       <CardContent sx={{ gap: 1.5, minWidth: 200 }}>
@@ -324,17 +324,17 @@ useEffect(() => {
         </AspectRatio>
         <CardContent>
           <Typography level="title-lg">
-            Avez vous besoin d'un document administratif?
+            Avez-vous besoin d'un document administratif?
           </Typography>
           <Typography fontSize="sm" sx={{ mt: 0.5 }}>
-            Choisissez votre document de besoin et remplire le formulaire avec les données appropriées
+          Choisissez le document nécessaire et remplissez le formulaire avec les données appropriées.
           </Typography>
 
 <FormControl fullWidth>
       <Grid container alignItems="center">
         <Grid item xs={5}>
 
-          <InputLabel htmlFor="professor-select"><b>Selectionner un fonctionnaire:</b></InputLabel>
+          <InputLabel htmlFor="professor-select"><b>Sélectionner un fonctionnaire:</b></InputLabel>
 
         </Grid>
         <Grid item xs={7}>
@@ -364,7 +364,7 @@ useEffect(() => {
 <FormControl fullWidth>
   <Grid container alignItems="center">
     <Grid item xs={5}>
-      <InputLabel htmlFor="select-label"><b>Selectionner un document:</b></InputLabel>
+      <InputLabel htmlFor="select-label"><b>Sélectionner un document:</b></InputLabel>
     </Grid>
     <Grid item xs={7}>
     <Select defaultValue="att1" onChange={handleChange} disabled={!selectedProfessor}>

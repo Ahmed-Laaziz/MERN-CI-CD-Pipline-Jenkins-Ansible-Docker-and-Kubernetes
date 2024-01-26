@@ -135,7 +135,7 @@ function App() {
                 <FormControl fullWidth>
       <Grid container alignItems="center">
         <Grid item xs={3}>
-          <InputLabel htmlFor="professor-select"><b>Selectionner un fonctionnaire:</b></InputLabel>
+          <InputLabel htmlFor="professor-select"><b>Sélectionner un fonctionnaire:</b></InputLabel>
         </Grid>
         <Grid item xs={9}>
           <Autocomplete

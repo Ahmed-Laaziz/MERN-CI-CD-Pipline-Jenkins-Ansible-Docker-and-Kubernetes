@@ -132,10 +132,7 @@ const fetchHist = async (agentId) => {
         const response = await axios.put(backLink+`/demandes/updateStatut/${demand._id}`, {
           statut: 'Validée', // Set the new statut here
         });
-
-
         const res = await axios.post(backLink+'/notifs/add-notification', { "prof": demand.professeur , "title": demand.__t.replace(/([A-Z])/g, ' $1').trim()+" Accepté", "message": "Nous tenons à vous informer que votre demande "+demand.__t.replace(/([A-Z])/g, ' $1').trim()+" a été accepté et que vous pouvez le récupérer à l'administration. Merci !", "date": currentDatetime});
-
         console.log("accepted")
         // Handle the response as needed (e.g., update UI, show a notification, etc.)
         console.log('Statut updated successfully:', response.data);
@@ -246,7 +243,7 @@ const fetchHist = async (agentId) => {
         const date = new Date(params.value);
         return date.toLocaleDateString('en-US');
       },editable: false },
-      { field: 'updatedAt', headerName: 'Derniere modification',width: 250, type: 'Date', valueFormatter: (params) => {
+      { field: 'updatedAt', headerName: 'Dernière modification',width: 250, type: 'Date', valueFormatter: (params) => {
         const date = new Date(params.value);
         return date.toLocaleDateString('en-US');
       },editable: true },

@@ -265,7 +265,7 @@ const addDemande5 = async () => {
           Demandes
         </Typography>
         <Typography textColor="primary.200">
-          Espace demandes administratives pour les employés de l'ENSAJ.
+          Espace des demandes administratives pour les employés de l'ENSAJ.
 
         </Typography>
       </CardOverflow>
@@ -297,7 +297,7 @@ const addDemande5 = async () => {
         </AspectRatio>
         <CardContent>
           <Typography level="title-lg">
-            Avez vous besoin d'un document administratif?
+            Avez-vous besoin d'un document administratif?
           </Typography>
           <Typography fontSize="sm" sx={{ mt: 0.5 }}>
             Choisissez votre document de besoin et remplire le formulaire avec les données appropriées

@@ -211,7 +211,7 @@ useEffect(() => {
            width: '100%', // Full width
          }}
        >
-            <Breadcrumb pageLabel="Dashboard"/>
+            <Breadcrumb pageLabel="Tableau de bord"/>
 <>&nbsp;</>
 {agent.fonction !== 'Secrétaire' ? (
         <>
@@ -337,7 +337,7 @@ useEffect(() => {
        ) : (
         <>
         <Box>
-        <Typography level="h3" sx={{marginTop: '1%' }}>Departements :</Typography>
+        <Typography level="h3" sx={{marginTop: '1%' }}>Départements :</Typography>
   <Divider inset="none" sx={{ marginBottom: '2%', marginTop: '1%' }}/>
   <Box
     sx={{

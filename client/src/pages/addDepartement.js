@@ -5,7 +5,7 @@ import Breadcrumb from '../components/breadcrumb';
 export default function home(){
     return(
         <Box sx={{ display: 'flex' }}>
-        <Drawer role='Admin' pageTitle={'Nouveau Departement'}/>
+        <Drawer role='Admin' pageTitle={'Nouveau Département'}/>
         <Box
   component="main"
   sx={{
@@ -17,7 +17,7 @@ export default function home(){
     boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)", // Add the boxShadow property
   }}
 >
-<Breadcrumb pageLabel="Nouveau Departement"/>
+<Breadcrumb pageLabel="Nouveau Département"/>
 <>&nbsp;</>
 <AddForm />
 </Box>
