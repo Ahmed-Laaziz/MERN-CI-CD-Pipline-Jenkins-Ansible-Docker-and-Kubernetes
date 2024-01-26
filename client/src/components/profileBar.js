@@ -38,23 +38,25 @@ export default function UserCard({ agent }) {
 
   const { hist } = useProf();
 
-  const cadreOptions = ["Professeur de l'enseignement superieur", 'Maitre de conférences habilité', 'Maitre de conférences', "Ingénieur d'application", 'Technicien', 'Administrateur'];
+  const cadreOptions = ["Professeur de l'enseignement superieur", 'Maitre de conférences habilité', 'Maitre de conférences', "Ingénieur", 'Technicien', 'Administrateur', 'Adjoint technique'];
   const genreOptions = ['Homme', 'Femme'];
   const serviceOptions = ['Rh', 'Scolarité', 'Informatique']
-  const cadreOptions2 = ["Ingénieur d'application", 'Technicien', 'Administrateur'];
+  const cadreOptions2 = ["Ingénieur", 'Technicien', 'Administrateur', 'Adjoint technique'];
 
 const cadreGradeMapping2 = {
-  "Ingénieur d'application": ['Grade Principal', 'Premier Grade'],
+  "Ingénieur": ['Grade Principal', 'Premier Grade'],
   'Technicien': ['1er Grade', '2éme Grade', '3éme Grade', '4éme Grade'],
   'Administrateur': ['1er Grade', '2éme Grade', '3éme Grade','1er Grade-Imprimerie-', '2éme Grade-Imprimerie-', '3éme Grade-Imprimerie-',],
+  'Adjoint technique':['Adjoint technique grade principal', 'Adjoint technique 1er grade', 'Adjoint technique 2eme grade', 'Adjoint administratif technique principal -Imprimerie-', 'Adjoint technique 1er grade -Imprimerie-', 'Adjoint technique 2eme grade -Imprimerie-']
 };
   const cadreGradeMapping = {
     "Professeur de l'enseignement superieur": ['Grade D', 'Grade C', 'Grade B', 'Grade A'],
     'Maitre de conférences habilité': ['Grade C', 'Grade B', 'Grade A'],
     'Maitre de conférences': ['Grade D', 'Grade C', 'Grade B', 'Grade A'],
-    "Ingénieur d'application": ['Grade Principal', 'Premier Grade'],
+    "Ingénieur": ['Grade Principal', 'Premier Grade'],
     'Technicien': ['1er Grade', '2éme Grade', '3éme Grade', '4éme Grade'],
     'Administrateur': ['1er Grade', '2éme Grade', '3éme Grade','1er Grade-Imprimerie-', '2éme Grade-Imprimerie-', '3éme Grade-Imprimerie-',],
+    'Adjoint technique':['Adjoint technique grade principal', 'Adjoint technique 1er grade', 'Adjoint technique 2eme grade', 'Adjoint administratif technique principal -Imprimerie-', 'Adjoint technique 1er grade -Imprimerie-', 'Adjoint technique 2eme grade -Imprimerie-']
   };
   const gradeClasseMapping = {
     'Grade D': ['930-01', '960-02', '990-03', '1020-04'],
@@ -70,13 +72,19 @@ const cadreGradeMapping2 = {
         '1er Grade-Imprimerie-': ['704-01', '746-02', '779-03', '812-04', '840-05', '870-06'],
         '2éme Grade-Imprimerie-': ['336-01', '369-02', '403-03', '436-04', '472-05', '509-06', '542-07', '574-08', '606-09', '639-10','704-ex'],
         '3éme Grade-Imprimerie-': ['275-01', '300-02', '326-03', '351-04', '377-05', '402-06', '428-07', '456-08', '484-09', '512-10', '564-ex'],
+        'Adjoint technique grade principal': ['235-01', '253-02', '274-03', '296-04', '317-05', '339-06', '361-07', '382-08', '404-09', '438-10'],
+          'Adjoint technique 1er grade': ['207-01', '224-02', '241-03', '259-04', '276-05', '293-06', '311-07', '332-08', '353-09', '373-10'],
+          'Adjoint technique 2eme grade': ['153-01', '161-02', '173-03', '185-04', '197-05', '209-06', '222-07', '236-08', '249-09', '262-10'],
+          'Adjoint administratif technique principal -Imprimerie-': ['235-01', '253-02', '274-03', '296-04', '317-05', '339-06', '361-07', '382-08', '404-09', '438-10'],
+          'Adjoint technique 1er grade -Imprimerie-': ['207-01', '224-02', '241-03', '259-04', '276-05', '293-06', '311-07', '332-08', '353-09', '373-10'],
+          'Adjoint technique 2eme grade -Imprimerie-': ['153-01', '161-02', '173-03', '185-04', '197-05', '209-06', '222-07', '236-08', '249-09', '262-10'],
   };
 
   const gradeClasseMapping2 = (selectedCadre) => {
     // Define the mapping of grade to classeOptions based on the selected cadre
     
     if (selectedCadre) {
-      if (selectedCadre === "Ingénieur d'application") {
+      if (selectedCadre === "Ingénieur") {
         return {
           'Grade Principal': ['402-01', '428-02', '456-03', '484-04', '512-05', '564-06'],
           'Premier Grade': ['275-01', '300-02', '326-03', '351-04', '377-05'],
@@ -96,6 +104,15 @@ const cadreGradeMapping2 = {
           '1er Grade-Imprimerie-': ['704-01', '746-02', '779-03', '812-04', '840-05', '870-06'],
           '2éme Grade-Imprimerie-': ['336-01', '369-02', '403-03', '436-04', '472-05', '509-06', '542-07', '574-08', '606-09', '639-10','704-ex'],
           '3éme Grade-Imprimerie-': ['275-01', '300-02', '326-03', '351-04', '377-05', '402-06', '428-07', '456-08', '484-09', '512-10', '564-ex'],
+        };
+      } else if (selectedCadre === "Adjoint technique") {
+        return {
+          'Adjoint technique grade principal': ['235-01', '253-02', '274-03', '296-04', '317-05', '339-06', '361-07', '382-08', '404-09', '438-10'],
+          'Adjoint technique 1er grade': ['207-01', '224-02', '241-03', '259-04', '276-05', '293-06', '311-07', '332-08', '353-09', '373-10'],
+          'Adjoint technique 2eme grade': ['153-01', '161-02', '173-03', '185-04', '197-05', '209-06', '222-07', '236-08', '249-09', '262-10'],
+          'Adjoint administratif technique principal -Imprimerie-': ['235-01', '253-02', '274-03', '296-04', '317-05', '339-06', '361-07', '382-08', '404-09', '438-10'],
+          'Adjoint technique 1er grade -Imprimerie-': ['207-01', '224-02', '241-03', '259-04', '276-05', '293-06', '311-07', '332-08', '353-09', '373-10'],
+          'Adjoint technique 2eme grade -Imprimerie-': ['153-01', '161-02', '173-03', '185-04', '197-05', '209-06', '222-07', '236-08', '249-09', '262-10'],
         };
       }
   }
