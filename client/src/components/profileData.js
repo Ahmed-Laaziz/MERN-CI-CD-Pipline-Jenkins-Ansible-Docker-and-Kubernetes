@@ -19,13 +19,25 @@ export default function ProfileData({ agent }) {
   const navigate = useNavigate();
 
   const [hist, setHist] = React.useState([]);
-  const [prof, setProf] = React.useState({});
+  const [deps, setDeps] = React.useState([])
 
   const isAdmin = agent && agent.__t === 'Admin';
   const isProfesseur = agent && agent.__t === 'Professeur';
+  const isFonc = agent && agent.__t === 'Fonctionnaire';
 
 
-  const { updateProf, updateHist } = useProf();
+  const { prof, updateProf, updateHist } = useProf();
+
+  const fetchDepartements = async () => {
+    try {
+      const response = await axios.get(`${backLink}/departements/all-departements`);
+      const libeleValues = response.data.map((departement) => departement.libele);
+      setDeps(libeleValues);
+      console.log("deps: " + libeleValues);
+    } catch (error) {
+      console.error('Error fetching departements:', error);
+    }
+  };
 
   const handleHistoriqueClick = async () => {
     console.log("prof id : " + hist[0].professeur)
@@ -51,29 +63,25 @@ export default function ProfileData({ agent }) {
   };
 
   const fetchHist = async () => {
-    try {
-      const response1 = await axios.post(
-        `${backLink}/prof/email`, 
-        {"email": agent.email} // Pass the agent ID to the API endpoint
-      );
-      setProf(response1.data)
-      const response = await axios.post(
-        `${backLink}/hist/prof-hist`, 
-        {"prof": prof._id} // Pass the agent ID to the API endpoint
-      );
-      setHist(response.data);
-      console.log("the setted hists are :")
-      console.log(JSON.stringify(hist))
-    } catch (error) {
-      console.error('Error fetching hist data:', error);
-    }
-  };
+      try {
+        const response = await axios.post(
+          `${backLink}/hist/prof-hist`, 
+          {"prof": prof._id} // Pass the agent ID to the API endpoint
+        );
+        setHist(response.data);
+        console.log("the setted hists are :")
+        console.log(JSON.stringify(hist))
+      } catch (error) {
+        console.error('Error fetching hist data:', error);
+      }
+    };
 
   React.useEffect(() => {
-    if(agent){
+    fetchDepartements()
+    if (prof) {
       fetchHist();
     }
-  }, [agent]);
+  }, []);
 
   return (
     <Card
@@ -89,12 +97,65 @@ export default function ProfileData({ agent }) {
       }}
     >
       <Typography level="title-lg" startDecorator={<InfoOutlined />}>
-      {isAdmin ? 'Informations' : 'Informations'} 
+        {isAdmin ? 'Informations' : 'Informations'} 
       </Typography>
       <Divider inset="none" />
       
-      {isProfesseur ? (
-  <CardContent
+      {agent && agent.departement && deps.includes(agent.departement) ? (
+        // Render the current card if agent.departement is in deps
+        <>
+           {isProfesseur ? (
+              <CardContent
+              sx={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(2, minmax(80px, 1fr))',
+                gap: 1.5,
+              }}
+            >
+              
+              <FormControl>
+                <FormLabel>Grade (الرتبة)</FormLabel>
+                <Input endDecorator={<CreditCardIcon /> } defaultValue={(agent && hist && hist[0]?.grade) ? hist[0].grade : 'Loading...'} disabled sx={{fontFamily:'bold'}}/>
+              </FormControl>
+              <FormControl>
+                <FormLabel>Classe (الدرجة)</FormLabel>
+                <Input endDecorator={<CreditCardIcon /> } defaultValue={(agent && hist && hist[0]?.classe) ? hist[0].classe : 'Loading...'} disabled sx={{fontFamily:'bold'}}/>
+              </FormControl>
+
+              <FormControl>
+                <FormLabel>Numéro de loyer (رقم التأجير)</FormLabel>
+                <Input endDecorator={<CreditCardIcon /> } defaultValue={(agent && hist) ? agent.num_loyer : 'Loading...'} disabled sx={{fontFamily:'bold'}}/>
+              </FormControl>
+              <FormControl>
+                <FormLabel>Numéro de preuve (الرقم الاستدلالي)</FormLabel>
+                <Input endDecorator={<InfoOutlined />} defaultValue={(agent && hist) ? agent.num_ref : 'Loading...'} disabled sx={{fontFamily:'bold'}}/>
+
+              </FormControl>
+
+              <FormControl>
+  <FormLabel>Date d'entrée dans la fonction publique (ت. و الوظيفة العمومية)</FormLabel>
+  <Input
+    endDecorator={<CreditCardIcon />}
+    defaultValue={(agent && hist && agent.date_entre_ecole) ? new Date(agent.date_entre_ecole).toLocaleDateString('fr-FR') : 'Loading...'}
+    disabled
+    sx={{fontFamily:'bold'}}
+  />
+</FormControl>
+<FormControl>
+  <FormLabel>Date d'entrée dans l'établissement (ت.و. المؤسسة)</FormLabel>
+  <Input
+    endDecorator={<InfoOutlined />}
+    defaultValue={(agent && hist && agent.date_fct_publique) ? new Date(agent.date_fct_publique).toLocaleDateString('fr-FR') : 'Loading...'}
+    disabled
+    sx={{fontFamily:'bold'}}
+  />
+</FormControl>
+              {/* <Checkbox label="Change password" sx={{ gridColumn: '1/-1', my: 1 }} /> */}
+            <Button onClick={handleHistoriqueClick}>Voir Historique</Button>
+            <Button onClick={handleDocumentsClick}>Voir Documents</Button>
+            </CardContent>
+            ) : isAdmin ? (
+              <CardContent
   sx={{
     display: 'grid',
     gridTemplateColumns: 'repeat(2, minmax(80px, 1fr))',
@@ -104,37 +165,86 @@ export default function ProfileData({ agent }) {
   
   <FormControl>
     <FormLabel>Grade (الرتبة)</FormLabel>
-    <Input endDecorator={<CreditCardIcon /> } defaultValue={(isProfesseur && agent && hist[0]?.grade) ? hist[0].grade : 'Loading...'} disabled sx={{fontFamily:'bold'}}/>
+    <Input endDecorator={<CreditCardIcon /> } defaultValue={(agent && hist && hist[0]?.grade) ? hist[0].grade : 'Loading...'} disabled sx={{fontFamily:'bold'}}/>
   </FormControl>
   <FormControl>
     <FormLabel>Classe (الدرجة)</FormLabel>
-    <Input endDecorator={<CreditCardIcon /> } defaultValue={(isProfesseur && agent && hist[0]?.classe) ? hist[0].classe : 'Loading...'} disabled sx={{fontFamily:'bold'}}/>
+    <Input endDecorator={<CreditCardIcon /> } defaultValue={(agent && hist && hist[0]?.classe) ? hist[0].classe : 'Loading...'} disabled sx={{fontFamily:'bold'}}/>
   </FormControl>
 
   <FormControl>
     <FormLabel>Numéro de loyer (رقم التأجير)</FormLabel>
-    <Input endDecorator={<CreditCardIcon /> } defaultValue={(isProfesseur && agent && hist) ? agent.num_loyer : 'Loading...'} disabled sx={{fontFamily:'bold'}}/>
+    <Input endDecorator={<CreditCardIcon /> } defaultValue={(agent && hist) ? agent.num_loyer : 'Loading...'} disabled sx={{fontFamily:'bold'}}/>
   </FormControl>
   <FormControl>
     <FormLabel>Numéro de preuve (الرقم الاستدلالي)</FormLabel>
-    <Input endDecorator={<InfoOutlined />} defaultValue={(isProfesseur && agent && hist) ? agent.num_ref : 'Loading...'} disabled sx={{fontFamily:'bold'}}/>
+    <Input endDecorator={<InfoOutlined />} defaultValue={(agent && hist) ? agent.num_ref : 'Loading...'} disabled sx={{fontFamily:'bold'}}/>
 
   </FormControl>
 
   <FormControl>
-    <FormLabel>Date d'entrée dans la fonction publique (ت. و الوظيفة العمومية)</FormLabel>
-    <Input endDecorator={<CreditCardIcon /> } defaultValue={(isProfesseur && agent && hist) ? agent.date_entre_ecole : 'Loading...'} disabled sx={{fontFamily:'bold'}}/>
-  </FormControl>
-  <FormControl>
-    <FormLabel>Date d'entrée dans l'établissement (ت.و. المؤسسة)</FormLabel>
-    <Input endDecorator={<InfoOutlined />} defaultValue={(isProfesseur && agent && hist) ? agent.date_fct_publique : 'Loading...'} disabled sx={{fontFamily:'bold'}}/>
-  </FormControl>
+  <FormLabel>Date d'entrée dans la fonction publique (ت. و الوظيفة العمومية)</FormLabel>
+  <Input
+    endDecorator={<CreditCardIcon />}
+    defaultValue={(agent && hist && agent.date_entre_ecole) ? new Date(agent.date_entre_ecole).toLocaleDateString('fr-FR') : 'Loading...'}
+    disabled
+    sx={{fontFamily:'bold'}}
+  />
+</FormControl>
+<FormControl>
+  <FormLabel>Date d'entrée dans l'établissement (ت.و. المؤسسة)</FormLabel>
+  <Input
+    endDecorator={<InfoOutlined />}
+    defaultValue={(agent && hist && agent.date_fct_publique) ? new Date(agent.date_fct_publique).toLocaleDateString('fr-FR') : 'Loading...'}
+    disabled
+    sx={{fontFamily:'bold'}}
+  />
+</FormControl>
   {/* <Checkbox label="Change password" sx={{ gridColumn: '1/-1', my: 1 }} /> */}
 <Button onClick={handleHistoriqueClick}>Voir Historique</Button>
 <Button onClick={handleDocumentsClick}>Voir Documents</Button>
-</CardContent>
-) : isAdmin ? (
-  <CardContent
+              </CardContent>
+            ) : (
+            <></>
+        )}
+        </>
+      ) : (
+        // Render an alternative content if agent.departement is not in deps
+        <>
+           {isProfesseur ? (
+              <CardContent
+              sx={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(2, minmax(80px, 1fr))',
+                gap: 1.5,
+              }}
+            >
+              
+              <FormControl>
+                <FormLabel>Grade (الرتبة)</FormLabel>
+                <Input endDecorator={<CreditCardIcon /> } defaultValue={(agent && hist && hist[0]?.grade) ? hist[0].grade : 'Loading...'} disabled sx={{fontFamily:'bold'}}/>
+              </FormControl>
+              <FormControl>
+                <FormLabel>Classe (الدرجة)</FormLabel>
+                <Input endDecorator={<CreditCardIcon /> } defaultValue={(agent && hist && hist[0]?.classe) ? hist[0].classe : 'Loading...'} disabled sx={{fontFamily:'bold'}}/>
+              </FormControl>
+
+              <FormControl>
+                <FormLabel>Département (قسم)</FormLabel>
+                <Input endDecorator={<CreditCardIcon /> } defaultValue={(agent && hist) ? agent.departement : 'Loading...'} disabled sx={{fontFamily:'bold'}}/>
+              </FormControl>
+              <FormControl>
+                <FormLabel>Numéro de preuve (الرقم الاستدلالي)</FormLabel>
+                <Input endDecorator={<InfoOutlined />} defaultValue={(agent && hist) ? agent.num_ref : 'Loading...'} disabled sx={{fontFamily:'bold'}}/>
+
+              </FormControl>
+
+              {/* <Checkbox label="Change password" sx={{ gridColumn: '1/-1', my: 1 }} /> */}
+            <Button onClick={handleHistoriqueClick}>Voir Historique</Button>
+            <Button onClick={handleDocumentsClick}>Voir Documents</Button>
+            </CardContent>
+            ) : isAdmin ? (
+              <CardContent
   sx={{
     display: 'grid',
     gridTemplateColumns: 'repeat(2, minmax(80px, 1fr))',
@@ -143,21 +253,34 @@ export default function ProfileData({ agent }) {
 >
   
   <FormControl>
-    <FormLabel>Fonction (الوظيفة)</FormLabel>
-    <Input endDecorator={<CreditCardIcon /> } defaultValue={isAdmin ? agent.fonction : 'Loading...'} disabled sx={{fontFamily:'bold'}}/>
+    <FormLabel>Grade (الرتبة)</FormLabel>
+    <Input endDecorator={<CreditCardIcon /> } defaultValue={(agent && hist && hist[0]?.grade) ? hist[0].grade : 'Loading...'} disabled sx={{fontFamily:'bold'}}/>
   </FormControl>
   <FormControl>
-    <FormLabel>Département (قسم)</FormLabel>
-    <Input endDecorator={<CreditCardIcon /> } defaultValue={isAdmin ? agent.dep_label : 'Loading...'} disabled sx={{fontFamily:'bold'}}/>
+    <FormLabel>Classe (الدرجة)</FormLabel>
+    <Input endDecorator={<CreditCardIcon /> } defaultValue={(agent && hist && hist[0]?.classe) ? hist[0].classe : 'Loading...'} disabled sx={{fontFamily:'bold'}}/>
   </FormControl>
 
+  <FormControl>
+    <FormLabel>Département (قسم)</FormLabel>
+    <Input endDecorator={<CreditCardIcon /> } defaultValue={(agent && hist) ? agent.departement : 'Loading...'} disabled sx={{fontFamily:'bold'}}/>
+  </FormControl>
+  <FormControl>
+    <FormLabel>Numéro de preuve (الرقم الاستدلالي)</FormLabel>
+    <Input endDecorator={<InfoOutlined />} defaultValue={(agent && hist) ? agent.num_ref : 'Loading...'} disabled sx={{fontFamily:'bold'}}/>
 
-  
-</CardContent>
-) : (
-  <></>
-)}
-      
+  </FormControl>
+
+  {/* <Checkbox label="Change password" sx={{ gridColumn: '1/-1', my: 1 }} /> */}
+<Button onClick={handleHistoriqueClick}>Voir Historique</Button>
+<Button onClick={handleDocumentsClick}>Voir Documents</Button>
+              </CardContent>
+            ) : (
+            <></>
+        )}
+        </>
+      )}
     </Card>
   );
+  
 }

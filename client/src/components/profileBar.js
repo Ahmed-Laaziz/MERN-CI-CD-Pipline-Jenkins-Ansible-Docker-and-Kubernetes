@@ -40,6 +40,14 @@ export default function UserCard({ agent }) {
 
   const cadreOptions = ["Professeur de l'enseignement superieur", 'Maitre de conférences habilité', 'Maitre de conférences', "Ingénieur d'application", 'Technicien', 'Administrateur'];
   const genreOptions = ['Homme', 'Femme'];
+  const serviceOptions = ['Rh', 'Scolarité', 'Informatique']
+  const cadreOptions2 = ["Ingénieur d'application", 'Technicien', 'Administrateur'];
+
+const cadreGradeMapping2 = {
+  "Ingénieur d'application": ['Grade Principal', 'Premier Grade'],
+  'Technicien': ['1er Grade', '2éme Grade', '3éme Grade', '4éme Grade'],
+  'Administrateur': ['1er Grade', '2éme Grade', '3éme Grade','1er Grade-Imprimerie-', '2éme Grade-Imprimerie-', '3éme Grade-Imprimerie-',],
+};
   const cadreGradeMapping = {
     "Professeur de l'enseignement superieur": ['Grade D', 'Grade C', 'Grade B', 'Grade A'],
     'Maitre de conférences habilité': ['Grade C', 'Grade B', 'Grade A'],
@@ -63,6 +71,37 @@ export default function UserCard({ agent }) {
         '2éme Grade-Imprimerie-': ['336-01', '369-02', '403-03', '436-04', '472-05', '509-06', '542-07', '574-08', '606-09', '639-10','704-ex'],
         '3éme Grade-Imprimerie-': ['275-01', '300-02', '326-03', '351-04', '377-05', '402-06', '428-07', '456-08', '484-09', '512-10', '564-ex'],
   };
+
+  const gradeClasseMapping2 = (selectedCadre) => {
+    // Define the mapping of grade to classeOptions based on the selected cadre
+    
+    if (selectedCadre) {
+      if (selectedCadre === "Ingénieur d'application") {
+        return {
+          'Grade Principal': ['402-01', '428-02', '456-03', '484-04', '512-05', '564-06'],
+          'Premier Grade': ['275-01', '300-02', '326-03', '351-04', '377-05'],
+        };
+      } else if (selectedCadre === "Technicien") {
+        return {
+          '1er Grade': ['336-01', '369-02', '403-03', '436-04', '472-05', '509-06', '542-07', '574-08', '606-09', '639-10', '675-11', '690-12', '704-13'],
+          '2éme Grade': ['275-01', '300-02', '326-03', '351-04', '377-05', '402-06', '428-07', '456-08', '484-09', '512-10', '564-ex'],
+          '3éme Grade': ['235-01', '253-02', '274-03', '296-04', '317-05', '339-06', '361-07', '382-08', '404-09', '438-10'],
+          '4éme Grade': ['207-01', '224-02', '241-03', '259-04', '276-05', '293-06', '311-07', '332-08', '353-09', '373-10'],
+        };
+      } else if (selectedCadre === "Administrateur") {
+        return {
+          '1er Grade': ['704-01', '746-02', '779-03', '812-04', '840-05', '870-06'],
+          '2éme Grade': ['336-01', '369-02', '403-03', '436-04', '472-05', '509-06', '542-07', '574-08', '606-09', '639-10','704-ex'],
+          '3éme Grade': ['275-01', '300-02', '326-03', '351-04', '377-05', '402-06', '428-07', '456-08', '484-09', '512-10', '564-ex'],
+          '1er Grade-Imprimerie-': ['704-01', '746-02', '779-03', '812-04', '840-05', '870-06'],
+          '2éme Grade-Imprimerie-': ['336-01', '369-02', '403-03', '436-04', '472-05', '509-06', '542-07', '574-08', '606-09', '639-10','704-ex'],
+          '3éme Grade-Imprimerie-': ['275-01', '300-02', '326-03', '351-04', '377-05', '402-06', '428-07', '456-08', '484-09', '512-10', '564-ex'],
+        };
+      }
+  }
+  return {};
+  };
+
   const steps = ['données personnelles', 'données professionnelles', 'données supplémentaires'];
 
   // For both admin and professor 
@@ -533,406 +572,492 @@ useEffect(()=>{
         </CardContent>
       </Card>
 
-      { agent && agent.__t === 'Admin' ? (
+      { agent && agent.departement && departementOptions.includes(agent.departement) ? (
       <Modal open={openAtt2} onClose={() => handleClose()}>
-        <ModalDialog>
-          <DialogTitle> تحديث بيانات المستخدم</DialogTitle>
-          <DialogContent>Modifier les données utilisateur</DialogContent>
-          <form
-            onSubmit={(event) => {
-              event.preventDefault();
-
-              handleClose();
-            }}
-          >
-            <Stack spacing={1}>
-            <FormControl>
-  <Grid container spacing={2} style={{ marginTop: "1%" }}>
-    <Grid item xs={6}>
-      <FormLabel>Nom :</FormLabel>
-      <TextField
-        variant="outlined"
-        value={nomValue}
-        error={lastNameError}
-        helperText={lastNameHelperText}
-        onChange={(e) => handleNomChange(e)}
-      />
-    </Grid>
-    <Grid item xs={6}>
-      <FormLabel>Prenom :</FormLabel>
-      <TextField
-        variant="outlined"
-        value={prenomValue}
-        error={firstNameError}
-        helperText={firstNameHelperText}
-        onChange={(e) => handlePrenomChange(e)}
-      />
-    </Grid>
-  </Grid>
-  <Grid container spacing={2} style={{ marginTop: "2%" }}>
-    <Grid item xs={6}>
-      <FormLabel>النسب :</FormLabel>
-      <TextField
-        variant="outlined"
-        value={nisbaValue}
-        onChange={(e) => handleNisbaChange(e)}
-      />
-    </Grid>
-    <Grid item xs={6}>
-      <FormLabel>الأسم :</FormLabel>
-      <TextField
-        variant="outlined"
-        value={asmValue}
-        onChange={(e) => handleAsmChange(e)}
-      />
-    </Grid>
-  </Grid>
-  <Grid container spacing={2} style={{ marginTop: "2%" }}>
-    <Grid item xs={6}>
-      <FormLabel> CIN (رقم ب.ت.وطنية) :</FormLabel>
-      <TextField
-        variant="outlined"
-        value={cinValue}
-        error={cinError}
-        helperText={cinHelperText}
-        onChange={(e) => handleCINChange(e)}
-      />
-    </Grid>
-    <Grid item xs={6}>
-      <FormLabel>Numéro téléphone (رقم الهاتف) :</FormLabel>
-      <TextField
-        variant="outlined"
-        value={telValue}
-        onChange={(e) => handleTelChange(e)}
-        error={phoneNumberError}
-          helperText={phoneNumberHelperText}
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">+212</InputAdornment>
-            ),
+      <ModalDialog>
+        <DialogTitle> تحديث بيانات المستخدم</DialogTitle>
+        <DialogContent>Modifier les données utilisateur</DialogContent>
+        <form
+          onSubmit={(event) => {
+            event.preventDefault();
+            handleClose();
           }}
-      />
-    </Grid>
-  </Grid>
-  <Grid container style={{marginTop:"4%"}} xs={12}>
-                <FormLabel>Genre (الجنس) :</FormLabel>
-                <Autocomplete
-                  id="cadre-autocomplete"
-                  fullWidth
-                  options={genreOptions}
-                  value={selectedGenre}
-                  onChange={handleGenreChange}
-                  renderInput={(params) => <TextField {...params} variant="outlined" />}
-                />
-              </Grid>
-  <Grid container style={{ marginTop: "4%" }}>
-    <FormLabel> Email (البريد الإلكتروني) :</FormLabel>
-    <TextField
-      variant="outlined"
-      value={emailValue}
-      error={emailError}
-      helperText={emailHelperText}
-      onChange={(e) => handleEmailChange(e)}
-      fullWidth
-    />
-  </Grid>
-</FormControl>
+        >
+          <Stack spacing={2}>
+          <FormControl>
+          <Stepper activeStep={activeStep} orientation="vertical">
+      <Step key="Step1">
 
-            </Stack>
-            <Box sx={{ display: 'flex', gap: 1.5, '& > button': { flex: 1 } }} style={{marginTop:"12%"}}>
-            <Button id="updateButton" variant="solid" color="primary" onClick={updateAdmin}>
-              Valider
-            </Button>
-          </Box>
-          </form>
-        </ModalDialog>
-      </Modal>
-      ) : agent && agent.__t === 'Professeur' ? (
-        <Modal open={openAtt2} onClose={() => handleClose()}>
-        <ModalDialog>
-          <DialogTitle> تحديث بيانات المستخدم</DialogTitle>
-          <DialogContent>Modifier les données utilisateur</DialogContent>
-          <form
-            onSubmit={(event) => {
-              event.preventDefault();
-              handleClose();
-            }}
-          >
-            <Stack spacing={2}>
-            <FormControl>
-            <Stepper activeStep={activeStep} orientation="vertical">
-        <Step key="Step1">
-
-          <StepContent style={{ width: '30em' }}>
-            
-              <Grid container spacing={2} style={{ marginTop: "1%" }}>
-                <Grid item xs={6}>
-                  <FormLabel>Nom :</FormLabel>
-                  <TextField
-                    variant="outlined"
-                    value={nomValue}
-                    error={lastNameError}
-                    helperText={lastNameHelperText}
-                    onChange={(e) => handleNomChange(e)}
-                  />
-                </Grid>
-                <Grid item xs={6}>
-                  <FormLabel>Prenom :</FormLabel>
-                  <TextField
-                    variant="outlined"
-                    value={prenomValue}
-                    error={firstNameError}
-                    helperText={firstNameHelperText}
-                    onChange={(e) => handlePrenomChange(e)}
-                  />
-                </Grid>
-              </Grid>
-              <Grid container spacing={2} style={{ marginTop: "1%" }}>
-                <Grid item xs={6}>
-                  <FormLabel>النسب :</FormLabel>
-                  <TextField
-                    variant="outlined"
-                    value={nisbaValue}
-                    onChange={(e) => handleNisbaChange(e)}
-                  />
-                </Grid>
-                <Grid item xs={6}>
-                  <FormLabel>الأسم :</FormLabel>
-                  <TextField
-                    variant="outlined"
-                    value={asmValue}
-                    onChange={(e) => handleAsmChange(e)}
-                  />
-                </Grid>
-              </Grid>
-              <Grid container spacing={2} style={{ marginTop: "1%" }}>
-                <Grid item xs={6}>
-                  <FormLabel> CIN (رقم ب.ت.وطنية) :</FormLabel>
-                  <TextField
-                    variant="outlined"
-                    value={cinValue}
-                    error={cinError}
-                    helperText={cinHelperText}
-                    onChange={(e) => handleCINChange(e)}
-                  />
-                </Grid>
-                <Grid item xs={6}>
-                  <FormLabel>Numéro téléphone (رقم الهاتف) :</FormLabel>
-                  <TextField
-                    variant="outlined"
-                    value={telValue}
-                    onChange={(e) => handleTelChange(e)}
-                    error={phoneNumberError}
-                      helperText={phoneNumberHelperText}
-                      InputProps={{
-                        startAdornment: (
-                          <InputAdornment position="start">+212</InputAdornment>
-                        ),
-                      }}
-                  />
-                </Grid>
-              </Grid>
-              <Grid container style={{marginTop:"4%"}} xs={12}>
-                            <FormLabel>Genre (الجنس) :</FormLabel>
-                            <Autocomplete
-                              id="cadre-autocomplete-professor"
-                              fullWidth
-                              options={genreOptions}
-                              value={selectedGenre}
-                              onChange={handleGenreChange}
-                              renderInput={(params) => <TextField {...params} variant="outlined" />}
-                            />
-                          </Grid>
-              <Grid container style={{ marginTop: "4%" }}>
-                <FormLabel> Email (البريد الإلكتروني) :</FormLabel>
+        <StepContent style={{ width: '30em' }}>
+          
+            <Grid container spacing={2} style={{ marginTop: "1%" }}>
+              <Grid item xs={6}>
+                <FormLabel>Nom :</FormLabel>
                 <TextField
                   variant="outlined"
-                  value={emailValue}
-                  error={emailError}
-                  helperText={emailHelperText}
-                  onChange={(e) => handleEmailChange(e)}
-                  fullWidth
+                  value={nomValue}
+                  error={lastNameError}
+                  helperText={lastNameHelperText}
+                  onChange={(e) => handleNomChange(e)}
                 />
               </Grid>
-              <Box sx={{ display: 'flex', gap: 1.5, '& > button': { flex: 1 } }} style={{marginTop:"12%"}}>
-              <Button disabled={activeStep === 0} onClick={handleBack}>
-                Back
-              </Button>
-              <Button id="step3ne" variant="solid" onClick={handleNext}>
-                Next
-              </Button>
-              </Box>
-          </StepContent>
-        </Step>
-        <Step key="Step2">
-  <StepContent style={{ width: '30em' }}>
-    <Grid container style={{ marginTop: '1%' }} xs={12}>
-      <FormLabel>Cadre (الإطار) :</FormLabel>
-      {cadreOptions && cadreOptions.length > 0 && (
+              <Grid item xs={6}>
+                <FormLabel>Prenom :</FormLabel>
+                <TextField
+                  variant="outlined"
+                  value={prenomValue}
+                  error={firstNameError}
+                  helperText={firstNameHelperText}
+                  onChange={(e) => handlePrenomChange(e)}
+                />
+              </Grid>
+            </Grid>
+            <Grid container spacing={2} style={{ marginTop: "1%" }}>
+              <Grid item xs={6}>
+                <FormLabel>النسب :</FormLabel>
+                <TextField
+                  variant="outlined"
+                  value={nisbaValue}
+                  onChange={(e) => handleNisbaChange(e)}
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <FormLabel>الأسم :</FormLabel>
+                <TextField
+                  variant="outlined"
+                  value={asmValue}
+                  onChange={(e) => handleAsmChange(e)}
+                />
+              </Grid>
+            </Grid>
+            <Grid container spacing={2} style={{ marginTop: "1%" }}>
+              <Grid item xs={6}>
+                <FormLabel> CIN (رقم ب.ت.وطنية) :</FormLabel>
+                <TextField
+                  variant="outlined"
+                  value={cinValue}
+                  error={cinError}
+                  helperText={cinHelperText}
+                  onChange={(e) => handleCINChange(e)}
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <FormLabel>Numéro téléphone (رقم الهاتف) :</FormLabel>
+                <TextField
+                  variant="outlined"
+                  value={telValue}
+                  onChange={(e) => handleTelChange(e)}
+                  error={phoneNumberError}
+                    helperText={phoneNumberHelperText}
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">+212</InputAdornment>
+                      ),
+                    }}
+                />
+              </Grid>
+            </Grid>
+            <Grid container style={{marginTop:"4%"}} xs={12}>
+                          <FormLabel>Genre (الجنس) :</FormLabel>
+                          <Autocomplete
+                            id="cadre-autocomplete-professor"
+                            fullWidth
+                            options={genreOptions}
+                            value={selectedGenre}
+                            onChange={handleGenreChange}
+                            renderInput={(params) => <TextField {...params} variant="outlined" />}
+                          />
+                        </Grid>
+            <Grid container style={{ marginTop: "4%" }}>
+              <FormLabel> Email (البريد الإلكتروني) :</FormLabel>
+              <TextField
+                variant="outlined"
+                value={emailValue}
+                error={emailError}
+                helperText={emailHelperText}
+                onChange={(e) => handleEmailChange(e)}
+                fullWidth
+              />
+            </Grid>
+            <Box sx={{ display: 'flex', gap: 1.5, '& > button': { flex: 1 } }} style={{marginTop:"12%"}}>
+            <Button disabled={activeStep === 0} onClick={handleBack}>
+              Back
+            </Button>
+            <Button id="step3ne" variant="solid" onClick={handleNext}>
+              Next
+            </Button>
+            </Box>
+        </StepContent>
+      </Step>
+      <Step key="Step2">
+<StepContent style={{ width: '30em' }}>
+  <Grid container style={{ marginTop: '1%' }} xs={12}>
+    <FormLabel>Cadre (الإطار) :</FormLabel>
+    {cadreOptions && cadreOptions.length > 0 && (
+      <Autocomplete
+        fullWidth
+        id="cadre-autocomplete"
+        options={cadreOptions}
+        value={selectedCadre}
+        onChange={handleCadreChange}
+        renderInput={(params) => <TextField {...params} variant="outlined" />}
+      />
+    )}
+  </Grid>
+  <Grid container spacing={2} style={{ marginTop: '2%' }}>
+    <Grid item xs={6}>
+      <FormLabel>Grade (الدرجة)</FormLabel>
+      {selectedCadre && selectedCadre.length > 0 && (
         <Autocomplete
-          fullWidth
-          id="cadre-autocomplete"
-          options={cadreOptions}
-          value={selectedCadre}
-          onChange={handleCadreChange}
+          id="grade-autocomplete"
+          options={selectedCadre ? cadreGradeMapping[selectedCadre] || [] : []}
+          value={selectedGrade}
+          onChange={handleGradeChange}
           renderInput={(params) => <TextField {...params} variant="outlined" />}
         />
       )}
     </Grid>
-    <Grid container spacing={2} style={{ marginTop: '2%' }}>
-      <Grid item xs={6}>
-        <FormLabel>Grade (الدرجة)</FormLabel>
-        {selectedCadre && selectedCadre.length > 0 && (
-          <Autocomplete
-            id="grade-autocomplete"
-            options={selectedCadre ? cadreGradeMapping[selectedCadre] || [] : []}
-            value={selectedGrade}
-            onChange={handleGradeChange}
-            renderInput={(params) => <TextField {...params} variant="outlined" />}
-          />
-        )}
-      </Grid>
-      <Grid item xs={6}>
-        <FormLabel>Indice-Échelon (الرتبة)</FormLabel>
-        {selectedGrade && selectedGrade.length > 0 && (
-          <Autocomplete
-            id="classe-autocomplete"
-            options={selectedGrade ? gradeClasseMapping[selectedGrade] || [] : []}
-            value={selectedClasse}
-            onChange={handleClasseChange}
-            renderInput={(params) => <TextField {...params} variant="outlined" />}
-          />
-        )}
-      </Grid>
-    </Grid>
-    <Grid container style={{ marginTop: '4%' }} xs={12}>
-      <FormLabel>Date d'entrée dans la fonction publique (ت. و الوظيفة العمومية)</FormLabel>
+    <Grid item xs={6}>
+      <FormLabel>Indice-Échelon (الرتبة)</FormLabel>
       {selectedGrade && selectedGrade.length > 0 && (
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DatePicker
-            fullWidth
-            id="fctdate"
-            value={selectedDateFct}
-            onChange={handleDateFctChange}
-            sx={{ width: '100%' }}
-          />
-        </LocalizationProvider>
+        <Autocomplete
+          id="classe-autocomplete"
+          options={selectedGrade ? gradeClasseMapping[selectedGrade] || [] : []}
+          value={selectedClasse}
+          onChange={handleClasseChange}
+          renderInput={(params) => <TextField {...params} variant="outlined" />}
+        />
       )}
     </Grid>
-    <Grid container style={{ marginTop: '4%' }} xs={12}>
-      <FormLabel>Date d'entrée dans l'établissement (ت.و. المؤسسة)</FormLabel>
-      {selectedGrade && selectedGrade.length > 0 && (
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DatePicker
-            fullWidth
-            id="schdate"
-            value={selectedDateSchool}
-            onChange={handleDateSchoolChange}
-            sx={{ width: '100%' }}
-          />
-        </LocalizationProvider>
-      )}
-    </Grid>
-    <Grid container style={{ marginTop: '4%' }} xs={12}>
-      <FormLabel>Ancienneté (الـأقدمية)</FormLabel>
-      <TextField
-        variant="outlined"
-        fullWidth
-        error={anciennteError}
-        helperText={ancienneteHelperText}
-        value={ancienneteValue}
-        onChange={handleAnciennte}
-      />
-    </Grid>
-    <Box sx={{ display: 'flex', gap: 1.5, '& > button': { flex: 1 } }} style={{ marginTop: '12%' }}>
-      <Button disabled={activeStep === 0} onClick={handleBack} variant="outlined" color="primary">
-        Back
-      </Button>
-      <Button id="step2ne" variant="solid" onClick={handleNext}>
-        Next
-      </Button>
-    </Box>
-  </StepContent>
+  </Grid>
+  <Grid container style={{ marginTop: '4%' }} xs={12}>
+    <FormLabel>Date d'entrée dans la fonction publique (ت. و الوظيفة العمومية)</FormLabel>
+    {selectedGrade && selectedGrade.length > 0 && (
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <DatePicker
+          fullWidth
+          id="fctdate"
+          value={selectedDateFct}
+          onChange={handleDateFctChange}
+          sx={{ width: '100%' }}
+        />
+      </LocalizationProvider>
+    )}
+  </Grid>
+  <Grid container style={{ marginTop: '4%' }} xs={12}>
+    <FormLabel>Date d'entrée dans l'établissement (ت.و. المؤسسة)</FormLabel>
+    {selectedGrade && selectedGrade.length > 0 && (
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <DatePicker
+          fullWidth
+          id="schdate"
+          value={selectedDateSchool}
+          onChange={handleDateSchoolChange}
+          sx={{ width: '100%' }}
+        />
+      </LocalizationProvider>
+    )}
+  </Grid>
+  <Grid container style={{ marginTop: '4%' }} xs={12}>
+    <FormLabel>Ancienneté (الـأقدمية)</FormLabel>
+    <TextField
+      variant="outlined"
+      fullWidth
+      error={anciennteError}
+      helperText={ancienneteHelperText}
+      value={ancienneteValue}
+      onChange={handleAnciennte}
+    />
+  </Grid>
+  <Box sx={{ display: 'flex', gap: 1.5, '& > button': { flex: 1 } }} style={{ marginTop: '12%' }}>
+    <Button disabled={activeStep === 0} onClick={handleBack} variant="outlined" color="primary">
+      Back
+    </Button>
+    <Button id="step2ne" variant="solid" onClick={handleNext}>
+      Next
+    </Button>
+  </Box>
+</StepContent>
 </Step>
 
-        <Step key="Step3">
+      <Step key="Step3">
 
-          <StepContent style={{ width: '30em' }}>
-          <Grid item xs={6}>
-        <FormLabel>Département (قسم)</FormLabel>
-        {selectedDepartement && selectedDepartement.length > 0 && (
-          <Autocomplete
-            id="grade-autocomplete"
-            options={departementOptions ? departementOptions : []}
-            value={selectedDepartement}
-            onChange={handleDepartementChange}
-            renderInput={(params) => <TextField {...params} variant="outlined" />}
-          />
-        )}
-      </Grid>
-              <Grid container style={{marginTop:"4%"}} xs={12}>
-                  <FormLabel>
-                  Numéro de loyer (رقم التأجير)
-                  </FormLabel>
-                  <TextField
-                    variant="outlined"
-                    fullWidth
-                    value={loyerValue}
-                    onChange={handleInputChange}
-                  />
-              </Grid>
-              <Grid container style={{marginTop:"4%"}} xs={12}>
+        <StepContent style={{ width: '30em' }}>
+        <Grid item xs={6}>
+      <FormLabel>Département (قسم)</FormLabel>
+      {selectedDepartement && selectedDepartement.length > 0 && (
+        <Autocomplete
+          id="grade-autocomplete"
+          options={departementOptions ? departementOptions : []}
+          value={selectedDepartement}
+          onChange={handleDepartementChange}
+          renderInput={(params) => <TextField {...params} variant="outlined" />}
+        />
+      )}
+    </Grid>
+            <Grid container style={{marginTop:"4%"}} xs={12}>
                 <FormLabel>
-                Numéro de preuve (الرقم الاستدلالي)
+                Numéro de loyer (رقم التأجير)
                 </FormLabel>
                 <TextField
                   variant="outlined"
                   fullWidth
-                  value={preuveValue}
-                  onChange={handlePreuveInputChange}
+                  value={loyerValue}
+                  onChange={handleInputChange}
+                />
+            </Grid>
+            <Grid container style={{marginTop:"4%"}} xs={12}>
+              <FormLabel>
+              Numéro de preuve (الرقم الاستدلالي)
+              </FormLabel>
+              <TextField
+                variant="outlined"
+                fullWidth
+                value={preuveValue}
+                onChange={handlePreuveInputChange}
+            />
+          </Grid>
+          <Grid container spacing={2} style={{ marginTop: "2%" }}>
+              <Grid item xs={6}>
+                  <FormLabel>
+                    Date du visa (تاريخ التأشيرة)
+                  </FormLabel>
+                  <LocalizationProvider dateAdapter={AdapterDayjs} >
+                  <DatePicker 
+                  value={selectedDateVisa} // Pass the selectedDate as the value
+                  onChange={handleDateVisaChange} // Handle date selection
+                  sx={{width:"100%"}}/>
+                </LocalizationProvider>
+              </Grid>
+              <Grid item xs={6}>
+                  <FormLabel>      
+                    Date effective (تاريخ المفعول )
+                  </FormLabel>
+                  <LocalizationProvider dateAdapter={AdapterDayjs} >
+                  <DatePicker 
+                  value={selectedDateEffective} // Pass the selectedDate as the value
+                  onChange={handleDateEffectiveChange} // Handle date selection
+                  sx={{width:"100%"}}/>
+                </LocalizationProvider>
+              </Grid>
+            </Grid>
+            <Box sx={{ display: 'flex', gap: 1.5, '& > button': { flex: 1 } }} style={{marginTop:"12%"}}>
+            <Button disabled={activeStep === 0} onClick={handleBack} variant="outlined" color="primary">
+              Back
+            </Button>
+            <Button variant="solid" color="primary" onClick={handleSubmit}>
+              Valider
+            </Button>
+            </Box>
+        </StepContent>
+      </Step>
+    </Stepper>
+          </FormControl>
+          </Stack>
+        </form>
+      </ModalDialog>
+    </Modal>
+      ) : (
+        <Modal open={openAtt2} onClose={() => handleClose()}>
+      <ModalDialog>
+        <DialogTitle> تحديث بيانات المستخدم</DialogTitle>
+        <DialogContent>Modifier les données utilisateur</DialogContent>
+        <form
+          onSubmit={(event) => {
+            event.preventDefault();
+            handleClose();
+          }}
+        >
+          <Stack spacing={2}>
+          <FormControl>
+          <Stepper activeStep={activeStep} orientation="vertical">
+      <Step key="Step1">
+
+        <StepContent style={{ width: '30em' }}>
+          
+            <Grid container spacing={2} style={{ marginTop: "1%" }}>
+              <Grid item xs={6}>
+                <FormLabel>Nom :</FormLabel>
+                <TextField
+                  variant="outlined"
+                  value={nomValue}
+                  error={lastNameError}
+                  helperText={lastNameHelperText}
+                  onChange={(e) => handleNomChange(e)}
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <FormLabel>Prenom :</FormLabel>
+                <TextField
+                  variant="outlined"
+                  value={prenomValue}
+                  error={firstNameError}
+                  helperText={firstNameHelperText}
+                  onChange={(e) => handlePrenomChange(e)}
+                />
+              </Grid>
+            </Grid>
+            <Grid container spacing={2} style={{ marginTop: "1%" }}>
+              <Grid item xs={6}>
+                <FormLabel>النسب :</FormLabel>
+                <TextField
+                  variant="outlined"
+                  value={nisbaValue}
+                  onChange={(e) => handleNisbaChange(e)}
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <FormLabel>الأسم :</FormLabel>
+                <TextField
+                  variant="outlined"
+                  value={asmValue}
+                  onChange={(e) => handleAsmChange(e)}
+                />
+              </Grid>
+            </Grid>
+            <Grid container spacing={2} style={{ marginTop: "1%" }}>
+              <Grid item xs={6}>
+                <FormLabel> CIN (رقم ب.ت.وطنية) :</FormLabel>
+                <TextField
+                  variant="outlined"
+                  value={cinValue}
+                  error={cinError}
+                  helperText={cinHelperText}
+                  onChange={(e) => handleCINChange(e)}
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <FormLabel>Numéro téléphone (رقم الهاتف) :</FormLabel>
+                <TextField
+                  variant="outlined"
+                  value={telValue}
+                  onChange={(e) => handleTelChange(e)}
+                  error={phoneNumberError}
+                    helperText={phoneNumberHelperText}
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">+212</InputAdornment>
+                      ),
+                    }}
+                />
+              </Grid>
+            </Grid>
+            <Grid container style={{marginTop:"4%"}} xs={12}>
+                          <FormLabel>Genre (الجنس) :</FormLabel>
+                          <Autocomplete
+                            id="cadre-autocomplete-professor"
+                            fullWidth
+                            options={genreOptions}
+                            value={selectedGenre}
+                            onChange={handleGenreChange}
+                            renderInput={(params) => <TextField {...params} variant="outlined" />}
+                          />
+                        </Grid>
+            <Grid container style={{ marginTop: "4%" }}>
+              <FormLabel> Email (البريد الإلكتروني) :</FormLabel>
+              <TextField
+                variant="outlined"
+                value={emailValue}
+                error={emailError}
+                helperText={emailHelperText}
+                onChange={(e) => handleEmailChange(e)}
+                fullWidth
               />
             </Grid>
-            <Grid container spacing={2} style={{ marginTop: "2%" }}>
-                <Grid item xs={6}>
-                    <FormLabel>
-                      Date du visa (تاريخ التأشيرة)
-                    </FormLabel>
-                    <LocalizationProvider dateAdapter={AdapterDayjs} >
-                    <DatePicker 
-                    value={selectedDateVisa} // Pass the selectedDate as the value
-                    onChange={handleDateVisaChange} // Handle date selection
-                    sx={{width:"100%"}}/>
-                  </LocalizationProvider>
-                </Grid>
-                <Grid item xs={6}>
-                    <FormLabel>      
-                      Date effective (تاريخ المفعول )
-                    </FormLabel>
-                    <LocalizationProvider dateAdapter={AdapterDayjs} >
-                    <DatePicker 
-                    value={selectedDateEffective} // Pass the selectedDate as the value
-                    onChange={handleDateEffectiveChange} // Handle date selection
-                    sx={{width:"100%"}}/>
-                  </LocalizationProvider>
-                </Grid>
-              </Grid>
-              <Box sx={{ display: 'flex', gap: 1.5, '& > button': { flex: 1 } }} style={{marginTop:"12%"}}>
-              <Button disabled={activeStep === 0} onClick={handleBack} variant="outlined" color="primary">
-                Back
-              </Button>
-              <Button variant="solid" color="primary" onClick={handleSubmit}>
-                Valider
-              </Button>
-              </Box>
-          </StepContent>
-        </Step>
-      </Stepper>
-            </FormControl>
-            </Stack>
-          </form>
-        </ModalDialog>
-      </Modal>
-      ) : null}
+            <Box sx={{ display: 'flex', gap: 1.5, '& > button': { flex: 1 } }} style={{marginTop:"12%"}}>
+            <Button disabled={activeStep === 0} onClick={handleBack}>
+              Back
+            </Button>
+            <Button id="step3ne" variant="solid" onClick={handleNext}>
+              Next
+            </Button>
+            </Box>
+        </StepContent>
+      </Step>
+      <Step key="Step2">
+<StepContent style={{ width: '30em' }}>
+  <Grid container style={{ marginTop: '1%' }} xs={12}>
+    <FormLabel>Cadre (الإطار) :</FormLabel>
+    {cadreOptions && cadreOptions.length > 0 && (
+      <Autocomplete
+        fullWidth
+        id="cadre-autocomplete"
+        options={cadreOptions2}
+        value={selectedCadre}
+        onChange={handleCadreChange}
+        renderInput={(params) => <TextField {...params} variant="outlined" />}
+      />
+    )}
+  </Grid>
+  <Grid container spacing={2} style={{ marginTop: '2%' }}>
+    <Grid item xs={6}>
+      <FormLabel>Grade (الدرجة)</FormLabel>
+      {selectedCadre && selectedCadre.length > 0 && (
+        <Autocomplete
+          id="grade-autocomplete"
+          options={selectedCadre ? cadreGradeMapping2[selectedCadre] || [] : []}
+          value={selectedGrade}
+          onChange={handleGradeChange}
+          renderInput={(params) => <TextField {...params} variant="outlined" />}
+        />
+      )}
+    </Grid>
+    <Grid item xs={6}>
+      <FormLabel>Indice-Échelon (الرتبة)</FormLabel>
+      {selectedGrade && selectedGrade.length > 0 && (
+        <Autocomplete
+          id="classe-autocomplete"
+          options={selectedGrade ? gradeClasseMapping2(selectedCadre)[selectedGrade] || [] : []}
+          value={selectedClasse}
+          onChange={handleClasseChange}
+          renderInput={(params) => <TextField {...params} variant="outlined" />}
+        />
+      )}
+    </Grid>
+    
+  </Grid>
+  <Grid item xs={6} style={{ marginTop: '4%' }}>
+      <FormLabel>Département (قسم)</FormLabel>
+      {selectedDepartement && selectedDepartement.length > 0 && (
+        <Autocomplete
+          id="grade-autocomplete"
+          options={serviceOptions ? serviceOptions : []}
+          value={selectedDepartement}
+          onChange={handleDepartementChange}
+          renderInput={(params) => <TextField {...params} variant="outlined" />}
+        />
+      )}
+    </Grid>
+    <Grid container style={{marginTop:"4%"}} xs={12}>
+              <FormLabel>
+              Numéro de preuve (الرقم الاستدلالي)
+              </FormLabel>
+              <TextField
+                variant="outlined"
+                fullWidth
+                value={preuveValue}
+                onChange={handlePreuveInputChange}
+            />
+          </Grid>
+
+          <Box sx={{ display: 'flex', gap: 1.5, '& > button': { flex: 1 } }} style={{marginTop:"12%"}}>
+            <Button disabled={activeStep === 0} onClick={handleBack} variant="outlined" color="primary">
+              Back
+            </Button>
+            <Button variant="solid" color="primary" onClick={handleSubmit}>
+              Valider
+            </Button>
+            </Box>
+</StepContent>
+</Step>
+
+    </Stepper>
+          </FormControl>
+          </Stack>
+        </form>
+      </ModalDialog>
+    </Modal>
+      )}
     </Box>
 
     
