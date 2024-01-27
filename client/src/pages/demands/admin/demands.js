@@ -81,14 +81,14 @@ const navigate = useNavigate();
    <DemandeOptions prof={agent}/>
             </Box>
             </>
-          ):<h1 style={{margin:"auto", marginTop:"10%"}}>Ooops! Espace reservée pour les Admins</h1>}
+          ):<></>}
         
         
 
       </Box>
       ) : (
         // Render content for users not logged in
-        <ErrorPage/>
+        <></>
       )}
     </div>
     )
