@@ -116,7 +116,6 @@ export default function MiniDrawer({role, pageTitle, notifs, id}) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [userRole, setUserRole] = React.useState(role);
-  console.log(userRole === 'Admin')
   const handleDrawerOpen = () => {
     setOpen(true);
   };

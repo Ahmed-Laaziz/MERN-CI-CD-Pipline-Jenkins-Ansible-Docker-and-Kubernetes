@@ -591,7 +591,7 @@ useEffect(()=>{
               <Typography fontWeight="lg">{agent ? "+212 "+agent.tel.replace(/^0+/, '') : 'Loading...'}</Typography>
             </div>
           </Sheet>
-          { localStorage.getItem('type') === 'Admin' ? (
+          { localStorage.getItem('type') === 'Admin' && agent && agent.fonction != "Chef de Département" ? (
           <Box sx={{ display: 'flex', gap: 1.5, '& > button': { flex: 1 } }}>
             <Button variant="solid" color="primary"
             onClick={handleValidate}>

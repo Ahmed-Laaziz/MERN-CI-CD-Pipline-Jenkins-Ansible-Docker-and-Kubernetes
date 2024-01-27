@@ -21,7 +21,6 @@ const backLink = process.env.REACT_APP_BACK_LINK
 
 export default function Dashboard(){
     const [token, setToken] = useState('');
-    console.log(token);
 // Function to extract user ID from the JWT token
 const getUserIdFromToken = (token) => {
   try {
@@ -45,9 +44,6 @@ const [tri, setTri] = useState([]);
       // const professeurs = response.data;
       setProfesseurs(response.data);
       setTri(professeurs.filter(professor => professor.departement === 'TRI'))
-      //console.log("all professors: ")
-      console.log("tri professors :")
-      console.log(tri)
 
     } catch (error) {
       console.error('Error fetching title:', error);
@@ -86,16 +82,12 @@ const [departmentCadreCounts, setDepartmentCadreCounts] = useState(null);
 const [departmentGanreCounts, setDepartmentGenreCounts] = useState(null);
 const services = ['Rh', 'Scolarité', 'Informatique']
 
-console.log('userId : ' + agentId);
 useEffect(() => {
   const fetchAgentData = async () => {
     try {
-      const response = await axios.get(backLink+`/agent/agents/${agentId}`);
-      console.log("user: ")
-      console.log(agent)
-      
+      const response = await axios.get(backLink+`/agent/agents/${agentId}`); 
       setAgent(response.data);
-      console.log("agent: "+ agent)
+
     } catch (error) {
       console.error('Error fetching agent data:', error);
     }
@@ -122,9 +114,6 @@ useEffect(() => {
   }
 
   fetchProfessor();
-
-  console.log("the agent is :")
-  console.log(agent)
 }, [agentId]);
 
 useEffect(() => {
@@ -144,8 +133,6 @@ useEffect(() => {
 
     setDepartmentCadreCounts(counts);
 
-    console.log("dep counts :");
-    console.log(counts);
   }
 }, [agent, services, professeurs]);
 
@@ -166,8 +153,6 @@ useEffect(() => {
 
     setDepartmentGenreCounts(counts);
 
-    console.log("genre counts :");
-    console.log(counts);
   }
 }, [agent, services, professeurs]);
 

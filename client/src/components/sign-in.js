@@ -52,9 +52,6 @@ const [passwordError, setPasswordError] = useState('');
     const email = data.get('email');
     const password = data.get('password');
 
-    
-
-    console.log(backLink)
 
     // Reset previous error messages
   setEmailError('');
@@ -72,7 +69,6 @@ const [passwordError, setPasswordError] = useState('');
   }
   
     try {
-      console.log('in try')
       // Send a POST request to the /login endpoint with user credentials
       // const response = await axios.post('https://grh-ensaj-backend.adaptable.app/auth/login', { email, password });
       const response = await axios.post(backLink+'/auth/login', { email, password });
@@ -90,18 +86,8 @@ const [passwordError, setPasswordError] = useState('');
       );
       
       updateHist(hists.data);
-
-      console.log("the historiques are : ")
-      console.log(hist)
     }
 
-      
-      console.log("the profession is : ")
-      console.log(response.data.user.__t)
-
-      // You can store the token in a cookie or local storage for future authenticated requests
-      // For this example, we'll just log the token
-      console.log('JWT Token:', token);
       setToken(token);
       // Save the token in localStorage
     localStorage.setItem('token', token);
