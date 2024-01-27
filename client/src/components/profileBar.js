@@ -265,7 +265,7 @@ const cadreGradeMapping2 = {
     console.log(newHist)
 
     const updatedProf = await axios.put(
-      `http://localhost:4000/fonctionnaire/update-fonc`, {"fonc": newFonc, "hist": newHist} // Replace with your actual API endpoint
+      `${backLink}/fonctionnaire/update-fonc`, {"fonc": newFonc, "hist": newHist} // Replace with your actual API endpoint
     );
     navigate('/all-fonctionnaires')
     handleClose();
