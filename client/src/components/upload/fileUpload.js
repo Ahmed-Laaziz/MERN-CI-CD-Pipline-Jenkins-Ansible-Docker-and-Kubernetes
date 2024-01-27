@@ -15,11 +15,12 @@ function App() {
     const [file, setFile] = useState("");
     const [allImage, setAllImage] = useState(null);
     const [professors, setProfessors] = useState([]);
+    const [chefs, setChefs] = useState([]);
     const [selectedProfId, setSelectedProfId] = useState('');
     const [uploadProgress, setUploadProgress] = useState(0);
     const [isUploading, setIsUploading] = useState(false);
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-
+    const [selectedRole, setSelectedRole] = useState("Professeur");
     const formatDateToDatetime = (date) => {
         const year = date.getFullYear();
         const month = String(date.getMonth() + 1).padStart(2, '0');
@@ -38,6 +39,8 @@ function App() {
         async function fetchProfessors() {
             try {
                 const response = await axios.get(backLink + '/prof/professeurs');
+                const res = await axios.get(backLink+"/admin/chefs");
+                setChefs(res.data)
                 setProfessors(response.data);
             } catch (error) {
                 console.error('Error fetching professors:', error);
@@ -61,12 +64,17 @@ function App() {
     };
 
     const submitImage = async (e) => {
+        console.log("selected role when submit : " + selectedRole);
         e.preventDefault();
         const formData = new FormData();
         formData.append("title", title);
         formData.append("file", file);
+        if (selectedRole == "Professeur"){
         formData.append("professeurId", selectedProfId);
-
+        }
+        else {
+            formData.append("chefId", selectedProfId);
+        }
         const config = {
             headers: { "Content-Type": "multipart/form-data" },
             onUploadProgress: (progressEvent) => {
@@ -76,7 +84,9 @@ function App() {
         };
 
         try {
+            
             setIsUploading(true);
+            if (selectedRole == "Professeur"){
             const result = await axios.post(
                 backLink + "/FilesManagement/upload-files",
                 formData,
@@ -96,6 +106,28 @@ function App() {
                     setShowSuccessMessage(false);
                 }, 5000);
             }
+        }
+        else {
+            const result = await axios.post(
+                backLink + "/AdminFilesManagement/upload-files",
+                formData,
+                config
+            );
+
+            if (result.data.status === "ok") {
+                
+                setTitle("");
+                setFile("");
+                setIsUploading(false);
+                setUploadProgress(0);
+                setShowSuccessMessage(true);
+
+                // Hide the success message after 5 seconds
+                setTimeout(() => {
+                    setShowSuccessMessage(false);
+                }, 5000);
+            }
+        }
         } catch (error) {
             console.error('Error uploading file:', error);
             setIsUploading(false);
@@ -106,6 +138,12 @@ function App() {
         const pdfUrl = backLink + `/files/${pdf}`;
         window.open(pdfUrl, '_blank');
     };
+
+    const handleRoleChange = (event) => {
+        setSelectedRole(event.target.value);
+        console.log(selectedRole);
+        setSelectedProfId(""); // Reset selected professor ID when the role changes
+      };
 
     return (
         <div className="App">
@@ -132,6 +170,27 @@ function App() {
 
 
 
+                
+      {/* <Grid item xs={3}>
+          <InputLabel htmlFor="role-select"><b><h3>Sélectionner un rôle:</h3></b></InputLabel>
+        </Grid> */}
+
+<Grid container alignItems="center">
+  <Grid item xs={3}>
+  &nbsp;&nbsp;&nbsp;<h4 style={{color:"gray"}}>&nbsp;&nbsp;&nbsp;Sélectionner un rôle:</h4>
+  </Grid>
+  <Grid item xs={9}>
+    <Select
+      id="role-select"
+      value={selectedRole}
+      onChange={handleRoleChange}
+    >
+      <MenuItem value="Professeur">Professeur</MenuItem>
+      <MenuItem value="Chef">Chef de département</MenuItem>
+    </Select>
+  </Grid>
+</Grid>
+  <div>&nbsp;</div>     
                 <FormControl fullWidth>
       <Grid container alignItems="center">
         <Grid item xs={3}>
@@ -140,7 +199,7 @@ function App() {
         <Grid item xs={9}>
           <Autocomplete
             id="professor-select"
-            options={professors}
+            options={selectedRole === 'Professeur' ? professors : chefs}
             getOptionLabel={(professor) =>
               professor ? `${professor.prenom.split('|')[0]} ${professor.nom.split('|')[0]} | ${professor.prenom.split('|')[1]} ${professor.nom.split('|')[1]}` : ''
             }
@@ -181,6 +240,8 @@ function App() {
                 </Grid>
                 </Grid>
                 </FormControl>
+
+                
                 <br />
                 <div>&nbsp;</div>
                 <center>

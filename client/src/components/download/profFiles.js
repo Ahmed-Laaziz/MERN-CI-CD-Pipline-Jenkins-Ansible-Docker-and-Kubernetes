@@ -55,10 +55,18 @@ export default function ColumnPinningDynamicRowHeight({prof}) {
   
   const fetchDemandes = async () => {
     try {
+      if (prof.__t == "Professeur"){
       const response = await axios.get(
         backLink+`/FilesManagement/profFiles/${prof._id}` // Replace with your actual API endpoint
       );  
       setDemandes(response.data);
+      }
+      else{
+        const response = await axios.get(
+          backLink+`/AdminFilesManagement/chefFiles/${prof._id}` // Replace with your actual API endpoint
+        );  
+        setDemandes(response.data);
+      }
     } catch (error) {
       console.error('Error fetching demandes:', error);
     }

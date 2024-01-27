@@ -11,6 +11,16 @@ exports.getAdmins = async (req, res, next) => {
     }
 };
 
+exports.getChefs = async (req, res, next) => {
+  try {
+      const chefs = await Admin.find({ dep_label: { $in: ['FCT', 'STIN', 'TRI'] } });
+      res.status(200).json(chefs);
+  } catch (error) {
+      console.error('Error retrieving Chefs:', error);
+      res.status(500).json({ error: 'Failed to retrieve Chefs' });
+  }
+};
+
 exports.addAdmin = async (req, res, next) => {
     console.log(req);
     try {

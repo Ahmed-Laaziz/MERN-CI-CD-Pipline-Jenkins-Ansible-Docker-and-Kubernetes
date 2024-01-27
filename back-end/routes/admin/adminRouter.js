@@ -3,6 +3,7 @@ var router = express.Router();
 const adminController = require("../../controllers/admin/adminController");
 
 router.get('/admins', adminController.getAdmins);
+router.get('/chefs', adminController.getChefs);
 router.post('/add-admin', adminController.addAdmin);
 router.put('/update-admin', adminController.updateAdmin);
 

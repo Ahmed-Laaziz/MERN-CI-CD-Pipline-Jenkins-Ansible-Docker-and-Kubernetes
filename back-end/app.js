@@ -21,6 +21,7 @@ var demandeOrdreMission = require('./routes/demande/ordreMission');
 var profDemandeRouter = require('./routes/demande/demandes');
 var notifRouter = require('./routes/notifications/notification');
 var fileRouter = require('./routes/file/fileRouter');
+var adminFileRouter = require('./routes/file/adminFileRouter');
 var depRouter = require('./routes/departement/departementRouter');
 var app = express();
 
@@ -60,6 +61,7 @@ app.use('/demandeOrdreMission', demandeOrdreMission)
 app.use('/demandes', profDemandeRouter)
 app.use('/notifs', notifRouter)
 app.use('/FilesManagement', fileRouter);
+app.use('/AdminFilesManagement', adminFileRouter);
 app.use('/departements', depRouter);
 
 // catch 404 and forward to error handler
