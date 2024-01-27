@@ -65,7 +65,7 @@ function CustomMenu({ onHistoriqueClick, onProfileClick }) {
         onClick={onProfileClick}
         style={{ marginRight: '0.5vw' }}
       >
-        Profile
+        Profil
       </Button>
       <Button
         variant="soft"

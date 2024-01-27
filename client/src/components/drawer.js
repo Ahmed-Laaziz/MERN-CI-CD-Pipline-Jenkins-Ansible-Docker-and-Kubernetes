@@ -267,8 +267,8 @@ export default function MiniDrawer({role, pageTitle, notifs, id}) {
     open={Boolean(anchorEl)}
     onClose={handleClose}
   >
-    <MenuItem onClick={Profil}>Profile</MenuItem>
-    <MenuItem onClick={LogOut}>Logout</MenuItem>
+    <MenuItem onClick={Profil}>Profil</MenuItem>
+    <MenuItem onClick={LogOut}>Se déconnecter</MenuItem>
   </Menu>
   <Menu
   id="notif-appbar"
@@ -305,7 +305,7 @@ export default function MiniDrawer({role, pageTitle, notifs, id}) {
     </MenuItem>
   ))
 ) : (
-  <MenuItem onClick={handleNotifClose}>No notifications available</MenuItem>
+  <MenuItem onClick={handleNotifClose}>Aucune notification disponible</MenuItem>
 )}
 
 </Menu>
@@ -432,7 +432,7 @@ export default function MiniDrawer({role, pageTitle, notifs, id}) {
           >
             <DomainIcon/>
           </ListItemIcon>
-          <ListItemText primary="Departements" sx={{ opacity: open ? 1 : 0 , color: '#000a1a' }} />
+          <ListItemText primary="Départements" sx={{ opacity: open ? 1 : 0 , color: '#000a1a' }} />
         </ListItemButton>
       </Link>
     </ListItem>
@@ -662,7 +662,7 @@ export default function MiniDrawer({role, pageTitle, notifs, id}) {
           >
             <HistoryIcon/>
           </ListItemIcon>
-          <ListItemText primary="historiques" sx={{ opacity: open ? 1 : 0 , color: '#000a1a' }} />
+          <ListItemText primary="Historique" sx={{ opacity: open ? 1 : 0 , color: '#000a1a' }} />
         </ListItemButton>
       </Link>
     </ListItem>

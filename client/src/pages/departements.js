@@ -57,9 +57,9 @@ useEffect(() => {
         <Box sx={{ display: 'flex' }}>
            {agent ? (
             (agent.__t === "Admin" && agent.fonction === "Chef de Département") ? (
-              <Drawer role='Chef' pageTitle={"Departements"}/>
+              <Drawer role='Chef' pageTitle={"Départements"}/>
             ) : (agent.__t === "Admin")?(
-              <Drawer role='Admin' pageTitle={"Departements"}/>
+              <Drawer role='Admin' pageTitle={"Départements"}/>
             ):null
           ) : null}
         
@@ -75,7 +75,7 @@ useEffect(() => {
     // boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)", // Add the boxShadow property
   }}
 >
-<Breadcrumb pageLabel="Tous les Departements"/>
+<Breadcrumb pageLabel="Tous les Départements"/>
 
 <>&nbsp;</>
 {agent?(

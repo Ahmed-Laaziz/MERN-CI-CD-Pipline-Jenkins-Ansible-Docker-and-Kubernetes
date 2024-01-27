@@ -20,13 +20,13 @@ const backLink = process.env.REACT_APP_BACK_LINK;
 const columns = [
   {
     field: 'libele',
-    headerName: 'Libelé',
+    headerName: 'Libellé',
     editable: true,
     flex: 1,
   },
   {
     field: 'description',
-    headerName: 'Description',
+    headerName: 'Déscription',
     editable: false,
     flex: 1,
   },
@@ -286,7 +286,7 @@ export default function DataGridDemo() {
   return (
     <Box sx={{ height: 500, width: '99%' }}>
       <Button variant="solid" onClick={handleAddDep}>
-        <AddIcon /> Nouveau Departement
+        <AddIcon /> Nouveau Département
       </Button>
       <div>&ensp;</div>
       <DataGrid

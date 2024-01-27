@@ -13,18 +13,12 @@ export default function ColumnPinningDynamicRowHeight({prof}) {
 
   const columns = React.useMemo(
     () => [
-        {
-            field: 'professorName',
-
-            headerName: 'Fonctionnaires',
-
-            width: 210,
-          },
-      { field: '__t', headerName: 'Type', width: 210, editable: false },
+        
+      { field: '__t', headerName: 'Type', width: 310, editable: false },
       {
         field: 'statut',
         headerName: 'Statut',
-        width: 210,
+        width: 260,
         renderCell: (params) => (
           <Stack spacing={1} sx={{ width: 1, py: 1 }}>
              {/* Display the value of the 'statut' field */}
@@ -70,11 +64,11 @@ export default function ColumnPinningDynamicRowHeight({prof}) {
           </Stack>
         ),
       },
-      { field: 'createdAt', headerName: 'Date Demande', width: 210, type: 'Date',valueFormatter: (params) => {
+      { field: 'createdAt', headerName: 'Date Demande', width: 310, type: 'Date',valueFormatter: (params) => {
         const date = new Date(params.value);
         return date.toLocaleDateString('en-US');
       },editable: false },
-      { field: 'updatedAt', headerName: 'Derniere modification',width: 210, type: 'Date', valueFormatter: (params) => {
+      { field: 'updatedAt', headerName: 'Dernière modification',width: 310, type: 'Date', valueFormatter: (params) => {
         const date = new Date(params.value);
         return date.toLocaleDateString('en-US');
       },editable: true },
@@ -82,31 +76,36 @@ export default function ColumnPinningDynamicRowHeight({prof}) {
   );
 
   const [demandes, setDemandes] = useState([]);
+  function separateByCapitalLetters(str) {
+    // Remove "Demande" from the beginning of the string and then separate the remaining text by capital letters
+    return str.replace(/^Demande/, '').replace(/([a-z])([A-Z])/g, '$1 $2');
+  }
   
   const fetchDemandes = async () => {
     try {
       const response = await axios.get(
         backLink+`/demandes/allDemandes` // Replace with your actual API endpoint
       );
-      setDemandes(response.data);
+      // setDemandes(response.data);
       const demandData = response.data;
 
 
       // Fetch and store professor names based on the demand's professor ID
       const professorNames = {};
-      for (const demand of demandData) {
-        try {
-          const professorResponse = await axios.get(backLink+`/agent/agents/${demand.professeur}`);
-          professorNames[demand.professeur] = professorResponse.data.nom.split('|')[0] + " " + professorResponse.data.prenom.split('|')[0]; // Replace 'nom' with the actual professor name field
-        } catch (error) {
-          console.error('Error fetching professor name:', error);
-        }
-      }
+      // for (const demand of demandData) {
+      //   try {
+      //     const professorResponse = await axios.get(backLink+`/agent/agents/${demand.professeur}`);
+      //     professorNames[demand.professeur] = professorResponse.data.nom.split('|')[0] + " " + professorResponse.data.prenom.split('|')[0]; // Replace 'nom' with the actual professor name field
+      //   } catch (error) {
+      //     console.error('Error fetching professor name:', error);
+      //   }
+      // }
   
       // Attach professor names to demand objects
       const demandsWithProfessorNames = demandData.map((demand) => ({
         ...demand,
         professorName: professorNames[demand.professeur] || 'N/A', // Provide a default value if name not found
+        __t: separateByCapitalLetters(demand.__t),
       }));
   
       setDemandes(demandsWithProfessorNames);
