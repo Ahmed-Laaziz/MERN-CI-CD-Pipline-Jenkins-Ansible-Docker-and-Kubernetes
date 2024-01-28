@@ -100,7 +100,7 @@ export default function ProfileData({ agent }) {
                 </FormControl>
   
                 <FormControl>
-                  <FormLabel>Département (قسم)</FormLabel>
+                  <FormLabel>Service (قسم)</FormLabel>
                   <Input endDecorator={<CreditCardIcon /> } defaultValue={(agent && hist) ? agent.departement : 'Loading...'} disabled sx={{fontFamily:'bold'}}/>
                 </FormControl>
                 <FormControl>
