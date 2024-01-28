@@ -80,6 +80,43 @@ export default function ProfileData({ agent }) {
     }
   }, [prof]);
 
+  const ProfesseurContent = ({ agent, hist }) => (
+    <>
+             <CardContent
+                sx={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(2, minmax(80px, 1fr))',
+                  gap: 1.5,
+                }}
+              >
+                
+                <FormControl>
+                  <FormLabel>Grade (الرتبة)</FormLabel>
+                  <Input endDecorator={<CreditCardIcon /> } defaultValue={(agent && hist && JSON.parse(hist)[0]?.grade) ? JSON.parse(hist)[0].grade : 'Loading...'} disabled sx={{fontFamily:'bold'}}/>
+                </FormControl>
+                <FormControl>
+                  <FormLabel>Classe (الدرجة)</FormLabel>
+                  <Input endDecorator={<CreditCardIcon /> } defaultValue={(agent && hist && JSON.parse(hist)[0]?.classe) ? JSON.parse(hist)[0].classe : 'Loading...'} disabled sx={{fontFamily:'bold'}}/>
+                </FormControl>
+  
+                <FormControl>
+                  <FormLabel>Département (قسم)</FormLabel>
+                  <Input endDecorator={<CreditCardIcon /> } defaultValue={(agent && hist) ? agent.departement : 'Loading...'} disabled sx={{fontFamily:'bold'}}/>
+                </FormControl>
+                <FormControl>
+                  <FormLabel>Numéro de preuve (الرقم الاستدلالي)</FormLabel>
+                  <Input endDecorator={<InfoOutlined />} defaultValue={(agent && hist) ? agent.num_ref : 'Loading...'} disabled sx={{fontFamily:'bold'}}/>
+  
+                </FormControl>
+  
+                
+                {/* <Checkbox label="Change password" sx={{ gridColumn: '1/-1', my: 1 }} /> */}
+              <Button onClick={handleHistoriqueClick}>Voir Historique</Button>
+              <Button onClick={handleDocumentsClick}>Voir Documents</Button>
+              </CardContent>
+          </>
+  );
+
   
   return (
     <Card
@@ -156,7 +193,7 @@ export default function ProfileData({ agent }) {
         // Render an alternative content if agent.departement is not in deps
         <>
            {isProfesseur ? (
-              <>Loading...</>
+               <ProfesseurContent agent={agent} hist={hist} />
             ) : isAdmin ? (
               <>
               </>
@@ -169,3 +206,4 @@ export default function ProfileData({ agent }) {
   );
   
 }
+
