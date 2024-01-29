@@ -103,7 +103,7 @@ const fetchHist = async (agentId) => {
            {
             const myData = await fetchHist(agent._id);
             console.log(myData[0].cadre);
-            navigate('/attestationTravail', { state: {input1:agent.prenom.split('|')[0] , input2:agent.nom.split('|')[0], input3:myData[0].grade, input4:agent.num_loyer, input5:agent.date_entre_ecole}})
+            navigate('/attestationTravail', { state: {input1:agent.prenom.split('|')[0] , input2:agent.nom.split('|')[0], input3:`${agent.cadre} - ${myData[0].grade}`, input4:agent.num_loyer, input5:agent.date_entre_ecole}})
            }
            else if (selectedDemand.__t == 'Ordre Mission')
            {

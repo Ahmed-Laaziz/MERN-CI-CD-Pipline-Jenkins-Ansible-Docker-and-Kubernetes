@@ -9,6 +9,9 @@ import InputAdornment from '@mui/material/InputAdornment';
 import Autocomplete from '@mui/material/Autocomplete';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 const backLink = process.env.REACT_APP_BACK_LINK
 const steps = ['données personnelles', 'données professionnelles', 'données supplémentaires'];
@@ -75,7 +78,17 @@ export default function ColumnPinningDynamicRowHeight({prof}) {
 
   //Grade
   const [selectedGrade, setSelectedGrade] = useState(null);
-
+  const [loyerValue, setLoyerValue] = useState('');
+  const [selectedDateSchool, setSelectedDateSchool] = useState(null);
+  const handleDateSchoolChange = (date) => {
+    setSelectedDateSchool(date);
+  };
+  const handleInputChange = (event) => {
+    const inputValue = event.target.value;
+    // Remove any non-numeric characters using a regular expression
+    const numericValue = inputValue.replace(/[^0-9]/g, '');
+    setLoyerValue(numericValue);
+  };
   const handleGradeChange = (event, newValue) => {
     setSelectedGrade(newValue);
 
@@ -294,6 +307,8 @@ const addFonctionnaire = async () => {
       tel: phoneNumber,
       cin: cin,
       genre: selectedGenre,
+      num_loyer: loyerValue,
+      date_entre_ecole: selectedDateSchool,
       cadre: selectedCadre,
       grade:selectedGrade,
       classe:selectedClasse,
@@ -518,6 +533,38 @@ const addFonctionnaire = async () => {
         />
       </div>
     </Grid>
+    
+
+    <Grid item xs={4}>
+              <div>
+                <Typography variant="subtitle1" gutterBottom>
+                  Date d'entrée dans l'établissement (ت.و. المؤسسة)
+                </Typography>
+                <LocalizationProvider dateAdapter={AdapterDayjs} >
+                <DatePicker 
+                value={selectedDateSchool} // Pass the selectedDate as the value
+                onChange={handleDateSchoolChange} // Handle date selection
+                sx={{width:"100%"}}/>
+              </LocalizationProvider>
+              </div>
+            </Grid>
+            
+            <Grid item xs={5} >
+            <div>
+                <Typography variant="subtitle1" gutterBottom>
+                  
+                Numéro de loyer (رقم التأجير)
+                </Typography>
+                <TextField
+      variant="outlined"
+      fullWidth
+      required
+
+      value={loyerValue}
+      onChange={handleInputChange}
+    />
+              </div>
+            </Grid>
             
           </Grid>
           <Grid>

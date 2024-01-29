@@ -175,7 +175,7 @@ function App() {
           <InputLabel htmlFor="role-select"><b><h3>Sélectionner un rôle:</h3></b></InputLabel>
         </Grid> */}
 
-<Grid container alignItems="center">
+{/* <Grid container alignItems="center">
   <Grid item xs={3}>
   &nbsp;&nbsp;&nbsp;<h4 style={{color:"gray"}}>&nbsp;&nbsp;&nbsp;Sélectionner un rôle:</h4>
   </Grid>
@@ -189,7 +189,7 @@ function App() {
       <MenuItem value="Chef">Chef de département</MenuItem>
     </Select>
   </Grid>
-</Grid>
+</Grid> */}
   <div>&nbsp;</div>     
                 <FormControl fullWidth>
       <Grid container alignItems="center">
