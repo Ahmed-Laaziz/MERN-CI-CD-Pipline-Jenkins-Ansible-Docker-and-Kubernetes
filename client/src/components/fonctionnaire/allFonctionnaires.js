@@ -67,15 +67,6 @@ function CustomMenu({ onHistoriqueClick, onProfileClick }) {
       >
         Profil
       </Button>
-      <Button
-        variant="soft"
-        aria-label="historique"
-        aria-controls="historique-menu"
-        aria-haspopup="true"
-        onClick={onHistoriqueClick}
-      >
-        Historique
-      </Button>
     </div>
   );
 }
