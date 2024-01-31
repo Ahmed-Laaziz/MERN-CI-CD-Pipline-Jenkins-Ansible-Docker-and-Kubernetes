@@ -19,7 +19,9 @@ var demandeAttestationTravail = require('./routes/demande/attestationTravail');
 
 var adminDemandeRouter = require('./routes/demande/admin/demande');
 var demandeAdminAttestationTravail = require('./routes/demande/admin/attestationTravailAdmin');
-
+var demandeAdminConge = require('./routes/demande/admin/congeAdmin');
+var demandeAdminMission = require('./routes/demande/admin/missionAdmin');
+var demandeAdminQuitter = require('./routes/demande/admin/quitterAdmin');
 var demandeCongeRouter = require('./routes/demande/conge');
 var demandeOrdreMission = require('./routes/demande/ordreMission');
 var profDemandeRouter = require('./routes/demande/demandes');
@@ -69,6 +71,9 @@ app.use('/AdminFilesManagement', adminFileRouter);
 app.use('/departements', depRouter);
 app.use('/chef-demands', adminDemandeRouter);
 app.use('/chef-attestation-travail', demandeAdminAttestationTravail);
+app.use('/chef-quitter', demandeAdminQuitter);
+app.use('/chef-mission', demandeAdminMission);
+app.use('/chef-conge', demandeAdminConge);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

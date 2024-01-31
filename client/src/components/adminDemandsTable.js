@@ -105,9 +105,16 @@ const fetchHist = async (agentId) => {
           if (selectedDemand.__t === 'Quitter Territoire'){
            navigate('/autorisationQuitterTerritoire', { state: {input1:`${agent.prenom.split('|')[0]} ${agent.nom.split('|')[0]}`, input2:`${agent.cadre}` , input3:`${selectedDemand.de_date}`, input4:`${selectedDemand.a_date}`, input5:`${agent.prenom.split('|')[0]} ${agent.nom.split('|')[0]}`, input6:`${agent.cadre}`, input7:`${selectedDemand.universite}`}})
           }
+          else if (selectedDemand.__t === 'Quitter Territoire_'){
+            navigate('/autorisationQuitterTerritoire', { state: {input1:`${agent.prenom.split('|')[0]} ${agent.nom.split('|')[0]}`, input2:"Maitre de conférences habilité" , input3:`${selectedDemand.de_date}`, input4:`${selectedDemand.a_date}`, input5:`${agent.prenom.split('|')[0]} ${agent.nom.split('|')[0]}`, input6:"Maitre de conférences habilité", input7:`${selectedDemand.universite}`}})
+           }
           else if (selectedDemand.__t === 'Conge')
            {
              navigate('/decisionConge', { state: {input1:`${agent.prenom.split('|')[0]} ${agent.nom.split('|')[0]}`, input2:`${agent.cadre}` , input3:`${selectedDemand.de_date}`, input4:`${selectedDemand.a_date}`, input5:`${selectedDemand.doti}`, input6:`${agent.cadre}`,}})
+           }
+           else if (selectedDemand.__t === 'Conge_')
+           {
+             navigate('/decisionConge', { state: {input1:`${agent.prenom.split('|')[0]} ${agent.nom.split('|')[0]}`, input2:"Maitre de conférences habilité" , input3:`${selectedDemand.de_date}`, input4:`${selectedDemand.a_date}`, input5:`${selectedDemand.doti}`, input6:"Maitre de conférences habilité",}})
            }
            else if (selectedDemand.__t == 'Attestation Travail')
            {
@@ -120,6 +127,11 @@ const fetchHist = async (agentId) => {
             navigate('/attestationTravail', { state: {input1:agent.prenom.split('|')[0] , input2:agent.nom.split('|')[0], input3:"Maitre de conférences habilité", input4:"89732", input5:"2024-01-02"}})
            }
            else if (selectedDemand.__t == 'Ordre Mission')
+           {
+            const randomNbr = getRandomNumber();
+            navigate('/ordreMission', { state: {input1:`${randomNbr}/2025` , input5:`${agent.prenom.split('|')[0]} ${agent.nom.split('|')[0]}`, input2:`${selectedDemand.moyen_transport}`, input3:`${selectedDemand.de_date}`, input4:`${selectedDemand.a_date}`, input6:`${selectedDemand.mission_a}`, input7:`${selectedDemand.description}`}})
+           }
+           else if (selectedDemand.__t == 'Ordre Mission_')
            {
             const randomNbr = getRandomNumber();
             navigate('/ordreMission', { state: {input1:`${randomNbr}/2025` , input5:`${agent.prenom.split('|')[0]} ${agent.nom.split('|')[0]}`, input2:`${selectedDemand.moyen_transport}`, input3:`${selectedDemand.de_date}`, input4:`${selectedDemand.a_date}`, input6:`${selectedDemand.mission_a}`, input7:`${selectedDemand.description}`}})
@@ -388,7 +400,12 @@ const fetchHist = async (agentId) => {
           columns={columns}
           getRowId={(row) => row._id}
           getRowHeight={() => 'auto'}
-
+          sortModel={[
+            {
+              field: 'createdAt',
+              sort: 'desc',  // 'desc' for descending order, 'asc' for ascending order
+            },
+          ]}
           initialState={{ 
             pinnedColumns: { left: ['name'], right: ['actions'] },
             pagination: {
@@ -404,7 +421,7 @@ const fetchHist = async (agentId) => {
 
 {openModal ? (
     <Modal open={openModal} onClose={handleCloseModal}>
-        { (selectedDemand.__t === 'Quitter Territoire') ? (
+        { (selectedDemand.__t === 'Quitter Territoire' || selectedDemand.__t === 'Quitter Territoire_') ? (
             <ModalDialog>
             <DialogTitle>  الإذن بمغادرة التراب الوطني
   </DialogTitle>
@@ -467,7 +484,7 @@ const fetchHist = async (agentId) => {
               </Stack>
             </form>
           </ModalDialog>
-        ):(selectedDemand.__t === 'Ordre Mission') ? (
+        ):(selectedDemand.__t === 'Ordre Mission' || selectedDemand.__t === 'Ordre Mission_') ? (
           <ModalDialog>
           <DialogTitle>     تكليف بمهمة
 </DialogTitle>
@@ -537,7 +554,7 @@ const fetchHist = async (agentId) => {
             </Stack>
           </form>
         </ModalDialog>
-      ):(selectedDemand.__t === 'Conge')?(
+      ):(selectedDemand.__t === 'Conge' || selectedDemand.__t === 'Conge_')?(
             <ModalDialog>
             <DialogTitle>  إجازة إدارية
   </DialogTitle>

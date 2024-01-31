@@ -181,6 +181,7 @@ const addDemande2 = async () => {
   try {
     // Show the spinner while the backend request is in progress
     // setIsLoading(true);
+    if (prof.__t == "Professeur"){
     const url = backLink+"/demande/add-demande-quitter-territoire"; // URL for the backend API
     const requestData = {
       professeur: prof._id, // Send the user input as a parameter in the request body
@@ -193,6 +194,21 @@ const addDemande2 = async () => {
     // Make a POST request to your backend API
     const response = await axios.post(url, requestData);
     navigate('/prof-demandes')
+  }
+  else if (prof.__t == "Admin"){
+    const url = backLink+"/chef-quitter/add-demande-quitter-territoire"; // URL for the backend API
+    const requestData = {
+      chef: prof._id, // Send the user input as a parameter in the request body
+      description: description,
+      de_date: selectedDate1,
+      a_date: selectedDate2,
+      universite: selectedUniversity.label,
+    };
+
+    // Make a POST request to your backend API
+    const response = await axios.post(url, requestData);
+    navigate('/prof-demandes')
+  }
   } catch (error) {
     console.error("Error fetching abstract:", error);
   } finally {
@@ -206,6 +222,7 @@ const addDemande3 = async () => {
   try {
     // Show the spinner while the backend request is in progress
     // setIsLoading(true);
+    if (prof.__t == "Professeur"){
     const url = backLink+"/demandeConge/add-demande-conge"; // URL for the backend API
     const requestData = {
       professeur: prof._id, // Send the user input as a parameter in the request body
@@ -217,6 +234,20 @@ const addDemande3 = async () => {
     // Make a POST request to your backend API
     const response = await axios.post(url, requestData);
     navigate('/prof-demandes')
+  }
+  else if (prof.__t == "Admin"){
+    const url = backLink+"/chef-conge/add-demande-conge"; // URL for the backend API
+    const requestData = {
+      chef: prof._id, // Send the user input as a parameter in the request body
+      description: descriptionConge,
+      de_date: selectedDateConge1,
+      a_date: selectedDateConge2,
+    };
+
+    // Make a POST request to your backend API
+    const response = await axios.post(url, requestData);
+    navigate('/prof-demandes')
+  }
   } catch (error) {
     console.error("Error fetching abstract:", error);
   } finally {
@@ -229,6 +260,7 @@ const addDemande5 = async () => {
   try {
     // Show the spinner while the backend request is in progress
     // setIsLoading(true);
+    if (prof.__t == "Professeur"){
     const url = backLink+"/demandeOrdreMission/add-demande-ordre-mission"; // URL for the backend API
     const requestData = {
       professeur: prof._id, // Send the user input as a parameter in the request body
@@ -242,6 +274,22 @@ const addDemande5 = async () => {
     // Make a POST request to your backend API
     const response = await axios.post(url, requestData);
     navigate('/prof-demandes')
+  }
+  else if (prof.__t == "Admin"){
+    const url = backLink+"/chef-mission/add-demande-ordre-mission"; // URL for the backend API
+    const requestData = {
+      chef: prof._id, // Send the user input as a parameter in the request body
+      description: descriptionMission,
+      de_date: selectedDateMission1,
+      a_date: selectedDateMission2,
+      mission_a:selectedUniversity.label,
+      moyen_transport:selectedMoyen.label,
+    };
+
+    // Make a POST request to your backend API
+    const response = await axios.post(url, requestData);
+    navigate('/prof-demandes')
+  }
   } catch (error) {
     console.error("Error fetching abstract:", error);
   } finally {
@@ -314,11 +362,6 @@ const addDemande5 = async () => {
           <Typography fontSize="sm" sx={{ mt: 0.5 }}>
             Choisissez votre document de besoin et remplire le formulaire avec les données appropriées
           </Typography>
-          {prof && prof.__t === 'Admin' ? (
-  <Select defaultValue="att1" onChange={handleChange}>
-    <Option value="att1">Attestation de travail - شهادة عمل</Option>
-  </Select>
-) : (
   <Select defaultValue="att1" onChange={handleChange}>
     <Option value="att1">Attestation de travail - شهادة عمل</Option>
     <Option value="att2">Autorisation de quitter le territoire - الإذن بمغادرة التراب الوطني</Option>
@@ -326,7 +369,6 @@ const addDemande5 = async () => {
     <Option value="att5">Ordre de mission -  تكليف بمهمة</Option>
     {/* <Option value="att4">Attestation de reprise de travail - شهادةاستئناف العمل</Option> */}
   </Select>
-)}
 
 <Button
   variant="outlined"
