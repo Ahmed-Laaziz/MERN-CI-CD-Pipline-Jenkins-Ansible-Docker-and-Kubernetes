@@ -50,9 +50,17 @@ export default function ColumnPinningDynamicRowHeight() {
 
   const handlePreviewClick = async (demand) => {
     setSelectedDemand(demand);
+    console.log("demand id : " + demand._id);
     try {
+      if (demand.chef){
+        const response = await axios.get(backLink+`/agent/agents/${demand.chef}`);
+        setAgent(response.data);
+      }
+      else if (demand.professeur){
         const response = await axios.get(backLink+`/agent/agents/${demand.professeur}`);
         setAgent(response.data);
+      }
+        
       } catch (error) {
         console.error('Error fetching agent data:', error);
       }
@@ -89,9 +97,11 @@ const fetchHist = async (agentId) => {
     setSelectedDemand(demand);
     if (selectedDemand) {
       try {
+        if (selectedDemand.statut != 'En Cours'){
         const response = await axios.put(backLink+`/demandes/updateStatut/${selectedDemand._id}`, {
           statut: 'En Cours', // Set the new statut here
         });
+      }
           if (selectedDemand.__t === 'Quitter Territoire'){
            navigate('/autorisationQuitterTerritoire', { state: {input1:`${agent.prenom.split('|')[0]} ${agent.nom.split('|')[0]}`, input2:`${agent.cadre}` , input3:`${selectedDemand.de_date}`, input4:`${selectedDemand.a_date}`, input5:`${agent.prenom.split('|')[0]} ${agent.nom.split('|')[0]}`, input6:`${agent.cadre}`, input7:`${selectedDemand.universite}`}})
           }
@@ -105,6 +115,10 @@ const fetchHist = async (agentId) => {
             console.log(myData[0].cadre);
             navigate('/attestationTravail', { state: {input1:agent.prenom.split('|')[0] , input2:agent.nom.split('|')[0], input3:`${agent.cadre} - ${myData[0].grade}`, input4:agent.num_loyer, input5:agent.date_entre_ecole}})
            }
+           else if (selectedDemand.__t == 'Attestation Travail_')
+           {
+            navigate('/attestationTravail', { state: {input1:agent.prenom.split('|')[0] , input2:agent.nom.split('|')[0], input3:"Maitre de conférences habilité", input4:"89732", input5:"2024-01-02"}})
+           }
            else if (selectedDemand.__t == 'Ordre Mission')
            {
             const randomNbr = getRandomNumber();
@@ -112,7 +126,7 @@ const fetchHist = async (agentId) => {
            }
          
         // Handle the response as needed (e.g., update UI, show a notification, etc.)
-        console.log('Statut updated successfully:', response.data);
+        // console.log('Statut updated successfully:', response.data);
 
         // You can also close the modal or update the demand list after updating the statut.
         // For example:
@@ -128,14 +142,23 @@ const fetchHist = async (agentId) => {
   const handleValiderClick = async (demand) => {
     setSelectedDemand(demand);
       try {
+        if (demand.professeur){
         console.log("in handle valider");
         const response = await axios.put(backLink+`/demandes/updateStatut/${demand._id}`, {
           statut: 'Validée', // Set the new statut here
         });
         const res = await axios.post(backLink+'/notifs/add-notification', { "prof": demand.professeur , "title": demand.__t.replace(/([A-Z])/g, ' $1').trim()+" Accepté", "message": "Nous tenons à vous informer que votre demande "+demand.__t.replace(/([A-Z])/g, ' $1').trim()+" a été accepté et que vous pouvez le récupérer à l'administration. Merci !", "date": currentDatetime});
+        console.log('Statut updated successfully:', response.data);
+      }
+      else{
+        const response = await axios.put(backLink+`/chef-demands/updateStatut/${demand._id}`, {
+          statut: 'Validée', // Set the new statut here
+        });
+        console.log('Statut updated successfully:', response.data);
+      }
         console.log("accepted")
         // Handle the response as needed (e.g., update UI, show a notification, etc.)
-        console.log('Statut updated successfully:', response.data);
+        
 
         // You can also close the modal or update the demand list after updating the statut.
         // For example:
@@ -153,16 +176,22 @@ const fetchHist = async (agentId) => {
     setSelectedDemand(demand);
       try {
         console.log("in handle valider");
+        if (demand.professeur){
         const response = await axios.put(backLink+`/demandes/updateStatut/${demand._id}`, {
           statut: 'Rejetée', // Set the new statut here
         });
-
-
         const res = await axios.post(backLink+'/notifs/add-notification', { "prof": demand.professeur , "title": demand.__t.replace(/([A-Z])/g, ' $1').trim()+" Refusé", "message": "Nous tenons à vous informer que votre demande "+demand.__t.replace(/([A-Z])/g, ' $1').trim()+" a été refusé. Merci !", "date": currentDatetime});
-
+        console.log('Statut updated successfully:', response.data);
+      }
+      else{
+        const response = await axios.put(backLink+`/chef-demands/updateStatut/${demand._id}`, {
+          statut: 'Rejetée', // Set the new statut here
+        });
+        console.log('Statut updated successfully:', response.data);
+      }
         console.log("rejected")
         // Handle the response as needed (e.g., update UI, show a notification, etc.)
-        console.log('Statut updated successfully:', response.data);
+        
 
         // You can also close the modal or update the demand list after updating the statut.
         // For example:
@@ -306,9 +335,16 @@ const fetchHist = async (agentId) => {
   
   const fetchDemandes = async () => {
     try {
-      const response = await axios.get(backLink+`/demandes/enAttenteDemands`);
-     
-      const demandData = response.data;
+      const response1 = await axios.get(backLink + `/demandes/enAttenteDemands`);
+    const demandData1 = response1.data;
+
+    // Fetch demands from the second endpoint
+    const response2 = await axios.get(backLink + '/chef-demands/enAttenteDemands');
+    const demandData2 = response2.data;
+    console.log(demandData2);
+
+    // Concatenate demands from both endpoints
+    const allDemandData = [...demandData1, ...demandData2];
       
       const professorNames = {};
       
@@ -323,7 +359,7 @@ const fetchHist = async (agentId) => {
       
   
       // Attach professor names to demand objects
-      const demandsWithProfessorNames = demandData.map((demand) => ({
+      const demandsWithProfessorNames = allDemandData.map((demand) => ({
         ...demand,
         professorName: professorNames[demand.professeur] || 'N/A', // Provide a default value if name not found
         __t: separateByCapitalLetters(demand.__t),
@@ -554,7 +590,7 @@ const fetchHist = async (agentId) => {
               </Stack>
             </form>
           </ModalDialog>
-        ):(selectedDemand.__t === 'Attestation Travail')?(
+        ):(selectedDemand.__t === 'Attestation Travail' || selectedDemand.__t === 'Attestation Travail_')?(
           <ModalDialog>
           <DialogTitle>  شهادة عمل
 </DialogTitle>

@@ -77,9 +77,17 @@ export default function ColumnPinningDynamicRowHeight({prof}) {
 const handleDeleteClick = async (demandId) => {
   try {
     console.log(backLink);
-    const response = await axios.delete(backLink+`/demandes/demands/${demandId}`);
+    if (prof.__t == "Admin"){
+      const response = await axios.delete(backLink+`/chef-demands/demands/${demandId}`);
     console.log('Demand deleted successfully:', response.data);
     window.location.reload();
+    }
+    else if (prof.__t == "Professeur"){
+      const response = await axios.delete(backLink+`/demandes/demands/${demandId}`);
+    console.log('Demand deleted successfully:', response.data);
+    window.location.reload();
+    }
+    
     // Add any additional logic or UI updates as needed
   } catch (error) {
     console.error('Error deleting demand:', error);
@@ -269,10 +277,10 @@ const handleDateAChange = (date) => {
   
   const fetchDemandes = async () => {
     try {
+      if (prof.__t == "Professeur"){
       const response = await axios.get(
         backLink+`/demandes/profDemandes/${prof._id}` // Replace with your actual API endpoint
       );
-
       const demandData = response.data
       // Attach professor names to demand objects
       const demandsWithProfessorNames = demandData.map((demand) => ({
@@ -281,6 +289,21 @@ const handleDateAChange = (date) => {
       }));
   
       setDemandes(demandsWithProfessorNames);
+      }
+      else{
+        const response = await axios.get(
+          backLink+`/chef-demands/chefDemandes/${prof._id}` // Replace with your actual API endpoint
+        );
+        const demandData = response.data
+        // Attach professor names to demand objects
+        const demandsWithProfessorNames = demandData.map((demand) => ({
+          ...demand,
+          __t: separateByCapitalLetters(demand.__t),
+        }));
+    
+        setDemandes(demandsWithProfessorNames);
+      }
+     
     } catch (error) {
       console.error('Error fetching demandes:', error);
     }

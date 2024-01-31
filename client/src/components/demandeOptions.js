@@ -145,8 +145,7 @@ const handleDescriptionMissionChange = (event) => {
 
 const addDemande1 = async () => {
   try {
-    // Show the spinner while the backend request is in progress
-    // setIsLoading(true);
+    if (prof.__t == "Professeur"){
     const url = backLink+"/demandeAttestationTravail/add-demande-attestation-travail"; // URL for the backend API
     const requestData = {
       professeur: prof._id, // Send the user input as a parameter in the request body
@@ -156,6 +155,19 @@ const addDemande1 = async () => {
     // Make a POST request to your backend API
     const response = await axios.post(url, requestData);
     navigate('/prof-demandes')
+  }
+  else{
+    const url = backLink+"/chef-attestation-travail/add-demande-attestation-travail"; // URL for the backend API
+    console.log("id chef est : " + prof._id);
+    const requestData = {
+      chef: prof._id, // Send the user input as a parameter in the request body
+      description: descriptionAttestationTravail
+    };
+
+    // Make a POST request to your backend API
+    const response = await axios.post(url, requestData);
+    navigate('/prof-demandes')
+  }
   } catch (error) {
     console.error("Error fetching abstract:", error);
   } finally {
@@ -302,13 +314,20 @@ const addDemande5 = async () => {
           <Typography fontSize="sm" sx={{ mt: 0.5 }}>
             Choisissez votre document de besoin et remplire le formulaire avec les données appropriées
           </Typography>
-          <Select defaultValue="att1" onChange={handleChange}>
-  <Option value="att1">Attestation de travail - شهادة عمل</Option>
-  <Option value="att2">Autorisation de quitter le territoire - الإذن بمغادرة التراب الوطني</Option>
-  <Option value="att3">Décision de congé administratif - إجازة إدارية</Option>
-  <Option value="att5">Ordre de mission -  تكليف بمهمة</Option>
-  {/* <Option value="att4">Attestation de reprise de travail - شهادةاستئناف العمل</Option> */}
-</Select>
+          {prof && prof.__t === 'Admin' ? (
+  <Select defaultValue="att1" onChange={handleChange}>
+    <Option value="att1">Attestation de travail - شهادة عمل</Option>
+  </Select>
+) : (
+  <Select defaultValue="att1" onChange={handleChange}>
+    <Option value="att1">Attestation de travail - شهادة عمل</Option>
+    <Option value="att2">Autorisation de quitter le territoire - الإذن بمغادرة التراب الوطني</Option>
+    <Option value="att3">Décision de congé administratif - إجازة إدارية</Option>
+    <Option value="att5">Ordre de mission -  تكليف بمهمة</Option>
+    {/* <Option value="att4">Attestation de reprise de travail - شهادةاستئناف العمل</Option> */}
+  </Select>
+)}
+
 <Button
   variant="outlined"
   color="primary"

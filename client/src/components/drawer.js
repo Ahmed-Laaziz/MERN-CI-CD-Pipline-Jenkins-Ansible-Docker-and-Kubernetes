@@ -637,14 +637,14 @@ export default function MiniDrawer({role, pageTitle, notifs, id}) {
 
     <ListItem disablePadding sx={{ display: 'block' }}>
     {/* Use the Link component to specify the "to" prop */}
-    <Link to="/files-download" style={{ textDecoration: 'none' }}>
+    <Link to="/demandes" style={{ textDecoration: 'none' }}>
       <ListItemButton
         sx={{
           minHeight: 48,
           justifyContent: open ? 'initial' : 'center',
           px: 2.5,
-          backgroundColor: location.pathname === '/files-download' ? '#99c2ff' : 'transparent', // Light blue color
-            boxShadow: location.pathname === '/files-download' ? '0px 5px 15px rgba(0, 0, 0, 0.35)' : 'none', // Subtle shadow
+          backgroundColor: location.pathname === '/demandes' ? '#99c2ff' : 'transparent', // Light blue color
+            boxShadow: location.pathname === '/demandes' ? '0px 5px 15px rgba(0, 0, 0, 0.35)' : 'none', // Subtle shadow
             borderRadius: 8,
         }}
       >
@@ -655,12 +655,40 @@ export default function MiniDrawer({role, pageTitle, notifs, id}) {
             justifyContent: 'center',
           }}
         >
-          <SendAndArchiveIcon />
+          <ArticleIcon />
         </ListItemIcon>
-        <ListItemText primary="Documents" sx={{ opacity: open ? 1 : 0 , color: '#000a1a' }} />
+        <ListItemText primary="Demandes" sx={{ opacity: open ? 1 : 0 , color: '#000a1a' }} />
       </ListItemButton>
     </Link>
   </ListItem>
+
+  <ListItem disablePadding sx={{ display: 'block' }}>
+    {/* Use the Link component to specify the "to" prop */}
+    <Link to="/prof-demandes" style={{ textDecoration: 'none' }}>
+      <ListItemButton
+        sx={{
+          minHeight: 48,
+          justifyContent: open ? 'initial' : 'center',
+          px: 2.5,
+          backgroundColor: location.pathname === '/prof-demandes' ? '#99c2ff' : 'transparent', // Light blue color
+            boxShadow: location.pathname === '/prof-demandes' ? '0px 5px 15px rgba(0, 0, 0, 0.35)' : 'none', // Subtle shadow
+            borderRadius: 8,
+        }}
+      >
+        <ListItemIcon
+          sx={{
+            minWidth: 0,
+            mr: open ? 3 : 'auto',
+            justifyContent: 'center',
+          }}
+        >
+          <CollectionsBookmarkIcon />
+        </ListItemIcon>
+        <ListItemText primary="Tous les demandes" sx={{ opacity: open ? 1 : 0 , color: '#000a1a' }} />
+      </ListItemButton>
+    </Link>
+  </ListItem>
+
   </>
 ):<></>}
 

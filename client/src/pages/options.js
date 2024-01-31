@@ -59,12 +59,16 @@ const navigate = useNavigate();
     return(
 
 <div>
-      {token ? (
-        // Render content for logged-in users
-        <Box sx={{ display: 'flex' }}>
-          {(agent && agent.__t === 'Professeur') ? (
-            <>
-            <Drawer role={agent.__t} pageTitle={"Demandes"}/>
+        
+            <Box sx={{ display: 'flex' }}>
+           {agent ? (
+            (agent.__t === "Admin" && agent.fonction === "Chef de Département") ? (
+              <Drawer role='Chef' pageTitle={"Demandes"}/>
+            ) : (agent.__t === "Professeur")?(
+              <Drawer role={agent.__t} pageTitle={"Demandes"}/>
+            ):null
+          ) : null}
+
             <Box
   component="main"
   sx={{
@@ -80,16 +84,7 @@ const navigate = useNavigate();
  <>&nbsp;</>
    <DemandeOptions prof={agent}/>
             </Box>
-            </>
-          ):<></>}
-        
-        
-
-      </Box>
-      ) : (
-        // Render content for users not logged in
-       <></>
-      )}
+            </Box>
     </div>
     )
 }
