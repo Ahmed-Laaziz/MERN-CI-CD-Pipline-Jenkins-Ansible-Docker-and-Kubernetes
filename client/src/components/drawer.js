@@ -630,7 +630,7 @@ export default function MiniDrawer({role, pageTitle, notifs, id}) {
           >
             <RuleFolderIcon/>
           </ListItemIcon>
-          <ListItemText primary="Demandes" sx={{ opacity: open ? 1 : 0 , color: '#000a1a' }} />
+          <ListItemText primary="Demandes professeurs" sx={{ opacity: open ? 1 : 0 , color: '#000a1a' }} />
         </ListItemButton>
       </Link>
     </ListItem>
@@ -657,7 +657,7 @@ export default function MiniDrawer({role, pageTitle, notifs, id}) {
         >
           <ArticleIcon />
         </ListItemIcon>
-        <ListItemText primary="Demandes" sx={{ opacity: open ? 1 : 0 , color: '#000a1a' }} />
+        <ListItemText primary="Espace des demandes" sx={{ opacity: open ? 1 : 0 , color: '#000a1a' }} />
       </ListItemButton>
     </Link>
   </ListItem>
@@ -684,7 +684,7 @@ export default function MiniDrawer({role, pageTitle, notifs, id}) {
         >
           <CollectionsBookmarkIcon />
         </ListItemIcon>
-        <ListItemText primary="Tous les demandes" sx={{ opacity: open ? 1 : 0 , color: '#000a1a' }} />
+        <ListItemText primary="Tous mes demandes" sx={{ opacity: open ? 1 : 0 , color: '#000a1a' }} />
       </ListItemButton>
     </Link>
   </ListItem>
@@ -743,7 +743,7 @@ export default function MiniDrawer({role, pageTitle, notifs, id}) {
         >
           <CollectionsBookmarkIcon />
         </ListItemIcon>
-        <ListItemText primary="Tous les demandes" sx={{ opacity: open ? 1 : 0 , color: '#000a1a' }} />
+        <ListItemText primary="Tous mes demandes" sx={{ opacity: open ? 1 : 0 , color: '#000a1a' }} />
       </ListItemButton>
     </Link>
   </ListItem>
