@@ -37,7 +37,7 @@ import AddBoxIcon from '@mui/icons-material/AddBox';
 import { Link, useLocation } from 'react-router-dom';
 import EngineeringIcon from '@mui/icons-material/Engineering';
 
-const drawerWidth = 240;
+const drawerWidth = 260;
 const backLink = process.env.REACT_APP_BACK_LINK;
 
 const openedMixin = (theme) => ({
@@ -684,7 +684,7 @@ export default function MiniDrawer({role, pageTitle, notifs, id}) {
         >
           <CollectionsBookmarkIcon />
         </ListItemIcon>
-        <ListItemText primary="Tous mes demandes" sx={{ opacity: open ? 1 : 0 , color: '#000a1a' }} />
+        <ListItemText primary="Toutes mes demandes" sx={{ opacity: open ? 1 : 0 , color: '#000a1a' }} />
       </ListItemButton>
     </Link>
   </ListItem>
@@ -743,7 +743,7 @@ export default function MiniDrawer({role, pageTitle, notifs, id}) {
         >
           <CollectionsBookmarkIcon />
         </ListItemIcon>
-        <ListItemText primary="Tous mes demandes" sx={{ opacity: open ? 1 : 0 , color: '#000a1a' }} />
+        <ListItemText primary="Toutes mes demandes" sx={{ opacity: open ? 1 : 0 , color: '#000a1a' }} />
       </ListItemButton>
     </Link>
   </ListItem>
