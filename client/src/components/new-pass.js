@@ -180,7 +180,7 @@ const handleEmail = async (event) => {
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
               >
-                Envoyer mail
+                Modifier
               </Button>
               <Copyright sx={{ mt: 5 }} />
             </Box>
