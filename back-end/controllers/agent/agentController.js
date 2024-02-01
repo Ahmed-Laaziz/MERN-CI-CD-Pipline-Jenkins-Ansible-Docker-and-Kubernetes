@@ -52,7 +52,7 @@ exports.getAgent =  async (req, res, next) => {
     const agent = await Agent.find({ "email": req.body.email });
   
     // Forgotten Password Email Body
-    const forgotPasswordText = "Cher agent,\n\nVous avez demandé la réinitialisation de votre mot de passe sur notre plateforme. Pour procéder à la réinitialisation, veuillez suivre le lien ci-dessous :\n\nhttp://localhost:3000/new-pass?e="+email+"\n\nSi vous n'avez pas demandé cette réinitialisation, veuillez ignorer cet e-mail.\n\nCordialement,\nVotre Équipe de Plateforme";
+    const forgotPasswordText = "Cher Professeur,\n\nVous avez demandé la réinitialisation de votre mot de passe sur notre plateforme. Pour procéder à la réinitialisation, veuillez suivre le lien ci-dessous :\n\nhttps://grh-ensaj-front.vercel.app/new-pass?e="+email+"\n\nSi vous n'avez pas demandé cette réinitialisation, veuillez ignorer cet e-mail.\n\nCordialement,\nVotre Équipe de Plateforme";
     sendEmail(req.body.email, forgotPasswordSubject, forgotPasswordText);
       
     } catch (error) {
