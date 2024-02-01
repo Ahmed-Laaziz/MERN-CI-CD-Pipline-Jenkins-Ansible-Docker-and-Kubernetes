@@ -151,7 +151,8 @@ exports.updateProfesseur = async (req, res, next) => {
       date_effective: req.body.prof.date_effective,
       anciennete: req.body.prof.anciennete,
       date_visa: req.body.prof.date_visa,
-      departement: req.body.departement
+      departement: req.body.prof.departement,
+      cadre: req.body.hist.cadre
     };
 
     const newHist = {

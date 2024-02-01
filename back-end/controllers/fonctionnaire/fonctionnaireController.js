@@ -80,7 +80,8 @@ exports.updateFonc = async (req, res, next) => {
       tel: req.body.fonc.tel,
       cin: req.body.fonc.cin,
       genre: req.body.fonc.genre,
-      departement: req.body.departement
+      departement: req.body.fonc.departement,
+      cadre: req.body.hist.cadre
     };
 
     const newHist = {
