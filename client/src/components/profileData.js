@@ -111,8 +111,8 @@ export default function ProfileData({ agent }) {
   
                 
                 {/* <Checkbox label="Change password" sx={{ gridColumn: '1/-1', my: 1 }} /> */}
-              <Button onClick={handleHistoriqueClick}>Voir Historique</Button>
-              <Button onClick={handleDocumentsClick}>Voir Documents</Button>
+              <Button onClick={handleHistoriqueClick} disabled={!hist || JSON.parse(hist).length === 0}>Voir Historique</Button>
+              <Button onClick={handleDocumentsClick} disabled={!hist || JSON.parse(hist).length === 0}>Voir Documents</Button>
               </CardContent>
           </>
   );
@@ -185,8 +185,8 @@ export default function ProfileData({ agent }) {
   />
 </FormControl>
               {/* <Checkbox label="Change password" sx={{ gridColumn: '1/-1', my: 1 }} /> */}
-            <Button onClick={handleHistoriqueClick}>Voir Historique</Button>
-            <Button onClick={handleDocumentsClick}>Voir Documents</Button>
+            <Button onClick={handleHistoriqueClick} disabled={!hist || JSON.parse(hist).length === 0}>Voir Historique</Button>
+            <Button onClick={handleDocumentsClick} disabled={!hist || JSON.parse(hist).length === 0}>Voir Documents</Button>
             </CardContent>
         </>
       ) : (
