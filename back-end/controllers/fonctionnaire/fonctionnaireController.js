@@ -94,8 +94,9 @@ exports.updateFonc = async (req, res, next) => {
 
     const hist = await Historique.find({ "professeur": foncId }).sort({ date: -1 });
 
-    const changesDetected = hist.length > 0 &&
+    const changesDetected = hist.length === 0 ||
       (newHist.classe != hist[0].classe || newHist.grade != hist[0].grade || newHist.cadre != hist[0].cadre);
+
 
 
     const updatedfonc = await Professeur.findByIdAndUpdate(foncId, foncUpdates, { new: true });

@@ -165,8 +165,9 @@ exports.updateProfesseur = async (req, res, next) => {
 
     const hist = await Historique.find({ "professeur": professeurId }).sort({ date: -1 });
 
-    const changesDetected = hist.length > 0 &&
+    const changesDetected = hist.length === 0 ||
       (newHist.classe != hist[0].classe || newHist.grade != hist[0].grade || newHist.cadre != hist[0].cadre);
+
 
 
     const updatedProfesseur = await Professeur.findByIdAndUpdate(professeurId, professeurUpdates, { new: true });

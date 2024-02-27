@@ -187,9 +187,9 @@ const cadreGradeMapping2 = {
     setSelectedDepartement(agent ? agent.departement : null)
 
     //For professor only
-    setSelectedCadre(hist ? hist[0].cadre : '');
-    setSelectedGrade(hist ? hist[0].grade : '');
-    setSelectedClasse(hist ? hist[0].classe : '');
+    setSelectedCadre(hist && hist[0] ? hist[0].cadre : '--');
+    setSelectedGrade(hist && hist[0] ? hist[0].grade : '--');
+    setSelectedClasse(hist && hist[0] ? hist[0].classe : '--');
     setSelectedDateFct(agent.date_fct_publique ? dayjs(formatDate(agent.date_fct_publique)) : null);
     setSelectedDateSchool(agent.date_entre_ecole ? dayjs(formatDate(agent.date_entre_ecole)) : null);
     setLoyerValue(agent.num_loyer ? agent.num_loyer: '');
@@ -449,15 +449,15 @@ const handleCadreChange = (event, newValue) => {
   setSelectedCadre(newValue);
 
   // Clear the selected grade and classe when cadre changes
-  setSelectedGrade(null);
-  setSelectedClasse(null);
+  setSelectedGrade('--');
+  setSelectedClasse('--');
 };
 
   const handleGradeChange = (event, newValue) => {
     setSelectedGrade(newValue);
 
     // Clear the selected classe when grade changes
-    setSelectedClasse(null);
+    setSelectedClasse('--');
   };
 
   const handleClasseChange = (event, newValue) => {
